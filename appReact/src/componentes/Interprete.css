@@ -1,0 +1,21 @@
+.interprete {
+	border: 3px solid #006400; /* Borde verde */
+	padding: 15px;
+	margin-bottom: 15px;
+	display: flex; /* Foto y texto en línea */
+}
+
+.interprete .foto {
+	width: 100px; /* Ancho de la imagen */
+	height: 100px; /* Alto de la imagen */
+	object-fit: cover; /* Recorta la imagen sin deformarla */
+	margin-right: 15px; /* Espacio entre la foto y el texto */
+}
+
+.interprete .nombre {
+	margin: 0 0 5px 0;
+}
+
+.interprete .biografia {
+	margin: 0;
+}

@@ -1,0 +1,21 @@
+.pelicula {
+	border: 3px solid #006400; /* Borde verde */
+	padding: 20px;
+	margin: 20px 0;
+}
+
+.pelicula .titulo {
+	font-size: 2em;
+	color: #673cac; /* Texto lila */
+}
+
+.pelicula .direccion {
+	margin-bottom: 20px;
+}
+
+.pelicula .cartela {
+	width: 200px; /* Tamaño más pequeño */
+	float: left; /* Imagen a la izquierda */
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
