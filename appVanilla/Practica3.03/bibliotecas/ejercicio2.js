@@ -1,34 +1,18 @@
 "use strict";
 
-function puntuacionMedia() {
-	let puntos = 0,
-		media = 0;
-	for (let i = 0; i < arguments.length; i++) {
-		if (isNaN(arguments[i])) {
-			return `Todos los parámetros deben ser números`;
-		} else {
-			puntos += arguments[i];
+const mostrarCurso = (curso) => {
+	//Creamos la variable texto para encadenar el mensaje
+	let texto = ``;
+	for (let clave in curso) {
+		//Comprobamos que el curso tenga la clave
+		if (curso.hasOwnProperty(clave)) {
+			//Encadenamos el texto para imprimirlo por consola
+			texto += `-La clave es ${clave}, el valor es "${
+				curso[clave]
+			}" y es del tipo ${typeof curso[clave]}\n`;
 		}
 	}
-	return (media = puntos / arguments.length);
-}
+	console.log(texto);
+};
 
-function mejorMedia(mediaJuan, mediaMiguel, mediaMaria) {
-	let ganador,
-		mediaGanadora = 0;
-	if (mediaJuan == mediaMiguel) {
-		return `Las medias de ambos equipos son iguales, hay un empate`;
-	} else {
-		mediaJuan > mediaMiguel
-			? ((ganador = "Juan"), (mediaGanadora = mediaJuan))
-			: ((ganador = "Miguel"), (mediaGanadora = mediaMiguel));
-	}
-	if (mediaMaria > mediaGanadora) {
-		ganador = "María";
-		mediaGanadora = mediaMaria;
-	}
-	return `El equipo que tiene mejor media es el de ${ganador} y su media es ${mediaGanadora}`;
-}
-
-export { puntuacionMedia };
-export { mejorMedia };
+export { mostrarCurso };
