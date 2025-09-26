@@ -2,21 +2,21 @@
 
 //Ejercicio1
 
-import { creaCurso } from "./bibliotecas/ejercicio1.js";
+/* import { creaCurso } from "./bibliotecas/ejercicio1.js";
 
 let curso1 = creaCurso("DAM", 2025, "Desarrollar aplicaciones multimedia.");
 let curso2 = creaCurso("DAW", 2025, "Desarrollar aplicaciones web.");
 let curso3 = creaCurso("ASIR", 2025);
-let curso4 = creaCurso("VideoJuegos", 2025, "Desarrollar videojuegos.");
+let curso4 = creaCurso("VideoJuegos", 2025, "Desarrollar videojuegos."); */
 
 //Ejercicio2
 
-import { mostrarCurso } from "./bibliotecas/ejercicio2.js";
+/* import { mostrarCurso } from "./bibliotecas/ejercicio2.js";
 
 mostrarCurso(curso1);
 mostrarCurso(curso2);
 mostrarCurso(curso3);
-mostrarCurso(curso4);
+mostrarCurso(curso4); */
 
 //Ejercicio3
 
@@ -27,11 +27,9 @@ let disc1 = discente(
 	"Juan Alberto",
 	"Serrano Aguilar",
 	["futbol", "tenis", "videojuegos"],
-	7,
-	10,
-	4
+	[7, 10, 4]
 );
 
-console.log(disc1.calcularMedia);
-console.log(disc1.imprimirAficiones);
-console.log(disc1.imprimirInforme);
+console.log(disc1.calcularMedia());
+console.log(disc1.imprimirAficiones());
+console.log(disc1.imprimirInforme());

@@ -1,30 +1,32 @@
 "use strict";
-const discente = (id, nom, ape, afi, prim, seg, ter) => {
+const discente = (id, nom, ape, afi, [notas]) => {
 	return {
 		id: id,
 		nombre: nom,
 		apellido: ape,
 		aficiones: [afi],
 		notas: {
-			primera: prim,
-			segunda: seg,
-			tercera: ter,
+			primera: notas[0],
+			segunda: notas[1],
+			tercera: notas[2],
 		},
 		calcularMedia: function () {
-			return notas.primera + notas.segunda + notas.tercera;
+			return this.notas.primera + this.notas.segunda + this.notas.tercera;
 		},
 		imprimirAficiones: function () {
-			texto = "Aficiones:\n";
-			for (let afic in aficiones) {
+			let texto = "Aficiones:\n";
+			for (let afic in this.aficiones) {
 				if (this.aficiones.hasOwnProperty(afic)) {
 					//Encadenamos el texto para imprimirlo por consola
-					texto += `"${aficiones[afic]}"\n`;
+					texto += `"${this.aficiones[afic]}"\n`;
 				}
 			}
 			return texto;
 		},
 		imprimirInforme: function () {
-			texto = "Informe completo:\n";
+			let texto = "Informe completo:\n";
+
+			return texto;
 		},
 	};
 };
