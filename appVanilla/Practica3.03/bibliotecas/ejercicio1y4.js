@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const creaCurso = (nom, any, desc) => {
 	//Comprobamos que tiene descripción
@@ -12,6 +12,11 @@ const creaCurso = (nom, any, desc) => {
 		anyo: any,
 		descripcion: desc,
 		alumnado: [],
+		//Método del ejercicio 4
+		matricular: function (discente) {
+			// Utilizamos ... para copiar el array y añadir el nuevo discente al final
+			this.alumnado = [...this.alumnado, discente];
+		},
 	};
 };
 
