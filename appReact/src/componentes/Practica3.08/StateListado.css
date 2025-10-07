@@ -1,0 +1,25 @@
+h2 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+p {
+	text-align: center;
+	margin: 10px 0;
+}
+
+button {
+	padding: 6px 10px;
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+.listado-div {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.listado-div p {
+	display: inline-block; /* Números en horizontal */
+	margin: 3px 5px;
+}

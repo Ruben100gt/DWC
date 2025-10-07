@@ -1,0 +1,20 @@
+h2 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.likes-div {
+	text-align: center;
+	margin: 8px 0;
+}
+
+.dislikes-div {
+	text-align: center;
+	margin: 8px 0;
+}
+
+button {
+	padding: 6px 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
