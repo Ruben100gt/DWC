@@ -1,13 +1,19 @@
-import React from 'react';
-import './App.css';
-import Contenedor from './componentes/Contenedor.jsx';
-import Interprete from './componentes/Interprete.jsx';
-import Pelicula from './componentes/Pelicula.jsx';
-import StateListado from './componentes/Practica3.08/StateListado.jsx';
-import ContadorLimite from './componentes/Practica3.08/ContadorLimite.jsx';
-import ContadorLikes from './componentes/Practica3.08/ContadorLikes.jsx';
+import React from "react";
+import "./App.css";
+import Contenedor from "./componentes/Contenedor.jsx";
+import Interprete from "./componentes/Interprete.jsx";
+import Pelicula from "./componentes/Pelicula.jsx";
+import StateListado from "./componentes/Practica3.08/StateListado.jsx";
+import ContadorLimite from "./componentes/Practica3.08/ContadorLimite.jsx";
+import ContadorLikes from "./componentes/Practica3.08/ContadorLikes.jsx";
 
 function App() {
+	let ancho = 300;
+
+	return <></>;
+}
+
+/* function App() {
 	let ancho = 300;
 
 	return (
@@ -17,7 +23,7 @@ function App() {
 			<ContadorLikes />
 		</>
 	);
-}
+} */
 
 /* function App() {
 	return (
