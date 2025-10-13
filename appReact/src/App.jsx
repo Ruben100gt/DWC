@@ -6,11 +6,16 @@ import Pelicula from "./componentes/Pelicula.jsx";
 import StateListado from "./componentes/Practica3.08/StateListado.jsx";
 import ContadorLimite from "./componentes/Practica3.08/ContadorLimite.jsx";
 import ContadorLikes from "./componentes/Practica3.08/ContadorLikes.jsx";
+import Matricula from "./componentes/Practica3.09/Matricula.jsx";
 
 function App() {
 	let ancho = 300;
 
-	return <></>;
+	return (
+		<>
+			<Matricula />
+		</>
+	);
 }
 
 /* function App() {
