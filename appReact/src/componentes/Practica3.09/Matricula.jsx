@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import discentes from "./matriculados.json";
-import "./Matricula.css";
+import React, { useState } from 'react';
+import discentes from './matriculados.json';
+import Discentes from './Discentes.jsx';
+import './Matricula.css';
 
 const Matricula = () => {
 	const [listadoDiscentes, setMatricula] = useState(discentes.discentes);
 	const [orden, setOrden] = useState(true);
+	const [modoDesmatricular, setModoDesmatricular] = useState(false);
 
 	const listadoInicial = () => {
 		setMatricula(discentes.discentes);
@@ -12,36 +14,35 @@ const Matricula = () => {
 
 	const discentes2DAW = () => {
 		const daw2 = listadoDiscentes.filter((discente) => {
-			return discente.curso === "2DAW";
+			return discente.curso === '2DAW';
 		});
 		setMatricula(daw2);
 	};
 
 	const discentes1curso = () => {
 		const curso1 = listadoDiscentes.filter((discente) => {
-			return discente.curso.includes("1");
+			return discente.curso.includes('1');
 		});
 		setMatricula(curso1);
 	};
 
 	const discentesDAW = () => {
 		const daw = listadoDiscentes.filter((discente) => {
-			return discente.curso.includes("DAW");
+			return discente.curso.includes('DAW');
 		});
 		setMatricula(daw);
 	};
 
 	const discenteslectura = () => {
 		const lectura = listadoDiscentes.filter((discente) => {
-			return discente.aficiones.some((aficion) => aficion === "lectura");
+			return discente.aficiones.some((aficion) => aficion === 'lectura');
 		});
 		setMatricula(lectura);
 	};
 
 	const ordenarListado = () => {
 		const ordenar = [...listadoDiscentes].sort((a, b) => {
-			const ordenado = a.apellido.localeCompare(b.apellido);
-			return orden ? ordenado : -ordenado;
+			return orden ? a.apellidos.localeCompare(b.apellidos) : b.apellidos.localeCompare(a.apellidos);
 		});
 		setMatricula(ordenar);
 		setOrden(!orden);
@@ -58,7 +59,7 @@ const Matricula = () => {
 	return (
 		<>
 			<h1>Matricula</h1>
-			<p>
+			<div className="botones">
 				<button
 					onClick={() => {
 						discentes2DAW();
@@ -101,32 +102,15 @@ const Matricula = () => {
 				>
 					Reiniciar listado
 				</button>
-				<button
-					onClick={(evento) => {
-						desmatricular(evento.target.id);
-					}}
-				>
-					Desmatricular
+				<button onClick={() => setModoDesmatricular(!modoDesmatricular)}>
+					{modoDesmatricular ? 'Desactivar desmatricular' : 'Activar desmatricular'}
 				</button>
-			</p>
-			<div className="matricula-div">
-				<div>
-					{Array.isArray(listadoDiscentes) && listadoDiscentes.length
-						? listadoDiscentes.map((discente, indice) => {
-								return (
-									<p id={indice} key={crypto.randomUUID()}>
-										nombre: {discente.nombre} <br />
-										apellidos: {discente.apellidos} <br />
-										curso: {discente.curso} <br />
-										aficiones: {discente.aficiones.join(", ")} <br />
-										comida: {discente.comida}
-									</p>
-								);
-						  })
-						: "No quedan discentes."}
-				</div>
-				<div></div>
 			</div>
+			<Discentes
+				listadoDiscentes={listadoDiscentes}
+				desmatricular={desmatricular}
+				modoDesmatricular={modoDesmatricular}
+			/>
 		</>
 	);
 };
