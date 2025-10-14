@@ -2,7 +2,10 @@
 
 const remplazarContenido = () => {
 	const cuerpo = document.body;
-	let texto = cuerpo.innerHTML.replaceAll("sexo", "Contenido Bloqueado");
+	let texto = cuerpo.innerHTML.replaceAll(
+		"sexo",
+		'<span class="estiloTexto">Contenido Bloqueado</span>'
+	);
 	cuerpo.innerHTML = texto;
 };
 

@@ -3,4 +3,6 @@
 //imports
 import { remplazarContenido } from "./biblioteca/Ejercicio1.js";
 
-remplazarContenido();
+setTimeout(() => {
+	remplazarContenido();
+}, 1000);
