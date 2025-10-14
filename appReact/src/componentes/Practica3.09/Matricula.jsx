@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import discentes from './matriculados.json';
-import Discentes from './Discentes.jsx';
-import './Matricula.css';
+import React, { useState } from "react";
+import discentes from "./matriculados.json";
+import Discentes from "./Discentes.jsx";
+import "./Matricula.css";
 
 const Matricula = () => {
 	const [listadoDiscentes, setMatricula] = useState(discentes.discentes);
@@ -14,42 +14,43 @@ const Matricula = () => {
 
 	const discentes2DAW = () => {
 		const daw2 = listadoDiscentes.filter((discente) => {
-			return discente.curso === '2DAW';
+			return discente.curso === "2DAW";
 		});
 		setMatricula(daw2);
 	};
 
 	const discentes1curso = () => {
 		const curso1 = listadoDiscentes.filter((discente) => {
-			return discente.curso.includes('1');
+			return discente.curso.includes("1");
 		});
 		setMatricula(curso1);
 	};
 
 	const discentesDAW = () => {
 		const daw = listadoDiscentes.filter((discente) => {
-			return discente.curso.includes('DAW');
+			return discente.curso.includes("DAW");
 		});
 		setMatricula(daw);
 	};
 
 	const discenteslectura = () => {
 		const lectura = listadoDiscentes.filter((discente) => {
-			return discente.aficiones.some((aficion) => aficion === 'lectura');
+			return discente.aficiones.some((aficion) => aficion === "lectura");
 		});
 		setMatricula(lectura);
 	};
 
 	const ordenarListado = () => {
 		const ordenar = [...listadoDiscentes].sort((a, b) => {
-			return orden ? a.apellidos.localeCompare(b.apellidos) : b.apellidos.localeCompare(a.apellidos);
+			return orden
+				? a.apellidos.localeCompare(b.apellidos)
+				: b.apellidos.localeCompare(a.apellidos);
 		});
 		setMatricula(ordenar);
 		setOrden(!orden);
 	};
 
 	const desmatricular = (identificador) => {
-		console.log(identificador);
 		const nuevoListado = listadoDiscentes.filter((discente, indice) => {
 			return parseInt(identificador) !== indice;
 		});
@@ -59,7 +60,7 @@ const Matricula = () => {
 	return (
 		<>
 			<h1>Matricula</h1>
-			<div className="botones">
+			<div>
 				<button
 					onClick={() => {
 						discentes2DAW();
@@ -103,7 +104,9 @@ const Matricula = () => {
 					Reiniciar listado
 				</button>
 				<button onClick={() => setModoDesmatricular(!modoDesmatricular)}>
-					{modoDesmatricular ? 'Desactivar desmatricular' : 'Activar desmatricular'}
+					{modoDesmatricular
+						? "Desactivar desmatricular"
+						: "Activar desmatricular"}
 				</button>
 			</div>
 			<Discentes
