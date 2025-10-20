@@ -20,3 +20,9 @@ th {
 	background-color: red;
 	font-weight: bold;
 }
+
+img {
+	margin: 50px 467px;
+	padding: 5px;
+	width: 300px;
+}
