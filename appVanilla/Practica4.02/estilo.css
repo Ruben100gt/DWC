@@ -3,3 +3,20 @@
 	font-style: italic;
 	color: red;
 }
+
+table {
+	border-collapse: collapse;
+	margin: 20px auto;
+}
+
+th {
+	border: 1px solid black;
+	width: 30px;
+	height: 30px;
+	padding: 5px;
+}
+
+.primo {
+	background-color: red;
+	font-weight: bold;
+}
