@@ -11,8 +11,8 @@ const imagenes = () => {
 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5xGRoX6PofPsSRDo4r16_1xOAHq_0ZsS5CERvsx5Vmw3a4IL_HJEDvksyWonpukt4EHs&usqp=CAU",
 	];
 
-	document.body.insertAdjacentHTML("beforeend", '<div><img id="img1"></div>');
-	const imagen = document.getElementsById("img1");
+	document.body.insertAdjacentHTML("beforeend", "<div><img></div>");
+	const imagen = document.getElementsByTagName("img")[0];
 	imagen.src = todasLasImagenes[numImagen];
 	if (numImagen < todasLasImagenes.length) {
 		numImagen++;
