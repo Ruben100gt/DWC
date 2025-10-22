@@ -1,0 +1,10 @@
+.infoTaquilla {
+	text-align: right;
+}
+.precio {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: red;
+	margin: 0;
+	padding: 5px;
+}

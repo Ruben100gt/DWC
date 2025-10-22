@@ -1,21 +1,35 @@
-.interprete {
-	border: 3px solid #006400; /* Borde verde */
+.interpretes {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 	padding: 15px;
 	margin-bottom: 15px;
-	display: flex; /* Foto y texto en línea */
 }
 
-.interprete .foto {
-	width: 100px; /* Ancho de la imagen */
-	height: 100px; /* Alto de la imagen */
-	object-fit: cover; /* Recorta la imagen sin deformarla */
-	margin-right: 15px; /* Espacio entre la foto y el texto */
+.interprete {
+	display: flex;
+	gap: 15px;
+	align-items: flex-start;
+	padding: 10px 0;
+	border-bottom: 1px dashed steelblue;
 }
 
-.interprete .nombre {
+.foto {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.nombre {
 	margin: 0 0 5px 0;
+	font-size: 1.2em;
+	color: #333;
 }
 
-.interprete .biografia {
+.biografia {
 	margin: 0;
+	font-size: 0.9em;
+	color: #555;
+	line-height: 1.4;
 }
