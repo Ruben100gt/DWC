@@ -1,19 +1,37 @@
-import React from "react";
-import "./App.css";
-//import Contenedor from "./Ejemplo/Contenedor.jsx";
-//import Interprete from "./Ejemplo/Interprete.jsx";
-//import Pelicula from "./Ejemplo/Pelicula.jsx";
-import StateListado from "./componentes/3.08UseState/StateListado.jsx";
-import ContadorLimite from "./componentes/3.08UseState/ContadorLimite.jsx";
-import ContadorLikes from "./componentes/3.08UseState/ContadorLikes.jsx";
-import Matricula from "./componentes/3.09UseState/Matricula.jsx";
-import Pelicula from "./componentes/4.05UseRef/Pelicula.jsx";
-import Contenedor from "./componentes/4.05UseRef/Contenedor.jsx";
-import Interprete from "./componentes/4.05UseRef/Interprete.jsx";
-import Taquilla from "./componentes/4.05UseRef/Taquilla.jsx";
+import React from 'react';
+import './App.css';
+//import Contenedor from './Ejemplo/Contenedor.jsx';
+//import Interprete from './Ejemplo/Interprete.jsx';
+//import Pelicula from './Ejemplo/Pelicula.jsx';
+//import StateListado from './componentes/3.08UseState/StateListado.jsx';
+//import ContadorLimite from './componentes/3.08UseState/ContadorLimite.jsx';
+//import ContadorLikes from './componentes/3.08UseState/ContadorLikes.jsx';
+//import Matricula from './componentes/3.09UseState/Matricula.jsx';
+//import Pelicula from './componentes/4.05UseRef/Pelicula.jsx';
+//import Contenedor from './componentes/4.05UseRef/Contenedor.jsx';
+//import Interprete from './componentes/4.05UseRef/Interprete.jsx';
+//import Taquilla from './componentes/4.05UseRef/Taquilla.jsx';
+import Contenedor from './componentes/Contenedor.jsx';
+import Rutas from './componentes/4.06Routes/routes/Rutas.jsx';
+import Menu from './componentes/4.06Routes/menu/Menu.jsx';
+
+function App() {
+	let ancho = 300;
+
+	return (
+		<>
+			<Contenedor>
+				<Menu />
+			</Contenedor>
+			<Contenedor>
+				<Rutas />
+			</Contenedor>
+		</>
+	);
+}
 
 //Práctica 4.05
-function App() {
+/* function App() {
 	let ancho = 300;
 
 	return (
@@ -60,7 +78,8 @@ function App() {
 			</>
 		</>
 	);
-}
+} */
+
 //Práctica 3.09
 /* function App() {
 	let ancho = 300;

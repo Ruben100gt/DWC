@@ -1,0 +1,22 @@
+{
+	"productos": [
+		{
+			"id": 1,
+			"nombre": "Cuchara",
+			"descripcion": "Una cuchara muy bonita que sirve para comer",
+			"precio": "2€"
+		},
+		{
+			"id": 2,
+			"nombre": "Monitor Gaming",
+			"descripcion": "Un monitor amoled con 360hz, 27pulgadas y que se ve muy bien",
+			"precio": "230€"
+		},
+		{
+			"id": 3,
+			"nombre": "Pelota de fútbol",
+			"descripcion": "Una pelota redonda que sirve para darle patadas",
+			"precio": "11,5€"
+		}
+	]
+}
