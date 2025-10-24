@@ -1,0 +1,86 @@
+.pelicula {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	grid-template-rows: auto auto 1fr;
+	gap: 15px 20px;
+	margin-bottom: 20px;
+}
+
+.titulo {
+	grid-column: 1 / -1;
+	border: 2px solid green;
+	padding: 10px;
+	text-align: center;
+	margin: 0;
+	font-size: 1.8em;
+}
+
+.cartela {
+	grid-column: 1;
+	grid-row: 2 / span 2;
+	border: 2px solid purple;
+	width: 100%;
+}
+
+.direccion {
+	grid-column: 2;
+	grid-row: 2;
+	padding: 10px 10px 0 10px;
+	margin: 0;
+	border-top: 2px solid black;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	position: relative;
+	font-weight: bold;
+}
+
+.descripcion {
+	grid-column: 2;
+	grid-row: 3;
+	padding: 0 10px 10px;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.botones {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.botones button {
+	padding: 8px 15px;
+	cursor: pointer;
+	font-weight: bold;
+	border-radius: 4px;
+	min-width: 120px;
+	transition: background-color 0.2s;
+}
+
+.botones button:nth-child(1) {
+	border: 2px solid skyblue;
+	color: skyblue;
+	background: transparent;
+}
+
+.botones button:nth-child(2) {
+	border: 2px solid red;
+	color: red;
+}
+
+.ocultar {
+	display: none;
+}
+
+.taquilla {
+	padding: 10px;
+	border: 2px dotted red;
+	margin-bottom: 10px;
+}
+
+.elenco {
+	padding: 10px;
+	border: 2px dotted steelblue;
+	margin-bottom: 10px;
+}
