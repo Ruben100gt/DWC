@@ -1,10 +1,10 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Inicio from '../pages/Inicio';
-import Contacto from '../pages/Contacto';
-import AcercaDe from '../pages/AcercaDe';
-import Productos from '../pages/Productos';
-import Error from '../pages/Error';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Inicio from "../pages/Inicio";
+import Contacto from "../pages/Contacto";
+import AcercaDe from "../pages/AcercaDe";
+import Productos from "../pages/Productos";
+import Error from "../pages/Error";
 
 const Rutas = () => {
 	return (

@@ -1,21 +1,45 @@
-import React from 'react';
-import './App.css';
-//import Contenedor from './Ejemplo/Contenedor.jsx';
-//import Interprete from './Ejemplo/Interprete.jsx';
-//import Pelicula from './Ejemplo/Pelicula.jsx';
-//import StateListado from './componentes/3.08UseState/StateListado.jsx';
-//import ContadorLimite from './componentes/3.08UseState/ContadorLimite.jsx';
-//import ContadorLikes from './componentes/3.08UseState/ContadorLikes.jsx';
+import React from "react";
+import "./App.css";
+//Ejemplo
+/* import Contenedor from './Ejemplo/Contenedor.jsx';
+import Interprete from './Ejemplo/Interprete.jsx';
+import Pelicula from './Ejemplo/Pelicula.jsx'; */
+//Practica 3.08
+/* import StateListado from './componentes/3.08UseState/StateListado.jsx';
+import ContadorLimite from './componentes/3.08UseState/ContadorLimite.jsx';
+import ContadorLikes from './componentes/3.08UseState/ContadorLikes.jsx'; */
+//Practica 3.09
 //import Matricula from './componentes/3.09UseState/Matricula.jsx';
-//import Pelicula from './componentes/4.05UseRef/Pelicula.jsx';
-//import Contenedor from './componentes/4.05UseRef/Contenedor.jsx';
-//import Interprete from './componentes/4.05UseRef/Interprete.jsx';
-//import Taquilla from './componentes/4.05UseRef/Taquilla.jsx';
-import Contenedor from './componentes/Contenedor.jsx';
-import Rutas from './componentes/4.06Routes/routes/Rutas.jsx';
-import Menu from './componentes/4.06Routes/menu/Menu.jsx';
+//Practica 4.05
+/* import Pelicula from "./componentes/4.05UseRef/Pelicula.jsx";
+import Contenedor from "./componentes/4.05UseRef/Contenedor.jsx";
+import Interprete from "./componentes/4.05UseRef/Interprete.jsx"; */
+//Practica4.06
+/* import Contenedor from "./componentes/Contenedor.jsx";
+import Rutas from "./componentes/4.06Routes/routes/Rutas.jsx";
+import Menu from "./componentes/4.06Routes/menu/Menu.jsx"; */
+//Practica 4.07
+import Contenido from "./componentes/4.07RoutesPelicula/estructura/Contenido.jsx";
+import Rutas from "./componentes/4.07RoutesPelicula/routes/Rutas.jsx";
+import Menu from "./componentes/4.07RoutesPelicula/menu/Menu.jsx";
 
 function App() {
+	let ancho = 300;
+
+	return (
+		<>
+			<Contenido>
+				<Menu />
+			</Contenido>
+			<Contenido>
+				<Rutas />
+			</Contenido>
+		</>
+	);
+}
+
+//Practica 4.06
+/* function App() {
 	let ancho = 300;
 
 	return (
@@ -28,7 +52,7 @@ function App() {
 			</Contenedor>
 		</>
 	);
-}
+} */
 
 //Práctica 4.05
 /* function App() {
