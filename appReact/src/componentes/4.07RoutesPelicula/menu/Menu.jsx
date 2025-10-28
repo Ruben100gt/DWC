@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Menu.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Menu.css';
 
 const Menu = () => {
 	return (
@@ -9,14 +9,17 @@ const Menu = () => {
 				<Link className="menu-elemento" to="/">
 					Inicio
 				</Link>
-				<Link className="menu-elemento" to="/contacto">
-					Contacto
+				<Link className="menu-elemento" to="/peliculas">
+					Peliculas
+				</Link>
+				<Link className="menu-elemento" to="/interpretes">
+					Interpretes
+				</Link>
+				<Link className="menu-elemento" to="/galeria">
+					Galeria
 				</Link>
 				<Link className="menu-elemento" to="/acerca-de">
 					Acerca de
-				</Link>
-				<Link className="menu-elemento" to="/productos">
-					Productos
 				</Link>
 			</nav>
 		</>

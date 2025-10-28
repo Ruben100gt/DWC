@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 const Cabecera = () => {
 	return (
 		<>
-			<h2>Este es el componente de Cabecera.</h2>
+			<h1>Gestión de Películas.</h1>
 		</>
 	);
 };

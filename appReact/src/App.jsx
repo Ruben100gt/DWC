@@ -1,5 +1,5 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import './App.css';
 //Ejemplo
 /* import Contenedor from './Ejemplo/Contenedor.jsx';
 import Interprete from './Ejemplo/Interprete.jsx';
@@ -19,9 +19,10 @@ import Interprete from "./componentes/4.05UseRef/Interprete.jsx"; */
 import Rutas from "./componentes/4.06Routes/routes/Rutas.jsx";
 import Menu from "./componentes/4.06Routes/menu/Menu.jsx"; */
 //Practica 4.07
-import Contenido from "./componentes/4.07RoutesPelicula/estructura/Contenido.jsx";
-import Rutas from "./componentes/4.07RoutesPelicula/routes/Rutas.jsx";
-import Menu from "./componentes/4.07RoutesPelicula/menu/Menu.jsx";
+import Contenido from './componentes/4.07RoutesPelicula/estructura/Contenido.jsx';
+import Rutas from './componentes/4.07RoutesPelicula/routes/Rutas.jsx';
+import Menu from './componentes/4.07RoutesPelicula/menu/Menu.jsx';
+import Pie from './componentes/4.07RoutesPelicula/estructura/Pie.jsx';
 
 function App() {
 	let ancho = 300;
@@ -34,6 +35,7 @@ function App() {
 			<Contenido>
 				<Rutas />
 			</Contenido>
+			<Pie />
 		</>
 	);
 }
