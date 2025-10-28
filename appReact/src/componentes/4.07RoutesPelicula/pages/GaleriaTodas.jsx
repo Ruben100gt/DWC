@@ -1,7 +1,8 @@
-import React from "react";
-import peliculas from "../../json/peliculas.json";
+import React from 'react';
+import peliculas from '../../json/peliculas.json';
 
 const GaleriaTodas = () => {
+	//Mostramos la galería de películas en otra subruta, para poder cambiar el contenido del submenú en la misma sección.
 	return (
 		<>
 			<div className="galeria">

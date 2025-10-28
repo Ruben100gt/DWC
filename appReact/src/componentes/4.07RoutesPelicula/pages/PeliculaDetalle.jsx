@@ -1,15 +1,18 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import peliculas from "../../json/peliculas.json";
-import "./PeliculaDetalle.css";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import peliculas from '../../json/peliculas.json';
+import './PeliculaDetalle.css';
 
 const PeliculaDetalle = () => {
 	const { id } = useParams();
-	//Filtramos la pelicula que queremos mostrar
+	//Buscamos la pelicula que queremos mostrar
 	const peliFiltrada = peliculas.peliculas.find((p) => p.id === parseInt(id));
 	return (
 		<>
-			<h2>Detalles de la Película {peliFiltrada.nombre}:</h2>
+			<h2>Detalles de la Película</h2>
+			<h1>
+				<strong>{peliFiltrada.nombre}</strong>
+			</h1>
 			<div className="pelicula-detalle">
 				<img src={peliFiltrada.cartelera} />
 				<p>

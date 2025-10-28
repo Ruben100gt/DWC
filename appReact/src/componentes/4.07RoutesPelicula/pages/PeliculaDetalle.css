@@ -25,13 +25,14 @@
 
 .actor img {
 	width: 100%;
-	border-radius: 8px;
+	max-width: 200px;
+	border-radius: 10px;
+	object-fit: cover;
 }
 
 .actor h3 {
 	margin-top: 5px;
 	font-size: 1rem;
-	color: #333;
 }
 
 .actor p {
