@@ -1,0 +1,18 @@
+.subMenu-elemento {
+	display: inline;
+	margin: 10px;
+	padding: 10px;
+	border: solid rgb(139, 139, 139) 1px;
+	color: black;
+	border-radius: 5px;
+}
+
+.subMenu-elemento:hover {
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+
+nav {
+	margin: 20px;
+}
