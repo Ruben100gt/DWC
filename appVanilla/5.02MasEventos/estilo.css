@@ -1,0 +1,68 @@
+/* Ejercicio 1 */
+
+.impar {
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	margin: 0;
+	width: 450px;
+}
+
+.impar:hover {
+	background-color: #e9e9e9;
+}
+
+.impar + p {
+	background-color: #fafafa;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	margin: 0;
+	width: 450px;
+}
+
+.ocultar {
+	display: none;
+}
+
+/* Ejercicio 2 */
+
+.ej2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+.pest {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	justify-items: center;
+	width: 400px;
+	margin-block: 15px;
+}
+.pestanya {
+	background-color: #f3f3f3;
+	border: 1px solid #ccc;
+	padding: 8px 20px;
+	cursor: pointer;
+	text-align: center;
+	width: 82%;
+}
+
+.pestanya:hover {
+	background-color: #e0e0e0;
+}
+
+.info {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #ccc;
+	background-color: #fafafa;
+	padding: 15px;
+	width: 400px;
+	min-height: 50px;
+	text-align: center;
+}
