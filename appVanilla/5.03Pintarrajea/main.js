@@ -7,9 +7,9 @@ window.onload = () => {
 	generarTabla();
 
 	document.getElementById("tabla").addEventListener(
-		"",
+		"mousedown",
 		(evento) => {
-			mostrarInfoPares(evento);
+			//mostrarInfoPares(evento);
 		},
 		false
 	);
