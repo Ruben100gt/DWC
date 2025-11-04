@@ -1,13 +1,20 @@
 #tabla {
-	border: 1px solid;
-}
-
-.fila {
-	width: 10px;
-	height: 10px;
+	border-collapse: collapse;
+	outline: 1px solid black;
 }
 
 .columna {
 	width: 10px;
 	height: 10px;
+	border: 1px solid white;
+}
+
+.colores {
+	width: 10px;
+	height: 10px;
+	border: 1px solid black;
+}
+
+.reiniciar {
+	color: white;
 }

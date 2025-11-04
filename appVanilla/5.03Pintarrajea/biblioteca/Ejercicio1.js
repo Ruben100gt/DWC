@@ -17,4 +17,20 @@ const generarTabla = () => {
 	}
 };
 
-export { generarTabla };
+const seleccionarColor = (evento, color) => {
+	color = evento.target.id;
+	return color;
+};
+
+const pintarCelda = (evento, color) => {
+	evento.target.style.backgroundColor = color;
+};
+
+const reiniciarTabla = () => {
+	const tabla = document.getElementById("tabla").children;
+	for (let i = 0; i < tabla.length; i++) {
+		tabla[i].classList.add("reiniciar");
+	}
+};
+
+export { generarTabla, seleccionarColor, pintarCelda, reiniciarTabla };
