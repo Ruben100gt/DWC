@@ -51,4 +51,12 @@ window.onload = () => {
 		},
 		false
 	);
+
+	document.getElementById("boton").addEventListener(
+		"click",
+		() => {
+			reiniciarTabla();
+		},
+		false
+	);
 };

@@ -13,8 +13,9 @@
 	width: 10px;
 	height: 10px;
 	border: 1px solid black;
+	cursor: pointer;
 }
 
-.reiniciar {
-	color: white;
+#rgb {
+	cursor: pointer;
 }

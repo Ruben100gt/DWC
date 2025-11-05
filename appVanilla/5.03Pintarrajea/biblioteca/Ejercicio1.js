@@ -27,9 +27,9 @@ const pintarCelda = (evento, color) => {
 };
 
 const reiniciarTabla = () => {
-	const tabla = document.getElementById("tabla").children;
-	for (let i = 0; i < tabla.length; i++) {
-		tabla[i].classList.add("reiniciar");
+	const celda = document.getElementsByClassName("columna");
+	for (let i = 0; i < celda.length; i++) {
+		celda[i].style.backgroundColor = "white";
 	}
 };
 
