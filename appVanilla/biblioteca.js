@@ -21,4 +21,12 @@ const ocultarInformacion = (elemento) => {
 	}
 };
 
-export { posicionElemento, ocultarInformacion };
+const colorAleatorio = () => {
+	const rgbR = Math.floor(Math.random() * 256);
+	const rgbG = Math.floor(Math.random() * 256);
+	const rgbB = Math.floor(Math.random() * 256);
+	let rgb = `rgb(${rgbR}, ${rgbG}, ${rgbB})`;
+	return rgb;
+};
+
+export { posicionElemento, ocultarInformacion, colorAleatorio };

@@ -5,36 +5,35 @@ import { generarTabla } from "./biblioteca/Ejercicio1.js";
 import { seleccionarColor } from "./biblioteca/Ejercicio1.js";
 import { pintarCelda } from "./biblioteca/Ejercicio1.js";
 import { reiniciarTabla } from "./biblioteca/Ejercicio1.js";
+import { colorAleatorio } from "../biblioteca.js";
 
 window.onload = () => {
+	const tabla = document.getElementById("tabla");
+	const rgb = document.getElementById("rgb");
 	let color = "black";
-	let rgb = false;
 	let pintar = false;
 	generarTabla();
 
-	document.getElementById("rgb").addEventListener("input", (evento) => {
-		rgb = true;
+	rgb.addEventListener("change", () => {
+		color = rgb.value;
 	});
 
 	document
-		.getElementById("seleccionarColor")
+		.getElementById("seleccionar-color")
 		.addEventListener("click", (evento) => {
-			rgb = false;
 			color = seleccionarColor(evento, color);
 		});
 
-	document.getElementById("tabla").addEventListener(
+	tabla.addEventListener(
 		"mousedown",
-		() => {
-			if (rgb) {
-				color = document.getElementById("rgb").value;
-			}
+		(evento) => {
 			pintar = true;
+			pintarCelda(evento, color);
 		},
 		false
 	);
 
-	document.getElementById("tabla").addEventListener(
+	tabla.addEventListener(
 		"mouseover",
 		(evento) => {
 			if (pintar) {
@@ -44,7 +43,7 @@ window.onload = () => {
 		false
 	);
 
-	document.getElementById("tabla").addEventListener(
+	document.addEventListener(
 		"mouseup",
 		() => {
 			pintar = false;
@@ -52,10 +51,18 @@ window.onload = () => {
 		false
 	);
 
-	document.getElementById("boton").addEventListener(
+	document.getElementById("reiniciar").addEventListener(
 		"click",
 		() => {
 			reiniciarTabla();
+		},
+		false
+	);
+
+	document.getElementById("aleatorio").addEventListener(
+		"click",
+		() => {
+			color = colorAleatorio();
 		},
 		false
 	);

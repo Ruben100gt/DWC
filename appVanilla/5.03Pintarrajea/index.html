@@ -8,13 +8,15 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div>
-			<div>Colores</div>
-			<div>
+		<div class="color">
+			<div class="color-elemento">
+				<p id="color-seleccionado">Color</p>
+			</div>
+			<div class="color-elemento">
 				<input id="rgb" type="color" />
 			</div>
-			<table>
-				<tr id="seleccionarColor">
+			<table class="color-elemento">
+				<tr id="seleccionar-color">
 					<td id="black" class="colores" style="background-color: black"></td>
 					<td id="red" class="colores" style="background-color: red"></td>
 					<td id="green" class="colores" style="background-color: green"></td>
@@ -24,7 +26,12 @@
 					<td id="white" class="colores" style="background-color: white"></td>
 				</tr>
 			</table>
-			<button id="boton">Reiniciar</button>
+			<div class="color-elemento">
+				<button id="aleatorio">Color aleatorio (O_O)</button>
+			</div>
+			<div class="color-elemento">
+				<button id="reiniciar">Reiniciar</button>
+			</div>
 		</div>
 		<div id="pizarra">
 			<table id="tabla"></table>
