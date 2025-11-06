@@ -1,11 +1,19 @@
 body {
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
 }
 
 #tabla {
 	border-collapse: collapse;
-	outline: 5px solid darkgrey;
+	outline: 5px solid #ccc;
 	cursor: crosshair;
+	border-radius: 10px;
+}
+
+#tabla td:hover {
+	outline: 1px solid #ccc;
 }
 
 .columna {
@@ -17,8 +25,12 @@ body {
 .colores {
 	width: 20px;
 	height: 20px;
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	cursor: pointer;
+}
+
+.colores:hover {
+	transform: scale(1.2);
 }
 
 #rgb {
@@ -27,20 +39,39 @@ body {
 
 #pizarra {
 	margin-top: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 button {
 	cursor: pointer;
 	width: 200px;
 	height: 30px;
+	border: 1px solid #aaa;
+}
+
+button:hover {
+	background-color: #f0f0f0;
+	transform: scale(1.03);
 }
 
 .color {
+	border: 5px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
 	margin-top: 40px;
-	border: 5px solid darkgrey;
+	height: 82vh;
 }
 
 .color-elemento {
-	margin: 20px;
+	margin: 10px;
 	justify-content: center;
+}
+
+.color-actual {
+	display: inline-block;
+	margin-left: 6px;
+	vertical-align: middle;
 }

@@ -1,18 +1,12 @@
-"use strict";
+'use strict';
 
 const generarTabla = () => {
-	const tabla = document.getElementById("tabla");
+	const tabla = document.getElementById('tabla');
 	for (let i = 1; i <= 60; i++) {
-		tabla.insertAdjacentHTML(
-			"beforeend",
-			`<tr id="fila${i}" class="fila"> </tr>`
-		);
+		tabla.insertAdjacentHTML('beforeend', `<tr id="fila${i}" class="fila"> </tr>`);
 		const fila = document.getElementById(`fila${i}`);
 		for (let j = 1; j <= 60; j++) {
-			fila.insertAdjacentHTML(
-				"beforeend",
-				`<td id="columna${j}" class="columna"> </td>`
-			);
+			fila.insertAdjacentHTML('beforeend', `<td id="columna${j}" class="columna"> </td>`);
 		}
 	}
 };
@@ -27,10 +21,17 @@ const pintarCelda = (evento, color) => {
 };
 
 const reiniciarTabla = () => {
-	const celda = document.getElementsByClassName("columna");
+	const celda = document.getElementsByClassName('columna');
 	for (let i = 0; i < celda.length; i++) {
-		celda[i].style.backgroundColor = "white";
+		celda[i].style.backgroundColor = 'white';
 	}
 };
 
-export { generarTabla, seleccionarColor, pintarCelda, reiniciarTabla };
+const colorSeleccionado = (color) => {
+	document.getElementById('color-seleccionado').innerHTML = `
+		<span>Color actual:</span>
+		<span class="colores color-actual" style="background:${color};"></span>
+	`;
+};
+
+export { generarTabla, seleccionarColor, pintarCelda, reiniciarTabla, colorSeleccionado };
