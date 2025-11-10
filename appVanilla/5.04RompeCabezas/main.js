@@ -1,103 +1,108 @@
-"use strict";
+'use strict';
 
-//imports
 import {
 	borrarPiezas,
 	borrarPiezasSoltable,
 	rompeCabezasInicial,
 	comprobarPuzzle,
-} from "./biblioteca/Ejercicio1.js";
-import { cargarImagenes } from "../biblioteca.js";
+	elegirRompecabezas,
+} from './biblioteca/Ejercicio1.js';
+import { cargarImagenes } from '../biblioteca.js';
 
 window.onload = () => {
 	const imagenes = [
-		cargarImagenes("./img/inicial/", 9),
-		/* cargarImagenes("./img/easy/", 9),
-		cargarImagenes("./img/medium/", 9),
-		cargarImagenes("./img/hard/", 9),
-		cargarImagenes("./img/imposible/", 9), */
+		cargarImagenes('./img/inicial/', 9),
+		cargarImagenes('./img/Teletubies/', 9),
+		cargarImagenes('./img/GatoBobSponge/', 9),
 	];
 
-	rompeCabezasInicial(imagenes[0]);
+	let puzzle = 0;
 
-	const rompecabezas = document.getElementById("rompecabezas");
-	const soltable = document.getElementById("soltables");
+	rompeCabezasInicial(imagenes[puzzle]);
 
-	rompecabezas.addEventListener(
-		"dragstart",
-		(evento) => {
-			evento.dataTransfer.setData("identificador", evento.target.id);
-		},
-		"false"
-	);
+	const rompecabezas = document.getElementById('rompecabezas');
+	const soltable = document.getElementById('soltables');
 
 	rompecabezas.addEventListener(
-		"dragover",
+		'dragstart',
 		(evento) => {
-			evento.preventDefault();
+			evento.dataTransfer.setData('identificador', evento.target.id);
 		},
-		"false"
+		'false'
 	);
 
 	rompecabezas.addEventListener(
-		"drop",
-		(evento) => {
-			evento.preventDefault();
-			rompecabezas.appendChild(
-				document.getElementById(evento.dataTransfer.getData("identificador"))
-			);
-		},
-		"false"
-	);
-
-	soltable.addEventListener(
-		"dragstart",
-		(evento) => {
-			evento.dataTransfer.setData("identificador", evento.target.id);
-		},
-		"false"
-	);
-
-	soltable.addEventListener(
-		"dragover",
+		'dragover',
 		(evento) => {
 			evento.preventDefault();
 		},
-		"false"
+		'false'
+	);
+
+	rompecabezas.addEventListener(
+		'drop',
+		(evento) => {
+			evento.preventDefault();
+			rompecabezas.appendChild(document.getElementById(evento.dataTransfer.getData('identificador')));
+		},
+		'false'
 	);
 
 	soltable.addEventListener(
-		"drop",
+		'dragstart',
+		(evento) => {
+			evento.dataTransfer.setData('identificador', evento.target.id);
+		},
+		'false'
+	);
+
+	soltable.addEventListener(
+		'dragover',
 		(evento) => {
 			evento.preventDefault();
-			if (evento.target.classList.contains("soltable")) {
-				evento.target.appendChild(
-					document.getElementById(evento.dataTransfer.getData("identificador"))
-				);
+		},
+		'false'
+	);
+
+	soltable.addEventListener(
+		'drop',
+		(evento) => {
+			evento.preventDefault();
+			if (evento.target.classList.contains('soltable')) {
+				evento.target.appendChild(document.getElementById(evento.dataTransfer.getData('identificador')));
 			}
-			const piezas = rompecabezas.children;
 			let completo = true;
-			for (let i = 0; i < piezas.length; i++) {
-				if (piezas[i].children.length !== 0) {
+			for (let i = 0; i < soltable.children.length; i++) {
+				if (!soltable.children[i].firstChild) {
 					completo = false;
 					break;
 				}
 			}
-
 			if (completo) {
-				comprobarPuzzle(piezas);
+				comprobarPuzzle();
 			}
 		},
-		"false"
+		'false'
 	);
 
-	document.getElementById("reiniciar").addEventListener(
-		"click",
+	document.getElementById('reiniciar').addEventListener(
+		'click',
 		() => {
 			borrarPiezasSoltable(soltable);
 			borrarPiezas(rompecabezas);
-			rompeCabezasInicial(imagenes[0]);
+			rompeCabezasInicial(imagenes[puzzle]);
+			document.getElementById('ganar').innerHTML = '';
 		},
-		"false"
+		'false'
+	);
+
+	document.getElementById('botones').addEventListener(
+		'click',
+		(evento) => {
+			puzzle = elegirRompecabezas(evento);
+			//Activamos el botón "reiniciar" para poder cambiar el rompecabezas sin usar código innecesario.
+			document.getElementById('reiniciar').click();
+		},
+		'false'
 	);
 };
