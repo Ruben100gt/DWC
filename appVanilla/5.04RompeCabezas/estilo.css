@@ -1,0 +1,51 @@
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+#rompecabezas {
+	display: grid;
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+	gap: 5px;
+}
+
+#rompecabezas img {
+	width: 100px;
+	height: 100px;
+}
+
+/* tablero 3x3 */
+.soltables {
+	display: grid;
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+	gap: 2px;
+	border: 1px solid #ccc;
+}
+
+/* cada casilla del tablero */
+.soltable {
+	border: 1px solid #ccc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+	height: 100px;
+}
+
+/* imágenes */
+img {
+	cursor: pointer;
+	object-fit: cover;
+}
+
+/* botón reiniciar */
+button {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	background: #f2f2f2;
+	cursor: pointer;
+}
