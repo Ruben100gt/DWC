@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 //Creamos "posicionFinal" ya que si solo usamos "posicionInicial" al terminar la recursividad y voler a los métodos anteriores pilla la "posicionInicial" sin los cambios.
 let posicionFinal = 0;
@@ -17,7 +17,7 @@ const posicionElemento = (elemento, posicionInicial) => {
 // IMPORTANTE -> Se debe crear en el css ocultar (display: none;)
 const ocultarInformacion = (elemento) => {
 	for (let i = 0; i < elemento.length; i++) {
-		elemento[i].classList.add('ocultar');
+		elemento[i].classList.add("ocultar");
 	}
 };
 
@@ -39,4 +39,16 @@ const cargarImagenes = (ruta, numImagenes) => {
 	return imagenes;
 };
 
-export { posicionElemento, ocultarInformacion, colorAleatorio, cargarImagenes };
+//Desordena el array -> si Math.random devuelve negativo cambia las imagenes de posición.
+const desordenarArray = (array) => {
+	array.sort(() => Math.random() - 0.5);
+	return array;
+};
+
+export {
+	posicionElemento,
+	ocultarInformacion,
+	colorAleatorio,
+	cargarImagenes,
+	desordenarArray,
+};
