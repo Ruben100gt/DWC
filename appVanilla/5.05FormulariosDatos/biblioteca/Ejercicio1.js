@@ -119,8 +119,7 @@ const validarLocalizacion = (localizacion) => {
 };
 
 const mostrarFormularios = (datos) => {
-	console.log("mostrar formulario");
-	console.log(datos);
+	//Al volver a darle a mostrar borrar todo lo del div
 	const mostrar = document.getElementById("listadoDiscos");
 	datos.forEach((e) => {
 		mostrar.insertAdjacentHTML(
