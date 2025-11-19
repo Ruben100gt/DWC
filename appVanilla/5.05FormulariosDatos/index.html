@@ -54,7 +54,7 @@
 					<option value="regueton">Reguetón</option>
 				</select>
 				<br />
-				<label for="localizacion">Localización:</label>
+				<label for="localizacion">Localización formato (ES-001AA):</label>
 				<input
 					type="text"
 					id="localizacion"
@@ -63,7 +63,10 @@
 				/>
 				<br />
 				<label for="prestado">Prestado:</label>
-				<input type="checkbox" id="prestado" name="prestado" /><br />
+				<input type="checkbox" id="prestado" name="prestado" />
+				<br />
+				<div id="errores"></div>
+				<br />
 				<input type="button" id="botonEnviar" name="boton" value="Enviar" />
 				<input type="button" id="botonMostrar" name="boton" value="Mostrar" />
 			</fieldset>
