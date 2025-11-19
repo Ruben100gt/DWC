@@ -1,16 +1,28 @@
 "use strict";
 
-import { validarFormulario } from "./biblioteca/Ejercicio1.js";
+import {
+	recogerDatos,
+	validarFormulario,
+	mostrarFormularios,
+	guardarFormulario,
+} from "./biblioteca/Ejercicio1.js";
 
 //imports
 
 window.onload = () => {
+	let discosFormulario = [];
 	const formulario = document.forms.formDisco;
+	let datos = {};
 
 	document.getElementById("botonEnviar").addEventListener(
 		"click",
 		() => {
-			validarFormulario(formulario);
+			datos = recogerDatos(formulario);
+			if (validarFormulario(datos, formulario)) {
+				discosFormulario = [...discosFormulario, datos];
+				//falta completar funcion guardarFormulario
+				guardarFormulario();
+			}
 		},
 		false
 	);
@@ -18,7 +30,7 @@ window.onload = () => {
 	document.getElementById("botonMostrar").addEventListener(
 		"click",
 		() => {
-			mostrarFormulario();
+			mostrarFormularios(discosFormulario);
 		},
 		false
 	);

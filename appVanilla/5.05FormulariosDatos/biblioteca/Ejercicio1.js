@@ -14,8 +14,7 @@ const recogerDatos = (formulario) => {
 	};
 };
 
-const validarFormulario = (formulario) => {
-	const datosForm = recogerDatos(formulario);
+const validarFormulario = (datosForm, formulario) => {
 	let errores = [];
 
 	if (!validarNombre(datosForm.nombre)) {
@@ -62,21 +61,25 @@ const validarFormulario = (formulario) => {
 		colorError(formulario.localizacion, false);
 	}
 
-	if (!errores) {
-		guardarFormulario(datosForm);
+	if (!errores.length) {
+		console.log("no hay errores");
 		borrarError();
+		return true;
 	} else {
+		console.log(errores.length);
+		console.log("hay errores");
 		mostrarError(errores);
 	}
 };
 
-const guardarFormulario = (datos) => {
-	//guardar formulario en json y luego en localstorage
+const guardarFormulario = () => {
+	//guardar formulario en localstorage
 	//Borrar errores
 };
 
 const borrarError = () => {
 	divErrores.innerHTML = "";
+	divErrores.classList.remove("error");
 };
 
 const mostrarError = (errores) => {
@@ -88,7 +91,6 @@ const mostrarError = (errores) => {
 };
 
 const colorError = (nombre, error) => {
-	console.log(nombre, error);
 	if (error) {
 		nombre.classList.add("error");
 	} else {
@@ -116,4 +118,29 @@ const validarLocalizacion = (localizacion) => {
 	return localizacion == "" || /^ES-[0-9]{3}[A-Z]{2}$/.test(localizacion);
 };
 
-export { recogerDatos, validarFormulario };
+const mostrarFormularios = (datos) => {
+	console.log("mostrar formulario");
+	console.log(datos);
+	const mostrar = document.getElementById("listadoDiscos");
+	datos.forEach((e) => {
+		mostrar.insertAdjacentHTML(
+			"beforeend",
+			`<div>
+	<p>Nombre: ${e.nombre}</p>
+	<p>Carátula: ${e.caratula}</p>
+	<p>Artista: ${e.artista}</p>
+	<p>Anyo: ${e.anyo}</p>
+	<p>Género: ${e.genero}</p>
+	<p>Localización: ${e.localizacion}</p>
+	<p>Prestado: ${e.prestado}</p>
+	</div>`
+		);
+	});
+};
+
+export {
+	recogerDatos,
+	validarFormulario,
+	mostrarFormularios,
+	guardarFormulario,
+};
