@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
-const divErrores = document.getElementById("errores");
+const divErrores = document.getElementById('errores');
 
-const recogerDatos = (formulario) => {
+const recogerDatos = (formulario, id) => {
 	return {
+		id: id,
 		nombre: formulario.nombre.value,
 		caratula: formulario.caratula.value,
 		artista: formulario.artista.value,
@@ -19,127 +20,117 @@ const validarFormulario = (datosForm, formulario) => {
 
 	if (!validarNombre(datosForm.nombre)) {
 		colorError(formulario.nombre, true);
-		errores = [
-			...errores,
-			"Error en el nombre, debe tener mínimo 5 caracteres (obligatorio).",
-		];
+		errores = [...errores, 'Error en el nombre, debe tener mínimo 5 caracteres (obligatorio).'];
 	} else {
 		colorError(formulario.nombre, false);
 	}
 
 	if (!validarArtista(datosForm.artista)) {
 		colorError(formulario.artista, true);
-		errores = [
-			...errores,
-			"Error en el grupo/interprete, debe tener mínimo 5 caracteres (obligatorio).",
-		];
+		errores = [...errores, 'Error en el grupo/interprete, debe tener mínimo 5 caracteres (obligatorio).'];
 	} else {
 		colorError(formulario.artista, false);
 	}
 
 	if (!validarAnyo(datosForm.anyo)) {
 		colorError(formulario.anyo, true);
-		errores = [...errores, "Error en el año, debe tener mínimo 4 números."];
+		errores = [...errores, 'Error en el año, debe tener mínimo 4 números.'];
 	} else {
 		colorError(formulario.anyo, false);
 	}
 
 	if (!validarGenero(datosForm.genero)) {
 		colorError(formulario.genero, true);
-		errores = [...errores, "Error en el genero, debe tener algún genero."];
+		errores = [...errores, 'Error en el genero, debe tener algún genero.'];
 	} else {
 		colorError(formulario.genero, false);
 	}
 
 	if (!validarLocalizacion(datosForm.localizacion)) {
 		colorError(formulario.localizacion, true);
-		errores = [
-			...errores,
-			"Error la localización, debe seguir el formato ES-001AA.",
-		];
+		errores = [...errores, 'Error la localización, debe seguir el formato ES-001AA.'];
 	} else {
 		colorError(formulario.localizacion, false);
 	}
 
 	if (!errores.length) {
-		console.log("no hay errores");
 		borrarError();
 		return true;
 	} else {
-		console.log(errores.length);
-		console.log("hay errores");
 		mostrarError(errores);
+		return false;
 	}
 };
 
-const guardarFormulario = () => {
-	//guardar formulario en localstorage
-	//Borrar errores
+const validarNombre = (nombre) => {
+	return /^.{5,}$/.test(nombre) && nombre !== '';
+};
+
+const validarArtista = (artista) => {
+	return /^.{5,}$/.test(artista) && artista !== '';
+};
+
+const validarAnyo = (anyo) => {
+	return anyo == '' || /^[0-9]{4}$/.test(anyo);
+};
+
+const validarGenero = (genero) => {
+	return genero !== '';
+};
+
+const validarLocalizacion = (localizacion) => {
+	return localizacion == '' || /^ES-[0-9]{3}[A-Z]{2}$/.test(localizacion);
+};
+
+const guardarFormulario = (datos) => {
+	localStorage.setItem('coleccionDiscos', JSON.stringify(datos));
+	borrarError();
 };
 
 const borrarError = () => {
-	divErrores.innerHTML = "";
-	divErrores.classList.remove("error");
+	divErrores.innerHTML = '';
+	divErrores.classList.remove('error');
 };
 
 const mostrarError = (errores) => {
-	divErrores.classList.add("error");
-	//Comprobar si errores (div) ya tiene errores, para reescribirlos y que no se acumulen.
+	divErrores.classList.add('error');
+	divErrores.innerHTML = '';
 	errores.forEach((e) => {
-		divErrores.insertAdjacentHTML("beforeend", `<p class="errores">${e}<p>`);
+		divErrores.insertAdjacentHTML('beforeend', `<p class="errores">${e}</p>`);
 	});
 };
 
 const colorError = (nombre, error) => {
 	if (error) {
-		nombre.classList.add("error");
+		nombre.classList.add('error');
 	} else {
-		nombre.classList.remove("error");
+		nombre.classList.remove('error');
 	}
 };
 
-const validarNombre = (nombre) => {
-	return /^.{5,}$/.test(nombre) && nombre !== "";
-};
+const mostrarFormularios = (datos, mostrar) => {
+	mostrar.innerHTML = '';
 
-const validarArtista = (artista) => {
-	return /^.{5,}$/.test(artista) && artista !== "";
-};
-
-const validarAnyo = (anyo) => {
-	return anyo == "" || /^[0-9]{4}$/.test(anyo);
-};
-
-const validarGenero = (genero) => {
-	return genero !== "";
-};
-
-const validarLocalizacion = (localizacion) => {
-	return localizacion == "" || /^ES-[0-9]{3}[A-Z]{2}$/.test(localizacion);
-};
-
-const mostrarFormularios = (datos) => {
-	//Al volver a darle a mostrar borrar todo lo del div
-	const mostrar = document.getElementById("listadoDiscos");
 	datos.forEach((e) => {
-		mostrar.insertAdjacentHTML(
-			"beforeend",
-			`<div>
-	<p>Nombre: ${e.nombre}</p>
-	<p>Carátula: ${e.caratula}</p>
-	<p>Artista: ${e.artista}</p>
-	<p>Anyo: ${e.anyo}</p>
-	<p>Género: ${e.genero}</p>
-	<p>Localización: ${e.localizacion}</p>
-	<p>Prestado: ${e.prestado}</p>
-	</div>`
-		);
+		let contenido = '';
+		if (e.nombre) contenido += `<p><strong>Nombre:</strong> ${e.nombre}</p>`;
+		if (e.caratula) contenido += `<p><strong>Carátula:</strong> ${e.caratula}</p>`;
+		if (e.artista) contenido += `<p><strong>Artista:</strong> ${e.artista}</p>`;
+		if (e.anyo) contenido += `<p><strong>Año:</strong> ${e.anyo}</p>`;
+		if (e.genero) contenido += `<p><strong>Género:</strong> ${e.genero}</p>`;
+		if (e.localizacion) contenido += `<p><strong>Localización:</strong> ${e.localizacion}</p>`;
+		if (e.prestado !== undefined) contenido += `<p><strong>Prestado:</strong> ${e.prestado}</p>`;
+
+		//Boton eliminar
+		//data-id lo he hecho con ayuda de chatgpt (no se me ocurre otra manera de como hacerlo)
+		contenido += `<input type="button" class="botonEliminar" value="X" data-id="${e.id}" />`;
+
+		mostrar.insertAdjacentHTML('beforeend', `<div>${contenido}</div>`);
 	});
 };
 
-export {
-	recogerDatos,
-	validarFormulario,
-	mostrarFormularios,
-	guardarFormulario,
+const buscarDiscos = (texto, discos) => {
+	return discos.filter((d) => d.nombre.includes(texto));
 };
+
+export { recogerDatos, validarFormulario, mostrarFormularios, guardarFormulario, buscarDiscos };
