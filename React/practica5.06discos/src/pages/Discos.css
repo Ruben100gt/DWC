@@ -1,0 +1,18 @@
+.discos {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 20px;
+	padding: 20px;
+	justify-items: center;
+}
+
+.disco {
+	text-align: center;
+}
+
+.disco img {
+	width: 100%;
+	max-width: 200px;
+	border-radius: 10px;
+	object-fit: cover;
+}
