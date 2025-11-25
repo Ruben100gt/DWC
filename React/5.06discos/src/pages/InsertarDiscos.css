@@ -16,3 +16,17 @@
 	border-radius: 10px;
 	object-fit: cover;
 }
+
+/* Estilos para inputs y selects con error */
+input.error,
+select.error {
+	border: 2px solid red;
+	background-color: #ffe6e6; /* opcional para resaltar más */
+}
+
+/* Mensajes de error */
+.errores {
+	color: red;
+	font-size: 0.9rem;
+	margin: 2px 0;
+}

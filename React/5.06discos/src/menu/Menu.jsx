@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Menu.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Menu.css';
 
 const Menu = () => {
 	return (
@@ -14,9 +14,6 @@ const Menu = () => {
 				</Link>
 				<Link className="menu-elemento" to="/discos">
 					Mostrar discos
-				</Link>
-				<Link className="menu-elemento" to="/acerca-de">
-					Acerca de
 				</Link>
 			</nav>
 		</>
