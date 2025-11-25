@@ -11,18 +11,18 @@ const InsertarDiscos = () => {
 				<fieldset id="discos">
 					<legend>Almacenar discos.</legend>
 					<br />
-					<label for="nombre">Nombre:</label>
+					<label htmlFor="nombre">Nombre:</label>
 					<input
 						type="text"
 						id="nombre"
 						name="nombre"
 						placeholder="Nombre del disco."
-						autofocus
+						autoFocus
 						required
 					/>
 					<br />
 					<br />
-					<label for="caratula">Carátula:</label>
+					<label htmlFor="caratula">Carátula:</label>
 					<input
 						type="text"
 						id="caratula"
@@ -31,7 +31,7 @@ const InsertarDiscos = () => {
 					/>
 					<br />
 					<br />
-					<label for="artista">Grupo música/interprete:</label>
+					<label htmlFor="artista">Grupo música/interprete:</label>
 					<input
 						type="text"
 						id="artista"
@@ -41,11 +41,11 @@ const InsertarDiscos = () => {
 					/>
 					<br />
 					<br />
-					<label for="anyo">Año de publicación:</label>
+					<label htmlFor="anyo">Año de publicación:</label>
 					<input type="number" id="anyo" name="anyo" />
 					<br />
 					<br />
-					<label for="genero">Géneros del disco:</label>
+					<label htmlFor="genero">Géneros del disco:</label>
 					<select id="genero" name="genero">
 						<option value=""></option>
 						<option value="pop">Pop</option>
@@ -60,7 +60,7 @@ const InsertarDiscos = () => {
 					</select>
 					<br />
 					<br />
-					<label for="localizacion">Localización formato (ES-001AA):</label>
+					<label htmlFor="localizacion">Localización formato (ES-001AA):</label>
 					<input
 						type="text"
 						id="localizacion"
@@ -69,7 +69,7 @@ const InsertarDiscos = () => {
 					/>
 					<br />
 					<br />
-					<label for="prestado">Prestado:</label>
+					<label htmlFor="prestado">Prestado:</label>
 					<input type="checkbox" id="prestado" name="prestado" />
 					<br />
 					<br />
