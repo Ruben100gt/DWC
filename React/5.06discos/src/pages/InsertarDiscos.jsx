@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Discos.css';
+import './InsertarDiscos.css';
 
 const InsertarDiscos = ({ listaDiscos, setListaDiscos }) => {
 	const navegar = useNavigate();
@@ -29,6 +29,7 @@ const InsertarDiscos = ({ listaDiscos, setListaDiscos }) => {
 	const [datosFormulario, setDatosFormulario] = useState(infoFormularioInicial);
 	const [erroresCampos, setErroresCampos] = useState(erroresInicial);
 	const [erroresTexto, setErroresTexto] = useState([]);
+	const [enviado, setEnviado] = useState(false);
 
 	const enviarFormulario = () => {
 		const id = crypto.randomUUID();
@@ -91,6 +92,7 @@ const InsertarDiscos = ({ listaDiscos, setListaDiscos }) => {
 		if (!erroresTemp.length) {
 			setErroresCampos(erroresInicial);
 			setErroresTexto([]);
+			setEnviado(true);
 			return true;
 		} else {
 			setErroresCampos({
@@ -102,6 +104,7 @@ const InsertarDiscos = ({ listaDiscos, setListaDiscos }) => {
 				prestado: false,
 			});
 			setErroresTexto(erroresTemp);
+			setEnviado(false);
 			return false;
 		}
 	};
@@ -239,6 +242,9 @@ const InsertarDiscos = ({ listaDiscos, setListaDiscos }) => {
 								{e}
 							</p>
 						))}
+					</div>
+					<div className={enviado ? 'enviado' : ''}>
+						{enviado && <p className="mensajeEnviado">El disco se ha guardado correctamente</p>}
 					</div>
 					<br />
 					<input type="button" id="botonEnviar" value="Enviar" onClick={enviarFormulario} />

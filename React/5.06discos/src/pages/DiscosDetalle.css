@@ -1,41 +1,39 @@
-.pelicula-detalle {
+.disco-detalle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	padding: 20px;
+	max-width: 600px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
 }
 
-.pelicula-detalle h2 {
-	margin-bottom: 15px;
-}
-
-.pelicula-detalle img {
-	width: 250px;
-	border-radius: 8px;
-	object-fit: cover;
-	float: left;
-	margin-right: 20px;
+.disco-detalle img {
+	width: 100%;
+	max-width: 300px;
+	border-radius: 10px;
 	margin-bottom: 20px;
 }
 
-.actores {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-	gap: 20px;
+.disco-detalle p {
+	font-size: 16px;
+	margin: 5px 0;
+}
+
+.disco-detalle b {
+	color: #333;
+}
+
+h2 {
+	text-align: center;
 	margin-top: 20px;
-	clear: both;
+	color: #444;
 }
 
-.actor img {
-	width: 100%;
-	max-width: 200px;
-	border-radius: 10px;
-	object-fit: cover;
-}
-
-.actor h3 {
-	margin-top: 5px;
-	font-size: 1rem;
-}
-
-.actor p {
-	font-size: 0.9rem;
-	line-height: 1.3;
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #222;
 }

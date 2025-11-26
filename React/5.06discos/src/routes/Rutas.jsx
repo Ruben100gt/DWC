@@ -17,7 +17,7 @@ const Rutas = (props) => {
 					element={<InsertarDiscos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos} />}
 				/>
 				<Route path="/discos" element={<Discos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos} />} />
-				<Route path="/detallediscos/:id" element={<DiscosDetalle />} />
+				<Route path="/detalledisco/:id" element={<DiscosDetalle listaDiscos={listaDiscos} />} />
 				<Route path="*" element={<Error />} />
 			</Routes>
 		</>

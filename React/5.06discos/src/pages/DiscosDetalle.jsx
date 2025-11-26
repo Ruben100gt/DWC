@@ -1,60 +1,44 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import discos from "../json/discos.json";
-import "./DiscosDetalle.css";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import './DiscosDetalle.css';
 
-const DiscosDetalle = () => {
+const DiscosDetalle = ({ listaDiscos }) => {
 	const { id } = useParams();
-	//Buscamos la pelicula que queremos mostrar
-	const infoDisco = discos.discos.find((p) => p.id === parseInt(id));
 
-	//Funcion vanilla
-	/* 	const mostrarFormularios = (datos, mostrar) => {
-		mostrar.innerHTML = "";
+	const infoDisco = listaDiscos.find((p) => p.id.toString() === id);
 
-		datos.forEach((e) => {
-			let contenido = "";
-			if (e.nombre) contenido += `<p><strong>Nombre:</strong> ${e.nombre}</p>`;
-			if (e.caratula)
-				contenido += `<p><strong>Carátula:</strong> ${e.caratula}</p>`;
-			if (e.artista)
-				contenido += `<p><strong>Artista:</strong> ${e.artista}</p>`;
-			if (e.anyo) contenido += `<p><strong>Año:</strong> ${e.anyo}</p>`;
-			if (e.genero) contenido += `<p><strong>Género:</strong> ${e.genero}</p>`;
-			if (e.localizacion)
-				contenido += `<p><strong>Localización:</strong> ${e.localizacion}</p>`;
-			if (e.prestado !== undefined)
-				contenido += `<p><strong>Prestado:</strong> ${e.prestado}</p>`;
+	if (!infoDisco) {
+		return (
+			<div>
+				<h2>Disco no encontrado.</h2>
+				<p>No existe un disco con ese ID.</p>
+			</div>
+		);
+	}
 
-			//Boton eliminar
-			//data-id lo he hecho con ayuda de chatgpt (no se me ocurre otra manera de como hacerlo)
-			contenido += `<input type="button" class="botonEliminar" value="X" data-id="${e.id}" />`;
-
-			mostrar.insertAdjacentHTML("beforeend", `<div>${contenido}</div>`);
-		});
-	}; */
 	return (
 		<>
-			<h2>Detalles de la Película</h2>
+			<h2>Detalles del Disco</h2>
 			<h1>
 				<strong>{infoDisco.nombre}</strong>
 			</h1>
 			<div className="disco-detalle">
-				<img src={infoDisco.cartelera} />
+				{infoDisco.caratula && <img src={infoDisco.caratula} alt={infoDisco.nombre} />}
+
 				<p>
-					<b>Director:</b> {infoDisco.director}
+					<b>Artista:</b> {infoDisco.artista}
 				</p>
 				<p>
-					<b>Clasificación:</b> {infoDisco.clasificacion}
+					<b>Año:</b> {infoDisco.anyo}
 				</p>
 				<p>
-					<b>Recaudación:</b> {infoDisco.recaudacion}
+					<b>Género:</b> {infoDisco.genero}
 				</p>
 				<p>
-					<b>Nota:</b> {infoDisco.nota}
+					<b>Localización:</b> {infoDisco.localizacion}
 				</p>
 				<p>
-					<b>Resumen:</b> {infoDisco.resumen}
+					<b>Prestado:</b> {infoDisco.prestado ? 'Sí' : 'No'}
 				</p>
 			</div>
 		</>
