@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //Creamos "posicionFinal" ya que si solo usamos "posicionInicial" al terminar la recursividad y voler a los métodos anteriores pilla la "posicionInicial" sin los cambios.
 let posicionFinal = 0;
@@ -17,7 +17,7 @@ const posicionElemento = (elemento, posicionInicial) => {
 // IMPORTANTE -> Se debe crear en el css ocultar (display: none;)
 const ocultarInformacion = (elemento) => {
 	for (let i = 0; i < elemento.length; i++) {
-		elemento[i].classList.add("ocultar");
+		elemento[i].classList.add('ocultar');
 	}
 };
 
@@ -47,17 +47,17 @@ const desordenarArray = (array) => {
 
 //Dinero formato español
 const formatearDinero = (cantidad) => {
-	return new Intl.NumberFormat("es-ES", {
-		style: "currency",
-		currency: "EUR",
+	return new Intl.NumberFormat('es-ES', {
+		style: 'currency',
+		currency: 'EUR',
 		minimumFractionDigits: 2,
 	}).format(cantidad);
 };
 
-//Fecha formato europeo
+//Fecha formato eeuu a europeo
 const formatearFecha = (fecha) => {
-	let partes = fecha.split("-");
-	return `${fecha[2]}/${fecha[1]}/${fecha[0]}`;
+	const partes = fecha.split('-');
+	return `${partes[2]}/${partes[1]}/${partes[0]}`;
 };
 
 export {

@@ -1,0 +1,41 @@
+#contenedor {
+	display: flex;
+	gap: 20px;
+	margin: 20px;
+}
+
+#peliculas {
+	flex: 1; /* 1 parte */
+	list-style: none;
+	padding: 10px;
+	border: 1px solid #333;
+	height: 80vh; /* altura para que se vea bien */
+	overflow-y: auto; /* scroll si hay muchas */
+}
+
+.pelicula {
+	margin-bottom: 10px;
+	padding: 5px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.pelicula:hover {
+	background-color: #f0f0f0;
+}
+
+#informacion {
+	flex: 2;
+	padding: 10px;
+	border: 1px solid #333;
+	height: 80vh;
+	overflow-y: auto;
+}
+
+.tituloPeli h2 {
+	margin-top: 0;
+}
+
+.datosPeli {
+	margin: 5px 0 0 0;
+}
