@@ -68,11 +68,6 @@ aside {
 .infoPeli {
 	margin: 20px 0;
 	padding: 10px;
-	transition: opacity 4s ease;
-}
-
-.ocultarTexto {
-	opacity: 0;
 }
 
 .infoPeli h2 {
