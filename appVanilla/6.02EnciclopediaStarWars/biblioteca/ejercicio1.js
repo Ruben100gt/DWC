@@ -18,7 +18,7 @@ const traerPeliculas = (url) => {
 //Dibujar datos
 
 const dibujarPeliculas = (peliculas) => {
-	let plantilla = `<h4 class="mensaje">Al pulsar cualquier película exime la responsibilidad de los vídeos al creador de la práctica.</h4>`;
+	let plantilla = ``;
 	Array.isArray(peliculas) && peliculas.length
 		? peliculas.map((peli) => {
 				plantilla += `<li class="pelicula"><h3 id=${peli.episode_id} class="titulo">${peli.title}</h3><h4 class="id">Peli: ${peli.episode_id}</h4></li>`;
