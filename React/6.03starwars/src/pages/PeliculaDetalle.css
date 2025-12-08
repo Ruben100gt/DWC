@@ -1,0 +1,35 @@
+.infoPeli {
+	margin-bottom: 20px;
+	color: yellow;
+}
+
+.infoPeli h2 {
+	font-size: 2em;
+	margin-bottom: 10px;
+}
+
+.infoPeli p {
+	font-size: 1em;
+	margin-bottom: 5px;
+}
+
+.sinopsis {
+	margin: 15px 0;
+	line-height: 1.5;
+}
+
+.lista-personajes {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.nombre-pers {
+	cursor: pointer;
+	padding: 5px 0;
+}
+
+.nombre-pers:hover {
+	color: yellow;
+	text-decoration: underline;
+}
