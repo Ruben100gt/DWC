@@ -1,0 +1,20 @@
+.inicio {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 20px;
+	color: white;
+	text-align: center;
+}
+
+.inicio h2 {
+	margin-bottom: 15px;
+	font-size: 2em;
+}
+
+.inicio p {
+	margin-bottom: 10px;
+	font-size: 1.1em;
+	line-height: 1.5;
+}
