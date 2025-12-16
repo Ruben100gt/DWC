@@ -1,0 +1,17 @@
+.ficha {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: yellow;
+	color: black;
+	border-radius: 6px;
+}
+
+.ficha h4 {
+	margin-bottom: 10px;
+	font-size: 1.2em;
+}
+
+.ficha p {
+	margin-bottom: 3px;
+	font-size: 0.95em;
+}

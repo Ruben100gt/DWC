@@ -1,0 +1,21 @@
+.menu-elemento {
+	display: inline;
+	margin: 10px;
+	padding: 10px;
+	border: solid rgb(139, 139, 139) 1px;
+	color: yellow;
+	border-radius: 5px;
+}
+
+.menu-elemento:hover {
+	background-color: yellow;
+	color: black;
+	cursor: pointer;
+}
+
+nav {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	margin: 10px 0;
+}
