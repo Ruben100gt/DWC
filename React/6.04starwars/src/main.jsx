@@ -4,11 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App.jsx';
+import ProveedorPeliculas from './context/ProveedorPeliculas.jsx';
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<BrowserRouter>
-			<App />
+			<ProveedorPeliculas>
+				<App />
+			</ProveedorPeliculas>
 		</BrowserRouter>
 	</StrictMode>
 );

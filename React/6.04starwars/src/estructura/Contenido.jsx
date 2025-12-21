@@ -1,8 +1,8 @@
-import React from "react";
-import "./Contenido.css";
+import React from 'react';
+import './Contenido.css';
 
-const Contenedor = (props) => {
-	return <div className="contenedor">{props.children}</div>;
+const Contenido = (props) => {
+	return <div className="contenido">{props.children}</div>;
 };
 
-export default Contenedor;
+export default Contenido;

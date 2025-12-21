@@ -15,3 +15,15 @@
 	margin-bottom: 3px;
 	font-size: 0.95em;
 }
+
+.vehiculos {
+	margin-top: 10px;
+}
+
+.vehiculo {
+	background-color: rgba(255, 255, 0, 0.3);
+	padding: 8px;
+	margin-bottom: 8px;
+	border-radius: 6px;
+	color: black;
+}
