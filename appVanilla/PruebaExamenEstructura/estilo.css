@@ -43,6 +43,11 @@ input[type='button'] {
 	background-color: #ffe0e0;
 }
 
+.correcto {
+	border: 2px solid green !important;
+	background-color: #ffe0e0;
+}
+
 .mensajeError {
 	color: red;
 	font-size: 0.8em;

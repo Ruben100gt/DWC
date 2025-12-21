@@ -1,50 +1,60 @@
-"use strict";
+'use strict';
 
-//imports
-import { datosFormulario } from "./biblioteca/biblioteca.js";
-import { traerDatos, traerMuchosDatos } from "./biblioteca/datosApi.js";
-import { validarDatos } from "./biblioteca/validar.js";
+import { cargarLocalStorage, guardarPlanetas } from './biblioteca/datos.js';
+import {
+	borrarMensajes,
+	mostrarErrores,
+	mostrarMensajeCorrecto,
+	obtenerDatosFormulario,
+	validarFormulario,
+	limpiarFormulario,
+	insertarContenedorMensaje,
+	mostrarPlanetas,
+} from './biblioteca/formulario.js';
 
 window.onload = () => {
+	const formulario = document.forms.agregarPlaneta;
+	const listaPlanetas = document.getElementsByTagName('script')[0].previousElementSibling;
+	const contenedorMensaje = insertarContenedorMensaje(formulario);
 	let planetas = [];
-	let datosPlaneta = {};
-	let datos = [];
-	const formulario = document.forms[0];
-	let url = "http://swapi.py4e.com/api/people";
-	let urls = [
-		"http://swapi.py4e.com/api/people",
-		"http://swapi.py4e.com/api/people",
-		"http://swapi.py4e.com/api/people",
-	];
+	const url = 'https://swapi.py4e.com/api/planets/';
 
-	if (typeof Storage !== "undefined") {
-		const obtenerPlanetas = async () => {
+	if (typeof Storage !== 'undefined') {
+		const cargarPlanetas = async () => {
 			try {
-				datos = await traerDatos(url);
-				console.log(datos);
-				formulario.addEventListener(
-					"click",
-					(evento) => {
-						if (evento.target.type === "button") {
-							if (evento.target.nextElementSibling) {
-								datosPlaneta = datosFormulario(formulario);
-								if (validarDatos(datosPlaneta)) {
-									guardarPlanetas();
-									planetas = [...planetas, datos];
-									localStorage.setItem("planetas", JSON.parse(planetas));
-								}
-							} else {
-							}
-						}
-					},
-					false
-				);
+				planetas = await cargarLocalStorage(url);
 			} catch (error) {
 				console.log(error.message);
 			}
+
+			formulario.addEventListener(
+				'click',
+				(evento) => {
+					if (evento.target.type === 'button') {
+						if (evento.target.nextElementSibling) {
+							let datos = obtenerDatosFormulario(formulario);
+							if (validarFormulario(datos)) {
+								planetas = [...planetas, datos];
+								guardarPlanetas(planetas);
+								mostrarMensajeCorrecto(contenedorMensaje);
+								setTimeout(() => {
+									borrarMensajes(contenedorMensaje);
+								}, 2000);
+								limpiarFormulario(formulario);
+							} else {
+								mostrarErrores(contenedorMensaje);
+							}
+						} else {
+							listaPlanetas.classList.remove('ocultar');
+							mostrarPlanetas(planetas, listaPlanetas);
+						}
+					}
+				},
+				false
+			);
 		};
-		obtenerPlanetas();
+		cargarPlanetas();
 	} else {
-		console.error("Este navegador no soporta la API localStorage.");
+		console.log('Su navegador no soporta LocalStorage.');
 	}
 };
