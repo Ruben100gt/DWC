@@ -1,0 +1,39 @@
+.disco-detalle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	max-width: 600px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.disco-detalle img {
+	width: 100%;
+	max-width: 300px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.disco-detalle p {
+	font-size: 16px;
+	margin: 5px 0;
+}
+
+.disco-detalle b {
+	color: #333;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 20px;
+	color: #444;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #222;
+}

@@ -1,0 +1,30 @@
+.discos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 20px;
+	padding: 20px;
+	justify-items: center;
+	border: 1px solid black;
+}
+
+.disco {
+	text-align: center;
+	max-width: 250px;
+	background-color: lightgray;
+	border-radius: 10px;
+}
+
+.disco img {
+	width: 100%;
+	max-width: 200px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+
+.eliminarDisco {
+	border: 2px solid red;
+	color: red;
+	font-size: 0.9rem;
+	margin: 2px 0;
+}
