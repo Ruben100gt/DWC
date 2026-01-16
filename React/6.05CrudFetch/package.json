@@ -9,7 +9,7 @@
 		"build": "vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"servidorDiscentes": "json-server --watch ./src/assets/objetos/discos.json"
+		"servidorDiscentes": "json-server --watch ./src/assets/objetos/discos.json –port 3000"
 	},
 	"dependencies": {
 		"concurrently": "^9.2.1",
