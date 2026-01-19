@@ -1,92 +1,104 @@
-[
-	{
-		"nombre": "Ecos del futuro",
-		"caratula": "https://example.com/caratulas/ecos-del-futuro.jpg",
-		"artista": "Neon Pulse",
-		"anyo": 2019,
-		"genero": "electronica",
-		"localizacion": "ES-001AA",
-		"prestado": false
-	},
-	{
-		"nombre": "Sombras urbanas",
-		"caratula": "https://example.com/caratulas/sombras-urbanas.jpg",
-		"artista": "Ritmo Callejero",
-		"anyo": 2016,
-		"genero": "rap",
-		"localizacion": "ES-002AB",
-		"prestado": true
-	},
-	{
-		"nombre": "Horizonte azul",
-		"caratula": "https://example.com/caratulas/horizonte-azul.jpg",
-		"artista": "Mar Abierto",
-		"anyo": 2021,
-		"genero": "pop",
-		"localizacion": "ES-003AC",
-		"prestado": false
-	},
-	{
-		"nombre": "Ruidos internos",
-		"caratula": "https://example.com/caratulas/ruidos-internos.jpg",
-		"artista": "Distorsión Zero",
-		"anyo": 2014,
-		"genero": "rock",
-		"localizacion": "ES-004AD",
-		"prestado": false
-	},
-	{
-		"nombre": "Luz de neón",
-		"caratula": "https://example.com/caratulas/luz-de-neon.jpg",
-		"artista": "Midnight City",
-		"anyo": 2018,
-		"genero": "pop",
-		"localizacion": "ES-005AE",
-		"prestado": true
-	},
-	{
-		"nombre": "Raíces",
-		"caratula": "https://example.com/caratulas/raices.jpg",
-		"artista": "Tierra Viva",
-		"anyo": 2012,
-		"genero": "clasico",
-		"localizacion": "ES-006AF",
-		"prestado": false
-	},
-	{
-		"nombre": "Tiempo muerto",
-		"caratula": "https://example.com/caratulas/tiempo-muerto.jpg",
-		"artista": "Último Compás",
-		"anyo": 2020,
-		"genero": "jazz",
-		"localizacion": "ES-007AG",
-		"prestado": false
-	},
-	{
-		"nombre": "Fuego interno",
-		"caratula": "https://example.com/caratulas/fuego-interno.jpg",
-		"artista": "Voltaje",
-		"anyo": 2015,
-		"genero": "metal",
-		"localizacion": "ES-008AH",
-		"prestado": true
-	},
-	{
-		"nombre": "Órbita",
-		"caratula": "https://example.com/caratulas/orbita.jpg",
-		"artista": "Cosmos 81",
-		"anyo": 2022,
-		"genero": "punk",
-		"localizacion": "ES-009AI",
-		"prestado": false
-	},
-	{
-		"nombre": "Fragmentos",
-		"caratula": "https://example.com/caratulas/fragmentos.jpg",
-		"artista": "Vértice",
-		"anyo": 2017,
-		"genero": "regueton",
-		"localizacion": "ES-010AJ",
-		"prestado": false
-	}
-]
+{
+	"discos": [
+		{
+			"id": "1",
+			"nombre": "Ecos del futuro",
+			"caratula": "https://example.com/caratulas/ecos-del-futuro.jpg",
+			"artista": "Neon Pulse",
+			"anyo": 2019,
+			"genero": "electronica",
+			"localizacion": "ES-001AA",
+			"prestado": false
+		},
+		{
+			"id": "2",
+			"nombre": "Sombras urbanas",
+			"caratula": "https://example.com/caratulas/sombras-urbanas.jpg",
+			"artista": "Ritmo Callejero",
+			"anyo": 2016,
+			"genero": "rap",
+			"localizacion": "ES-002AB",
+			"prestado": true
+		},
+		{
+			"id": "3",
+			"nombre": "Horizonte azul",
+			"caratula": "https://example.com/caratulas/horizonte-azul.jpg",
+			"artista": "Mar Abierto",
+			"anyo": 2021,
+			"genero": "pop",
+			"localizacion": "ES-003AC",
+			"prestado": false
+		},
+		{
+			"nombre": "Ruiaa",
+			"artista": "Distorsión Zero",
+			"genero": "rock",
+			"prestado": false,
+			"caratula": "https://example.com/caratulas/ruidos-internos.jpg",
+			"anyo": 2014,
+			"localizacion": "ES-004AD",
+			"id": "4"
+		},
+		{
+			"id": "5",
+			"nombre": "Luz de neón",
+			"caratula": "https://example.com/caratulas/luz-de-neon.jpg",
+			"artista": "Midnight City",
+			"anyo": 2018,
+			"genero": "pop",
+			"localizacion": "ES-005AE",
+			"prestado": true
+		},
+		{
+			"id": "6",
+			"nombre": "Raíces",
+			"caratula": "https://example.com/caratulas/raices.jpg",
+			"artista": "Tierra Viva",
+			"anyo": 2012,
+			"genero": "clasico",
+			"localizacion": "ES-006AF",
+			"prestado": false
+		},
+		{
+			"id": "7",
+			"nombre": "Tiempo muerto",
+			"caratula": "https://example.com/caratulas/tiempo-muerto.jpg",
+			"artista": "Último Compás",
+			"anyo": 2020,
+			"genero": "jazz",
+			"localizacion": "ES-007AG",
+			"prestado": false
+		},
+		{
+			"id": "8",
+			"nombre": "Fuego interno",
+			"caratula": "https://example.com/caratulas/fuego-interno.jpg",
+			"artista": "Voltaje",
+			"anyo": 2015,
+			"genero": "metal",
+			"localizacion": "ES-008AH",
+			"prestado": true
+		},
+		{
+			"id": "9",
+			"nombre": "Órbita",
+			"caratula": "https://example.com/caratulas/orbita.jpg",
+			"artista": "Cosmos 81",
+			"anyo": 2022,
+			"genero": "punk",
+			"localizacion": "ES-009AI",
+			"prestado": false
+		},
+		{
+			"id": "10",
+			"nombre": "Fragmentos",
+			"caratula": "https://example.com/caratulas/fragmentos.jpg",
+			"artista": "Vértice",
+			"anyo": 2017,
+			"genero": "regueton",
+			"localizacion": "ES-010AJ",
+			"prestado": false
+		}
+	]
+}

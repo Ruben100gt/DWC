@@ -1,11 +1,12 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import useDiscos from '../hooks/useDiscos.js';
 import './InsertarDiscos.css';
 
-const InsertarDiscos = () => {
+const EditarDiscos = () => {
+	const { id } = useParams();
+	const { discos, editarDiscoCompleto } = useDiscos();
 	const navegar = useNavigate();
-	const { guardarDisco } = useDiscos();
 
 	const formulario = useRef();
 
@@ -33,33 +34,44 @@ const InsertarDiscos = () => {
 	const [erroresTexto, setErroresTexto] = useState([]);
 	const [enviado, setEnviado] = useState(false);
 
-	const enviarFormulario = async () => {
+	useEffect(() => {
+		if (discos.length > 0) {
+			const discoActual = discos.find((d) => String(d.id) === String(id));
+			if (discoActual) {
+				setDatosFormulario({
+					id: discoActual.id,
+					nombre: discoActual.nombre,
+					caratula: discoActual.caratula || '',
+					artista: discoActual.artista,
+					anyo: discoActual.anyo || '',
+					genero: discoActual.genero,
+					localizacion: discoActual.localizacion || '',
+					prestado: discoActual.prestado,
+				});
+			}
+		}
+	}, [discos, id]);
+
+	const actualizarFormulario = async () => {
 		const datos = recogerDatos(datosFormulario);
 		if (validarFormulario(datos)) {
 			try {
-				// 1. Creamos el objeto base
 				const datosLimpios = {
+					id: datos.id,
 					nombre: datos.nombre,
 					artista: datos.artista,
 					genero: datos.genero,
-					prestado: datos.prestado, // Es un booleano, no necesita parseInt
+					prestado: datos.prestado,
 				};
 
-				// 2. Aplicamos parseInt al AÑO antes de enviarlo
-				if (datos.anyo !== '') {
-					datosLimpios.anyo = parseInt(datos.anyo); // <--- AQUÍ se aplica
-				}
-
 				if (datos.caratula !== '') datosLimpios.caratula = datos.caratula;
+				if (datos.anyo !== '') datosLimpios.anyo = parseInt(datos.anyo);
 				if (datos.localizacion !== '') datosLimpios.localizacion = datos.localizacion;
 
-				// 3. Enviamos a la API (el ID lo creará el servidor solo y sin comillas)
-				await guardarDisco(datosLimpios);
-
+				await editarDiscoCompleto(id, datosLimpios);
 				setEnviado(true);
-				setDatosFormulario(infoFormularioInicial);
 			} catch (error) {
-				console.log('Error:', error.message);
+				console.log('Error actualizando disco:', error.message);
 			}
 		}
 	};
@@ -113,7 +125,6 @@ const InsertarDiscos = () => {
 		if (!erroresTemp.length) {
 			setErroresCampos(erroresInicial);
 			setErroresTexto([]);
-			setEnviado(true);
 			return true;
 		} else {
 			setErroresCampos({
@@ -154,7 +165,7 @@ const InsertarDiscos = () => {
 		<>
 			<form ref={formulario}>
 				<fieldset id="discos">
-					<legend>Almacenar discos.</legend>
+					<legend>Editar disco.</legend>
 					<br />
 					<label htmlFor="nombre">Nombre:</label>
 					<input
@@ -258,15 +269,15 @@ const InsertarDiscos = () => {
 						))}
 					</div>
 					<div className={enviado ? 'enviado' : ''}>
-						{enviado && <p className="mensajeEnviado">El disco se ha guardado correctamente</p>}
+						{enviado && <p className="mensajeEnviado">El disco se ha actualizado correctamente</p>}
 					</div>
 					<br />
-					<input type="button" id="botonEnviar" value="Enviar" onClick={enviarFormulario} />
-					<input type="button" id="botonMostrar" value="Mostrar" onClick={() => navegar('/discos')} />
+					<input type="button" id="botonEnviar" value="Actualizar Disco" onClick={actualizarFormulario} />
+					<input type="button" id="botonMostrar" value="Volver" onClick={() => navegar('/discos')} />
 				</fieldset>
 			</form>
 		</>
 	);
 };
 
-export default InsertarDiscos;
+export default EditarDiscos;

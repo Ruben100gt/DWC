@@ -28,3 +28,69 @@
 	font-size: 0.9rem;
 	margin: 2px 0;
 }
+
+/* 1. El fondo que bloquea toda la pantalla y no deja pulsar nada atrás */
+.contenedorConfirmar {
+	position: fixed; /* Se queda fijo en la pantalla */
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.8); /* Fondo negro con opacidad */
+	display: flex;
+	justify-content: center; /* Centra la tarjeta horizontalmente */
+	align-items: center; /* Centra la tarjeta verticalmente */
+	z-index: 10000; /* Valor muy alto para estar por encima de todo */
+}
+
+/* 2. La tarjeta de aviso */
+.TarjetaConfirmar {
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	max-width: 400px;
+	width: 90%;
+	color: #333; /* Color de texto oscuro para que se lea en el blanco */
+}
+
+.TarjetaConfirmar h3 {
+	margin-top: 0;
+	color: #b00020; /* Color rojo para indicar peligro */
+}
+
+.TarjetaConfirmar p {
+	margin-bottom: 25px;
+}
+
+/* 3. Estilo de los botones del modal */
+.TarjetaConfirmar button {
+	padding: 10px 20px;
+	margin: 0 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: bold;
+	transition: background-color 0.3s;
+}
+
+/* Botón de Sí */
+.TarjetaConfirmar button:first-of-type {
+	background-color: #b00020;
+	color: white;
+}
+
+.TarjetaConfirmar button:first-of-type:hover {
+	background-color: #8e0016;
+}
+
+/* Botón de Cancelar */
+.TarjetaConfirmar button:last-of-type {
+	background-color: #ccc;
+	color: black;
+}
+
+.TarjetaConfirmar button:last-of-type:hover {
+	background-color: #aaa;
+}

@@ -1,39 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useDiscos from '../hooks/useDiscos.js';
+import Cargando from '../estructura/Cargando.jsx';
 import './Discos.css';
 
-const Discos = ({ listaDiscos, setListaDiscos }) => {
+const Discos = () => {
 	const navegar = useNavigate();
-	const haydiscos = listaDiscos.length > 0;
+	const { discos, borrarDisco, cargando } = useDiscos();
 
 	const [textoBuscar, setTextoBuscar] = useState('');
-	const [discosFiltrados, setDiscosFiltrados] = useState(listaDiscos);
+	const [discosFiltrados, setDiscosFiltrados] = useState([]);
+
+	const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
+	const [idABorrar, setIdABorrar] = useState(null);
+
+	useEffect(() => {
+		setDiscosFiltrados(discos);
+	}, [discos]);
+
+	const haydiscos = discosFiltrados.length > 0;
 
 	const buscar = () => {
-		const buscado = textoBuscar;
-
-		const filtrados = listaDiscos.filter((d) => d.nombre.includes(buscado));
+		const filtrados = discos.filter((d) => d.nombre.toLowerCase().includes(textoBuscar.toLowerCase()));
 		setDiscosFiltrados(filtrados);
 	};
 
 	const limpiar = () => {
 		setTextoBuscar('');
-		setDiscosFiltrados(listaDiscos);
+		setDiscosFiltrados(discos);
 	};
 
 	const actualizarBusqueda = (e) => {
 		setTextoBuscar(e.target.value);
 	};
 
-	const eliminarDisco = (id) => {
-		const nuevaLista = listaDiscos.filter((d) => d.id !== id);
-		setListaDiscos(nuevaLista);
-		setDiscosFiltrados(nuevaLista);
-		localStorage.setItem('coleccionDiscos', JSON.stringify(nuevaLista));
+	const solicitarBorrar = (id) => {
+		setIdABorrar(id);
+		setMostrarConfirmar(true);
 	};
+
+	const confirmarBorrado = async () => {
+		try {
+			await borrarDisco(idABorrar);
+			setMostrarConfirmar(false);
+		} catch (error) {
+			console.log('Error eliminando disco:', error.message);
+		}
+	};
+
+	const cancelarBorrado = () => {
+		setMostrarConfirmar(false);
+		setIdABorrar(null);
+	};
+
+	if (cargando) {
+		return <Cargando />;
+	}
 
 	return (
 		<>
+			{mostrarConfirmar && (
+				<div className="contenedorConfirmar">
+					<div className="TarjetaConfirmar">
+						<h3>¿Estás seguro de eliminar este disco?</h3>
+						<p>Esta acción es permanente.</p>
+						<button onClick={confirmarBorrado}>Sí, eliminar.</button>
+						<button onClick={cancelarBorrado}>Cancelar.</button>
+					</div>
+				</div>
+			)}
 			<div id="listaDiscos">
 				<h2>Listado de Discos:</h2>
 
@@ -53,10 +88,12 @@ const Discos = ({ listaDiscos, setListaDiscos }) => {
 				</div>
 
 				<div className="discos">
-					{haydiscos ? (
+					{cargando ? (
+						<Cargando />
+					) : haydiscos ? (
 						discosFiltrados.map((disco) => (
 							<div className="disco" key={disco.id}>
-								<img src={disco.cartelera} alt={disco.nombre} />
+								<img src={disco.caratula} alt={disco.nombre} />
 								<h3
 									onClick={() => {
 										navegar(`/detalledisco/${disco.id}`);
@@ -65,7 +102,10 @@ const Discos = ({ listaDiscos, setListaDiscos }) => {
 									- {disco.nombre} <br /> - {disco.artista}
 									<br /> - {disco.genero}
 								</h3>
-								<button className="eliminarDisco" onClick={() => eliminarDisco(disco.id)}>
+								<button className="editarDisco" onClick={() => navegar(`/editardisco/${disco.id}`)}>
+									Editar
+								</button>
+								<button className="eliminarDisco" onClick={() => solicitarBorrar(disco.id)}>
 									X
 								</button>
 							</div>

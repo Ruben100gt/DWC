@@ -5,22 +5,18 @@ import InsertarDiscos from '../pages/InsertarDiscos.jsx';
 import Discos from '../pages/Discos.jsx';
 import DiscosDetalle from '../pages/DiscosDetalle.jsx';
 import Error from '../estructura/Error.jsx';
+import EditarDiscos from '../pages/EditarDiscos.jsx';
 
-const Rutas = (props) => {
-	const { listaDiscos, setListaDiscos } = props;
+const Rutas = () => {
 	return (
-		<>
-			<Routes>
-				<Route path="/" element={<Inicio />} />
-				<Route
-					path="/insertardiscos"
-					element={<InsertarDiscos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos} />}
-				/>
-				<Route path="/discos" element={<Discos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos} />} />
-				<Route path="/detalledisco/:id" element={<DiscosDetalle listaDiscos={listaDiscos} />} />
-				<Route path="*" element={<Error />} />
-			</Routes>
-		</>
+		<Routes>
+			<Route path="/" element={<Inicio />} />
+			<Route path="/insertardiscos" element={<InsertarDiscos />} />
+			<Route path="/discos" element={<Discos />} />
+			<Route path="/detalledisco/:id" element={<DiscosDetalle />} />
+			<Route path="/editardisco/:id" element={<EditarDiscos />} />
+			<Route path="*" element={<Error />} />
+		</Routes>
 	);
 };
 

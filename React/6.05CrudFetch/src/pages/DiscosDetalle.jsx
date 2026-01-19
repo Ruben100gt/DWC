@@ -1,17 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './DiscosDetalle.css';
+import useDiscos from '../hooks/useDiscos.js';
 
-const DiscosDetalle = ({ listaDiscos }) => {
+const DiscosDetalle = () => {
 	const { id } = useParams();
+	const { discos, cargando } = useDiscos();
 
-	const infoDisco = listaDiscos.find((p) => p.id.toString() === id);
+	if (cargando) return <p>Cargando detalles...</p>;
+
+	const infoDisco = discos.find((d) => String(d.id) === String(id));
 
 	if (!infoDisco) {
 		return (
 			<div>
 				<h2>Disco no encontrado.</h2>
-				<p>No existe un disco con ese ID.</p>
+				<p>No existe un disco con el ID: {id}.</p>
 			</div>
 		);
 	}
