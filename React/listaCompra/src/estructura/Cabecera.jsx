@@ -1,12 +1,24 @@
-import React from "react";
-import Menu from "../menu/Menu.jsx";
+import React, { useContext } from 'react';
+import Menu from '../menu/Menu.jsx';
+import { contextoSesion } from '../context/ProveedorSesion.jsx';
+import './Cabecera.css';
 
 const Cabecera = () => {
+	const { usuario, sesionIniciada, cerrarSesion } = useContext(contextoSesion);
+
 	return (
-		<>
-			<h1>Lista de la compra.</h1>
+		<header>
+			<div className="contenedor-superior">
+				<h1>Lista de la compra.</h1>
+				{sesionIniciada && (
+					<div className="bloque-usuario">
+						<span>Bienvenido, {usuario?.user_metadata?.name || usuario?.email}</span>
+						<button onClick={cerrarSesion}>Cerrar Sesión</button>
+					</div>
+				)}
+			</div>
 			<Menu />
-		</>
+		</header>
 	);
 };
 

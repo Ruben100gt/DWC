@@ -1,0 +1,15 @@
+nav {
+	display: flex;
+	gap: 20px;
+	padding: 15px 0;
+}
+
+.menu-element {
+	color: #007bff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.menu-element:hover {
+	text-decoration: underline;
+}

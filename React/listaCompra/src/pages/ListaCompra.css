@@ -1,0 +1,27 @@
+.principal-contenedor {
+	display: flex;
+	gap: 20px;
+	padding: 20px;
+	align-items: flex-start;
+}
+
+.listado-seccion {
+	flex: 2;
+	border: 2px solid #8e44ad;
+	padding: 20px;
+	min-height: 400px;
+}
+
+.acciones-listado {
+	border: 2px solid #e74c3c;
+	float: right;
+	padding: 5px 15px;
+	font-weight: bold;
+}
+
+.detalles-seccion {
+	flex: 1;
+	border: 2px solid #f39c12;
+	padding: 20px;
+	min-height: 400px;
+}
