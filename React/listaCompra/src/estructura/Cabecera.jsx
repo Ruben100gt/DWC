@@ -12,9 +12,7 @@ const Cabecera = () => {
 				<h1>Lista de la compra.</h1>
 				{sesionIniciada && (
 					<div className="bloque-usuario">
-						<span>
-							Bienvenido, {usuario?.user_metadata?.name || usuario?.email}
-						</span>
+						<span>Bienvenido, {usuario?.user_metadata?.name}</span>
 						<button onClick={cerrarSesion}>Cerrar Sesión</button>
 					</div>
 				)}
