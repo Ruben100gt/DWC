@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from 'react';
-import { contextoSesion } from '../context/ProveedorSesion.jsx';
-import { contextoNotificaciones } from '../context/ProveedorNotificaciones.jsx';
-import { useNavigate } from 'react-router-dom';
-import './Registro.css';
+import React, { useContext, useEffect } from "react";
+import { contextoSesion } from "../context/ProveedorSesion.jsx";
+import { contextoNotificaciones } from "../context/ProveedorNotificaciones.jsx";
+import { useNavigate } from "react-router-dom";
+import "./Registro.css";
 
 const Registro = () => {
-	const { actualizarDato, crearCuenta, errorUsuario, sesionIniciada } = useContext(contextoSesion);
+	const { actualizarDato, crearCuenta, errorUsuario, sesionIniciada } =
+		useContext(contextoSesion);
 	const { mostrarAviso } = useContext(contextoNotificaciones);
 	const navegar = useNavigate();
 
 	useEffect(() => {
 		if (sesionIniciada) {
-			navegar('/listacompra');
+			navegar("/listacompra");
 		}
 	}, [sesionIniciada, navegar]);
 
@@ -19,7 +20,9 @@ const Registro = () => {
 		e.preventDefault();
 		await crearCuenta();
 		if (!errorUsuario) {
-			mostrarAviso('Registro realizado. Revisa tu correo electrónico para confirmar la cuenta.');
+			mostrarAviso(
+				"Registro realizado. Revisa tu correo electrónico para confirmar la cuenta.",
+			);
 		}
 	};
 
@@ -30,24 +33,40 @@ const Registro = () => {
 				<form onSubmit={ejecutarRegistro}>
 					<div>
 						<label>Nombre:</label>
-						<input type="text" name="nombre" onChange={actualizarDato} required />
+						<input
+							type="text"
+							name="nombre"
+							id="nombre"
+							placeholder="Nombre"
+							onChange={actualizarDato}
+							required
+						/>
 					</div>
 					<div>
 						<label>Email:</label>
-						<input type="email" name="email" onChange={actualizarDato} required />
+						<input
+							type="email"
+							name="email"
+							id="email"
+							placeholder="nombre@algo.com"
+							onChange={actualizarDato}
+							required
+						/>
 					</div>
 					<div>
 						<label>Contraseña:</label>
-						<input type="password" name="password" onChange={actualizarDato} required />
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Contraseña"
+							onChange={actualizarDato}
+							required
+						/>
 					</div>
 					<button type="submit">Registrarse.</button>
 				</form>
-				{errorUsuario && <p style={{ color: 'red' }}>{errorUsuario}</p>}
-			</section>
-
-			<section className="seccion-detalles">
-				<h3>Ayuda.</h3>
-				<p>Crea una cuenta para empezar a gestionar tus listas de la compra de forma personalizada.</p>
+				{errorUsuario && <p style={{ color: "red" }}>{errorUsuario}</p>}
 			</section>
 		</div>
 	);
