@@ -1,34 +1,48 @@
 .contenedor-principal {
 	display: flex;
-	gap: 20px;
-	padding: 20px;
+	gap: 25px;
+	padding: 20px 0;
 	align-items: flex-start;
 }
 
 .seccion-listado {
 	flex: 2;
-	border: 2px solid #8e44ad;
-	padding: 20px;
-	min-height: 400px;
+	background-color: white;
+	padding: 25px;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+	min-height: 500px;
 }
 
 .caja-acciones {
-	border: 2px solid #e74c3c;
 	float: right;
-	padding: 5px 15px;
-	font-weight: bold;
+	padding: 8px 16px;
+	background-color: #f8f9fa;
+	border-radius: 6px;
+	font-size: 0.85rem;
+	border: 1px solid #eee;
 }
 
 .producto-item {
-	border: 1px solid #8e44ad;
-	margin: 15px 0;
+	background-color: #fcfcfc;
+	border: 1px solid #f0f0f0;
+	margin: 12px 0;
 	padding: 15px;
+	border-radius: 8px;
 	clear: both;
+	transition: transform 0.2s;
+}
+
+.producto-item:hover {
+	transform: translateY(-2px);
+	border-color: #3498db;
 }
 
 .seccion-detalles {
 	flex: 1;
-	border: 2px solid #f39c12;
-	padding: 20px;
-	min-height: 400px;
+	background-color: white;
+	padding: 25px;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+	min-height: 500px;
 }

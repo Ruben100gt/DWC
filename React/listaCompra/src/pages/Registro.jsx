@@ -1,29 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import { contextoSesion } from "../context/ProveedorSesion.jsx";
-import { contextoNotificaciones } from "../context/ProveedorNotificaciones.jsx";
+import React, { useEffect } from "react";
+import useSesion from "../hooks/useSesion.js";
 import { useNavigate } from "react-router-dom";
 import "./Registro.css";
 
 const Registro = () => {
-	const { actualizarDato, crearCuenta, errorUsuario, sesionIniciada } =
-		useContext(contextoSesion);
-	const { mostrarAviso } = useContext(contextoNotificaciones);
+	const { actualizarDato, crearCuenta, sesionIniciada } = useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) {
-			navegar("/listacompra");
-		}
+		if (sesionIniciada) navegar("/listacompra");
 	}, [sesionIniciada, navegar]);
 
 	const ejecutarRegistro = async (e) => {
 		e.preventDefault();
 		await crearCuenta();
-		if (!errorUsuario) {
-			mostrarAviso(
-				"Registro realizado. Revisa tu correo electrónico para confirmar la cuenta.",
-			);
-		}
 	};
 
 	return (
@@ -32,7 +22,7 @@ const Registro = () => {
 				<h2>Crear una cuenta.</h2>
 				<form onSubmit={ejecutarRegistro}>
 					<div>
-						<label>Nombre:</label>
+						<label htmlFor="nombre">Nombre:</label>
 						<input
 							type="text"
 							name="nombre"
@@ -43,7 +33,7 @@ const Registro = () => {
 						/>
 					</div>
 					<div>
-						<label>Email:</label>
+						<label htmlFor="email">Email:</label>
 						<input
 							type="email"
 							name="email"
@@ -54,7 +44,7 @@ const Registro = () => {
 						/>
 					</div>
 					<div>
-						<label>Contraseña:</label>
+						<label htmlFor="password">Contraseña:</label>
 						<input
 							type="password"
 							name="password"
@@ -66,7 +56,6 @@ const Registro = () => {
 					</div>
 					<button type="submit">Registrarse.</button>
 				</form>
-				{errorUsuario && <p style={{ color: "red" }}>{errorUsuario}</p>}
 			</section>
 		</div>
 	);

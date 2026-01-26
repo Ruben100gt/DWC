@@ -6,10 +6,10 @@ const Menu = () => {
 	return (
 		<>
 			<nav>
-				<Link className="menu-element" to="/lista">
+				<Link className="menu-elemento" to="/lista">
 					Lista
 				</Link>
-				<Link className="menu-element" to="/productos">
+				<Link className="menu-elemento" to="/productos">
 					Poductos
 				</Link>
 			</nav>

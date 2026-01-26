@@ -1,15 +1,22 @@
 nav {
 	display: flex;
-	gap: 20px;
+	gap: 30px;
 	padding: 15px 0;
 }
 
-.menu-element {
-	color: #007bff;
+.menu-elemento {
+	color: #666;
 	text-decoration: none;
-	font-weight: bold;
+	font-weight: 500;
+	font-size: 1.1rem;
+	transition: color 0.3s;
 }
 
-.menu-element:hover {
-	text-decoration: underline;
+.menu-elemento:hover {
+	color: #007bff;
+}
+
+.menu-elemento.active {
+	color: #007bff;
+	font-weight: 700;
 }

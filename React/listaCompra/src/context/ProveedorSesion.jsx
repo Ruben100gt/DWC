@@ -1,47 +1,75 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { supabaseConexion } from '../supabase/supabase.js';
-import { useNavigate } from 'react-router-dom';
-import { useSesion } from '../hooks/useSesion.js';
+import React, { useState, createContext } from "react";
+import useSupabase from "../hooks/useSupabase.js";
+import useNotificaciones from "../hooks/useNotificacion.js";
 
 const contextoSesion = createContext();
 
 const ProveedorSesion = ({ children }) => {
-	const { obtenerUsuario, usuario, errorUsuario, actualizarDato, crearCuenta, iniciarSesionPassword, cerrarSesion } =
-		useSesion();
+	const [usuario, setUsuario] = useState(null);
+	const [sesionIniciada, setSesionIniciada] = useState(false);
+	const [datosSesion, setDatosSesion] = useState({
+		nombre: "",
+		email: "",
+		password: "",
+	});
 
-	const sesionIniciadaInicial = false;
-	const navegar = useNavigate();
+	const { registro, login, logout } = useSupabase();
+	const { mostrarAviso } = useNotificaciones();
 
-	const [sesionIniciada, setSesionIniciada] = useState(sesionIniciadaInicial);
+	const actualizarDato = (e) => {
+		setDatosSesion({ ...datosSesion, [e.target.name]: e.target.value });
+	};
 
-	useEffect(() => {
-		const suscripcion = supabaseConexion.auth.onAuthStateChange((event, session) => {
-			if (session) {
-				setSesionIniciada(true);
-				obtenerUsuario();
-			} else {
-				setSesionIniciada(false);
-			}
-		});
+	const crearCuenta = async () => {
+		const { data, error } = await registro(
+			datosSesion.email,
+			datosSesion.password,
+			datosSesion.nombre,
+		);
+		if (error) {
+			mostrarAviso(error.message);
+		} else {
+			setUsuario(data.user);
+			setSesionIniciada(true);
+			mostrarAviso("Cuenta creada correctamente.");
+		}
+	};
 
-		return () => {
-			if (suscripcion?.data?.subscription) {
-				suscripcion.data.subscription.unsubscribe();
-			}
-		};
-	}, []);
+	const iniciarSesionPassword = async () => {
+		const { data, error } = await login(
+			datosSesion.email,
+			datosSesion.password,
+		);
+		if (error) {
+			mostrarAviso(error.message);
+		} else {
+			setUsuario(data.user);
+			setSesionIniciada(true);
+			mostrarAviso("Sesión iniciada correctamente.");
+		}
+	};
 
-	const datosProveer = {
+	const cerrarSesion = async () => {
+		await logout();
+		setUsuario(null);
+		setSesionIniciada(false);
+		mostrarAviso("Has cerrado sesión.");
+	};
+
+	const datosAProveer = {
+		usuario,
+		sesionIniciada,
+		actualizarDato,
 		crearCuenta,
 		iniciarSesionPassword,
 		cerrarSesion,
-		actualizarDato,
-		sesionIniciada,
-		usuario,
-		errorUsuario,
 	};
 
-	return <contextoSesion.Provider value={datosProveer}>{children}</contextoSesion.Provider>;
+	return (
+		<contextoSesion.Provider value={datosAProveer}>
+			{children}
+		</contextoSesion.Provider>
+	);
 };
 
 export default ProveedorSesion;

@@ -1,20 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { contextoSesion } from "../context/ProveedorSesion.jsx";
+import React, { useEffect } from "react";
+import useSesion from "../hooks/useSesion.js";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-	const {
-		actualizarDato,
-		iniciarSesionPassword,
-		errorUsuario,
-		sesionIniciada,
-	} = useContext(contextoSesion);
+	const { actualizarDato, iniciarSesionPassword, sesionIniciada } = useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) {
-			navegar("/listacompra");
-		}
+		if (sesionIniciada) navegar("/listacompra");
 	}, [sesionIniciada, navegar]);
 
 	const enviarAcceso = async (e) => {
@@ -28,7 +21,7 @@ const Login = () => {
 				<h3>Identifícate.</h3>
 				<form onSubmit={enviarAcceso}>
 					<div>
-						<label>Email:</label>
+						<label htmlFor="email">Email:</label>
 						<input
 							type="email"
 							name="email"
@@ -39,7 +32,7 @@ const Login = () => {
 						/>
 					</div>
 					<div>
-						<label>Contraseña:</label>
+						<label htmlFor="password">Contraseña:</label>
 						<input
 							type="password"
 							name="password"
@@ -51,7 +44,6 @@ const Login = () => {
 					</div>
 					<button type="submit">Entrar.</button>
 				</form>
-				{errorUsuario && <p style={{ color: "red" }}>{errorUsuario}</p>}
 			</section>
 		</div>
 	);

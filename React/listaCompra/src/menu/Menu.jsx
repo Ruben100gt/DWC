@@ -1,32 +1,32 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { contextoSesion } from '../context/ProveedorSesion.jsx';
-import './Menu.css';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { contextoSesion } from "../context/ProveedorSesion.jsx";
+import "./Menu.css";
 
 const Menu = () => {
 	const { sesionIniciada } = useContext(contextoSesion);
 
 	return (
 		<nav>
-			<Link className="menu-element" to="/">
+			<Link className="menu-elemento" to="/">
 				Inicio.
 			</Link>
 
 			{!sesionIniciada ? (
 				<>
-					<Link className="menu-element" to="/login">
+					<Link className="menu-elemento" to="/login">
 						Iniciar Sesión.
 					</Link>
-					<Link className="menu-element" to="/registro">
+					<Link className="menu-elemento" to="/registro">
 						Registrarse.
 					</Link>
 				</>
 			) : (
 				<>
-					<Link className="menu-element" to="/listacompra">
+					<Link className="menu-elemento" to="/listacompra">
 						Lista de la compra.
 					</Link>
-					<Link className="menu-element" to="/productos">
+					<Link className="menu-elemento" to="/productos">
 						Productos.
 					</Link>
 				</>
