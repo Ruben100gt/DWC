@@ -21,31 +21,39 @@ const ProveedorSesion = ({ children }) => {
 	};
 
 	const crearCuenta = async () => {
-		const { data, error } = await registro(
-			datosSesion.email,
-			datosSesion.password,
-			datosSesion.nombre,
-		);
-		if (error) {
+		try {
+			const { data, error } = await registro(
+				datosSesion.email,
+				datosSesion.password,
+				datosSesion.nombre,
+			);
+			if (!error) {
+				setUsuario(data.user);
+				setSesionIniciada(true);
+				mostrarAviso("Cuenta creada correctamente.");
+			} else {
+				throw error;
+			}
+		} catch (error) {
 			mostrarAviso(error.message);
-		} else {
-			setUsuario(data.user);
-			setSesionIniciada(true);
-			mostrarAviso("Cuenta creada correctamente.");
 		}
 	};
 
 	const iniciarSesionPassword = async () => {
-		const { data, error } = await login(
-			datosSesion.email,
-			datosSesion.password,
-		);
-		if (error) {
+		try {
+			const { data, error } = await login(
+				datosSesion.email,
+				datosSesion.password,
+			);
+			if (!error) {
+				setUsuario(data.user);
+				setSesionIniciada(true);
+				mostrarAviso("Sesión iniciada correctamente.");
+			} else {
+				throw error;
+			}
+		} catch (error) {
 			mostrarAviso(error.message);
-		} else {
-			setUsuario(data.user);
-			setSesionIniciada(true);
-			mostrarAviso("Sesión iniciada correctamente.");
 		}
 	};
 

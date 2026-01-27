@@ -1,12 +1,16 @@
 import { supabaseConexion } from "../supabase/supabase.js";
 
 const useSupabase = () => {
-	const registro = (email, password, nombre) => {
-		return supabaseConexion.auth.signUp({
-			email,
-			password,
-			options: { data: { name: nombre } },
-		});
+	const registro = async (email, password, nombre) => {
+		try {
+			const { data, error } = await supabaseConexion.auth.signUp({
+				email,
+				password,
+				options: { data: { name: nombre } },
+			});
+		} catch (error) {
+			throw error;
+		}
 	};
 
 	const login = (email, password) => {
