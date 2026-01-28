@@ -1,13 +1,14 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
 const contextoNotificaciones = createContext();
 
 const ProveedorNotificaciones = ({ children }) => {
-	const [mensaje, setMensaje] = useState('');
+	const [mensaje, setMensaje] = useState("");
 
 	const mostrarAviso = (texto) => {
 		setMensaje(texto);
-		setTimeout(() => setMensaje(''), 3000);
+		//Notificamos durante 3 segundos
+		setTimeout(() => setMensaje(""), 3000);
 	};
 
 	return (
