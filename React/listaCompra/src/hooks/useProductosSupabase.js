@@ -6,7 +6,7 @@ const useProductosSupabase = () => {
 			const { data, error } = await supabaseConexion
 				.from("productos")
 				.select("*");
-
+			if (error) throw error;
 			return data;
 		} catch (error) {
 			throw error;

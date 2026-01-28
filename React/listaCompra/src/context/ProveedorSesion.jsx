@@ -27,13 +27,12 @@ const ProveedorSesion = ({ children }) => {
 				datosSesion.password,
 				datosSesion.nombre,
 			);
-			if (!error) {
-				setUsuario(data.user);
-				setSesionIniciada(true);
-				mostrarAviso("Cuenta creada correctamente.");
-			} else {
+			if (error) {
 				throw error;
 			}
+			setUsuario(data.user);
+			setSesionIniciada(true);
+			mostrarAviso("Cuenta creada correctamente.");
 		} catch (error) {
 			mostrarAviso(error.message);
 		}
@@ -45,23 +44,29 @@ const ProveedorSesion = ({ children }) => {
 				datosSesion.email,
 				datosSesion.password,
 			);
-			if (!error) {
-				setUsuario(data.user);
-				setSesionIniciada(true);
-				mostrarAviso("Sesión iniciada correctamente.");
-			} else {
+			if (error) {
 				throw error;
 			}
+			setUsuario(data.user);
+			setSesionIniciada(true);
+			mostrarAviso("Sesión iniciada correctamente.");
 		} catch (error) {
 			mostrarAviso(error.message);
 		}
 	};
 
 	const cerrarSesion = async () => {
-		await logout();
-		setUsuario(null);
-		setSesionIniciada(false);
-		mostrarAviso("Has cerrado sesión.");
+		try {
+			const { error } = await logout();
+			if (error) {
+				throw error;
+			}
+			setUsuario(null);
+			setSesionIniciada(false);
+			mostrarAviso("Has cerrado sesión.");
+		} catch (error) {
+			mostrarAviso(error.message);
+		}
 	};
 
 	const datosAProveer = {
