@@ -1,4 +1,4 @@
-import { supabaseConexion } from "../supabase/supabase.js";
+import { supabaseConexion } from '../supabase/supabase.js';
 
 const useSupabase = () => {
 	const registro = async (email, password, nombre) => {
@@ -9,26 +9,26 @@ const useSupabase = () => {
 				options: { data: { name: nombre } },
 			});
 			if (error) throw error;
-			return { data };
+			return data;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const login = async (email, password) => {
+	const iniciarSesion = async (email, password) => {
 		try {
 			const { data, error } = await supabaseConexion.auth.signInWithPassword({
 				email,
 				password,
 			});
 			if (error) throw error;
-			return { data };
+			return data;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const logout = async () => {
+	const cerrarSesion = async () => {
 		try {
 			const { error } = await supabaseConexion.auth.signOut();
 			if (error) throw error;
@@ -36,7 +36,7 @@ const useSupabase = () => {
 			throw error;
 		}
 	};
-	return { registro, login, logout };
+	return { registro, iniciarSesion, cerrarSesion };
 };
 
 export default useSupabase;

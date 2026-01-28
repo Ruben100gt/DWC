@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import useSesion from "../hooks/useSesion.js";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import useSesion from '../hooks/useSesion.js';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-	const { actualizarDato, iniciarSesionPassword, sesionIniciada } = useSesion();
+	const { actualizarDato, iniciarSesionContraseña, sesionIniciada } = useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) navegar("/listacompra");
+		if (sesionIniciada) navegar('/listacompra');
 	}, [sesionIniciada, navegar]);
 
 	const enviarAcceso = async (e) => {
 		e.preventDefault();
-		await iniciarSesionPassword();
+		await iniciarSesionContraseña();
 	};
 
 	return (

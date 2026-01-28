@@ -1,36 +1,30 @@
-import React, { useState, createContext, useEffect } from "react";
-import useProductos from "../hooks/useProductos.js";
+import React, { useState, createContext, useEffect } from 'react';
+import useProductos from '../hooks/useProductos.js';
+import useProductosSupabase from '../hooks/useProductosSupabase.js';
 
 const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
-	const ERROR_INICIAL = "";
+	const ERROR_INICIAL = '';
 
+	const { obtenerListado, filtrarListado, ordenarListado, obtenerProductoPorId } = useProductosSupabase();
 	const [productos, setProductos] = useState([]);
 	const [producto, setProducto] = useState({});
 	const [errorProductos, setErrorProductos] = useState(ERROR_INICIAL);
 
-	//Falta filtra por precio y peso, debe ser igual o menor
-	const filtrarProductos = async (variable, valor) => {
+	const cargarProductos = async () => {
 		try {
-			const { data, error } = await supabaseConexion
-				.from("productos")
-				.select("*")
-				.eq(variable, valor);
-			setProductos(data);
-			setErrorProductos(ERROR_INICIAL);
+			const respuesta = await obtenerListado();
+			setProductos(respuesta);
 		} catch (error) {
 			setErrorProductos(error.message);
 		}
 	};
 
-	const ordenarProductos = async (variable, orden = true) => {
+	const filtrarProductos = async (variable, valor) => {
 		try {
-			const { data, error } = await supabaseConexion
-				.from("productos")
-				.select("*")
-				.order(variable, { ascending: orden });
-			setProducto(data);
+			const productosFiltrados = await filtrarListado(variable, valor);
+			setProductos(productosFiltrados);
 			setErrorProductos(ERROR_INICIAL);
 		} catch (error) {
 			setErrorProductos(error.message);
@@ -39,11 +33,10 @@ const ProveedorProductos = ({ children }) => {
 
 	const obtenerProducto = async (id) => {
 		try {
-			const { data, error } = await supabaseConexion
-				.from("productos")
-				.select("*")
-				.eq("id", id);
-			setProducto(data);
+			const resultadoProducto = await obtenerProductoPorId(id);
+			if (resultadoProducto && resultadoProducto.length > 0) {
+				setProducto(resultadoProducto[0]);
+			}
 			setErrorProductos(ERROR_INICIAL);
 		} catch (error) {
 			setErrorProductos(error.message);
@@ -51,23 +44,31 @@ const ProveedorProductos = ({ children }) => {
 	};
 
 	useEffect(() => {
-		obtenerListado();
+		cargarProductos();
 	}, []);
+
+	const totalProductos = productos.length;
+
+	let sumaPrecios = 0;
+	productos.forEach((p) => {
+		sumaPrecios += Number(p.precio);
+	});
+	const precioMedio = totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
 
 	const datosAProveer = {
 		productos,
+		setProductos,
+		producto,
 		errorProductos,
 		obtenerListado,
+		cargarProductos,
 		filtrarProductos,
-		ordenarProductos,
 		obtenerProducto,
+		totalProductos,
+		precioMedio,
 	};
 
-	return (
-		<contextoSesion.Provider value={datosAProveer}>
-			{children}
-		</contextoSesion.Provider>
-	);
+	return <contextoProductos.Provider value={datosAProveer}>{children}</contextoProductos.Provider>;
 };
 
 export default ProveedorProductos;

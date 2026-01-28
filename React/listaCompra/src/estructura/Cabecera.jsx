@@ -1,10 +1,10 @@
-import React from "react";
-import Menu from "../menu/Menu.jsx";
-import useSesion from "../hooks/useSesion.js";
-import "./Cabecera.css";
+import React, { useContext } from 'react';
+import Menu from '../menu/Menu.jsx';
+import { contextoSesion } from '../context/ProveedorSesion.jsx';
+import './Cabecera.css';
 
 const Cabecera = () => {
-	const { usuario, sesionIniciada, cerrarSesion } = useSesion();
+	const { usuario, sesionIniciada, desconectar } = useContext(contextoSesion);
 
 	return (
 		<header>
@@ -13,7 +13,7 @@ const Cabecera = () => {
 				{sesionIniciada && (
 					<div className="bloque-usuario">
 						<span>Bienvenido, {usuario?.user_metadata?.name}</span>
-						<button onClick={cerrarSesion}>Cerrar Sesión</button>
+						<button onClick={desconectar}>Cerrar Sesión</button>
 					</div>
 				)}
 			</div>
