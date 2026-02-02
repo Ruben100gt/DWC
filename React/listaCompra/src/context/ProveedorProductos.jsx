@@ -1,26 +1,36 @@
-import React, { useState, createContext, useEffect } from 'react';
-import useProductos from '../hooks/useProductos.js';
-import useProductosSupabase from '../hooks/useProductosSupabase.js';
+import React, { useState, createContext, useEffect } from "react";
+import useProductos from "../hooks/useProductos.js";
+import useProductosSupabase from "../hooks/useProductosSupabase.js";
 
 const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
-	const ERROR_INICIAL = '';
+	const ERROR_INICIAL = "";
 
-	const { obtenerListado, filtrarListado, ordenarListado, obtenerProductoPorId } = useProductosSupabase();
+	const {
+		obtenerListado,
+		filtrarListado,
+		ordenarListado,
+		obtenerProductoPorId,
+	} = useProductosSupabase("productos");
 	const [productos, setProductos] = useState([]);
+	// -------------------------------------------------------------------------------------------------------------------
+	// Usar para filtrarProductos
+	const [productosFiltro, setProductosFiltro] = useState([]);
 	const [producto, setProducto] = useState({});
 	const [errorProductos, setErrorProductos] = useState(ERROR_INICIAL);
 
 	const cargarProductos = async () => {
 		try {
-			const respuesta = await obtenerListado();
+			const respuesta = await obtenerListado("productos");
 			setProductos(respuesta);
 		} catch (error) {
 			setErrorProductos(error.message);
 		}
 	};
 
+	// -------------------------------------------------------------------------------------------------------------------
+	// Si el valor es 0 o "" productosFiltro se iguala a prductos (vacio)
 	const filtrarProductos = async (variable, valor) => {
 		try {
 			const productosFiltrados = await filtrarListado(variable, valor);
@@ -53,7 +63,8 @@ const ProveedorProductos = ({ children }) => {
 	productos.forEach((p) => {
 		sumaPrecios += Number(p.precio);
 	});
-	const precioMedio = totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
+	const precioMedio =
+		totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
 
 	const datosAProveer = {
 		productos,
@@ -68,7 +79,11 @@ const ProveedorProductos = ({ children }) => {
 		precioMedio,
 	};
 
-	return <contextoProductos.Provider value={datosAProveer}>{children}</contextoProductos.Provider>;
+	return (
+		<contextoProductos.Provider value={datosAProveer}>
+			{children}
+		</contextoProductos.Provider>
+	);
 };
 
 export default ProveedorProductos;

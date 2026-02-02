@@ -1,9 +1,9 @@
-import { supabaseConexion } from '../supabase/supabase.js';
+import { supabaseConexion } from "../supabase/supabase.js";
 
-const useProductosSupabase = () => {
+const useProductosSupabase = (tabla) => {
 	const obtenerListado = async () => {
 		try {
-			const { data, error } = await supabaseConexion.from('productos').select('*');
+			const { data, error } = await supabaseConexion.from(tabla).select("*");
 			if (error) throw error;
 			return data;
 		} catch (error) {
@@ -11,10 +11,12 @@ const useProductosSupabase = () => {
 		}
 	};
 
+	// -----------------------------------------------------------------------------------------------------------------------------------------------
+	//Quitar esta función, hacerla en proveedorProductos
 	const filtrarListado = async (variable, valor) => {
 		try {
-			let respuesta = supabaseConexion.from('productos').select('*');
-			if (variable === 'precio' || variable === 'peso') {
+			let respuesta = supabaseConexion.from(tabla).select("*");
+			if (variable === "precio" || variable === "peso") {
 				respuesta = respuesta.lte(variable, valor);
 			} else {
 				respuesta = respuesta.ilike(variable, `%${valor}%`);
@@ -29,7 +31,10 @@ const useProductosSupabase = () => {
 
 	const obtenerProductoPorId = async (id) => {
 		try {
-			const { data, error } = await supabaseConexion.from('productos').select('*').eq('id', id);
+			const { data, error } = await supabaseConexion
+				.from(tabla)
+				.select("*")
+				.eq("id", id);
 			if (error) throw error;
 			return data;
 		} catch (error) {
