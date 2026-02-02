@@ -36,7 +36,29 @@ const useSupabase = () => {
 			throw error;
 		}
 	};
-	return { registro, iniciarSesion, cerrarSesion };
+
+	const obtenerSesion = async () => {
+		try {
+			const { data, error } = await supabaseConexion.auth.getSession();
+			if (error) throw error;
+			return data.session;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const suscribirse = (callback) => {
+		try {
+			const { data } = supabaseConexion.auth.onAuthStateChange((event, session) => {
+				callback(session ? session.user : null);
+			});
+			return data;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	return { registro, iniciarSesion, cerrarSesion, obtenerSesion, suscribirse };
 };
 
 export default useSupabase;

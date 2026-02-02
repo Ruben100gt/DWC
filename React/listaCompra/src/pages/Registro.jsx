@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import useSesion from "../hooks/useSesion.js";
-import { useNavigate } from "react-router-dom";
-import "./Registro.css";
+import React, { useEffect } from 'react';
+import useSesion from '../hooks/useSesion.js';
+import { useNavigate } from 'react-router-dom';
+import './Registro.css';
 
 const Registro = () => {
 	const { actualizarDato, crearCuenta, sesionIniciada } = useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) navegar("/listacompra");
+		if (sesionIniciada) navegar('/listacompra');
 	}, [sesionIniciada, navegar]);
 
 	const ejecutarRegistro = async (e) => {
@@ -23,14 +23,7 @@ const Registro = () => {
 				<form onSubmit={ejecutarRegistro}>
 					<div>
 						<label htmlFor="nombre">Nombre:</label>
-						<input
-							type="text"
-							name="nombre"
-							id="nombre"
-							placeholder="Nombre"
-							onChange={actualizarDato}
-							required
-						/>
+						<input type="text" name="nombre" id="nombre" placeholder="Nombre" onChange={actualizarDato} required />
 					</div>
 					<div>
 						<label htmlFor="email">Email:</label>
@@ -50,6 +43,17 @@ const Registro = () => {
 							name="password"
 							id="password"
 							placeholder="Contraseña"
+							onChange={actualizarDato}
+							required
+						/>
+					</div>
+					<div>
+						<label htmlFor="password2">Repetir Contraseña:</label>
+						<input
+							type="password"
+							name="password2"
+							id="password2"
+							placeholder="Repite la contraseña"
 							onChange={actualizarDato}
 							required
 						/>
