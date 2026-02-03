@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+//Mejorar este componente
+
 const Error = () => {
 	const navegar = useNavigate();
 

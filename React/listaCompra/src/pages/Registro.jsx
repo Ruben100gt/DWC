@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import useSesion from '../hooks/useSesion.js';
-import { useNavigate } from 'react-router-dom';
-import './Registro.css';
+import React, { useEffect } from "react";
+import useSesion from "../hooks/useSesion.js";
+import { useNavigate } from "react-router-dom";
+import "./Registro.css";
 
 const Registro = () => {
-	const { actualizarDato, crearCuenta, sesionIniciada } = useSesion();
+	const { actualizarDato, crearCuenta, sesionIniciada, datosSesion } =
+		useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) navegar('/listacompra');
+		if (sesionIniciada) navegar("/listacompra");
 	}, [sesionIniciada, navegar]);
 
 	const ejecutarRegistro = async (e) => {
@@ -23,7 +24,16 @@ const Registro = () => {
 				<form onSubmit={ejecutarRegistro}>
 					<div>
 						<label htmlFor="nombre">Nombre:</label>
-						<input type="text" name="nombre" id="nombre" placeholder="Nombre" onChange={actualizarDato} required />
+						<input
+							type="text"
+							name="nombre"
+							id="nombre"
+							placeholder="Nombre"
+							value={datosSesion.nombre}
+							autoComplete="name"
+							onChange={actualizarDato}
+							required
+						/>
 					</div>
 					<div>
 						<label htmlFor="email">Email:</label>
@@ -32,6 +42,8 @@ const Registro = () => {
 							name="email"
 							id="email"
 							placeholder="nombre@algo.com"
+							value={datosSesion.email}
+							autoComplete="email"
 							onChange={actualizarDato}
 							required
 						/>
@@ -43,6 +55,8 @@ const Registro = () => {
 							name="password"
 							id="password"
 							placeholder="Contraseña"
+							value={datosSesion.password}
+							autoComplete="new-password"
 							onChange={actualizarDato}
 							required
 						/>
@@ -54,6 +68,8 @@ const Registro = () => {
 							name="password2"
 							id="password2"
 							placeholder="Repite la contraseña"
+							value={datosSesion.password2}
+							autoComplete="new-password"
 							onChange={actualizarDato}
 							required
 						/>

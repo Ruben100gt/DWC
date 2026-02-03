@@ -1,57 +1,34 @@
 import React, { useContext, useState } from "react";
 import { contextoProductos } from "../context/ProveedorProductos.jsx";
+import Producto from "./Producto.jsx";
 import "./ListaProductos.css";
+
+//
+//
+//
+//Dejar ver lista productos pero sin editar ni nada (ni ordenar, filtrar...)
+//
+//
+//
 
 const ListaProductos = () => {
 	//IMPORTANTE -> Al tener un orden puesto y cambiar el filtro, se pierde el orden, porque me salía un error de demasiadas consultas.
 
 	const {
-		productos,
-		setProductos,
+		productosFiltro,
 		totalProductos,
 		precioMedio,
 		filtrarProductos,
-		cargarProductos,
+		ordenarProductos,
 	} = useContext(contextoProductos);
 
 	const [tipoFiltro, setTipoFiltro] = useState("nombre");
 
-	const ordenarProductos = (columna) => {
-		if (!columna) return;
-
-		const listaOrdenada = [...productos].sort((a, b) => {
-			let valorA = a[columna];
-			let valorB = b[columna];
-
-			if (typeof valorA === "string") {
-				valorA = valorA.toLowerCase();
-				valorB = valorB.toLowerCase();
-			}
-
-			return valorA > valorB ? 1 : -1;
-		});
-
-		setProductos(listaOrdenada);
-	};
-
-	// -------------------------------------------------------------------------------------------------------------------
-	//Creo que es mejor hacerlo en ProveedorProductos
-	const cambioFiltro = (valor) => {
-		if (!valor || valor.trim() === "") {
-			cargarProductos();
-		} else {
-			filtrarProductos(tipoFiltro, valor);
-		}
-	};
-
-	// -------------------------------------------------------------------------------------------------------------------
-	//Buscar funcion local/tolocal(algo)
 	const formatearDinero = (cantidad) => {
-		return new Intl.NumberFormat("es-ES", {
+		return Number(cantidad).toLocaleString("es-ES", {
 			style: "currency",
 			currency: "EUR",
-			minimumFractionDigits: 2,
-		}).format(cantidad);
+		});
 	};
 
 	return (
@@ -71,7 +48,7 @@ const ListaProductos = () => {
 						<input
 							type={tipoFiltro === "nombre" ? "text" : "number"}
 							placeholder={`Filtrar ${tipoFiltro}...`}
-							onChange={(e) => cambioFiltro(e.target.value)}
+							onChange={(e) => filtrarProductos(tipoFiltro, e.target.value)}
 						/>
 					</div>
 
@@ -98,23 +75,9 @@ const ListaProductos = () => {
 				<h3>Listado de productos.</h3>
 
 				<div className="grid-productos">
-					{productos.map((p) => (
-						// -------------------------------------------------------------------------------------------------------------------
-						//Algo de que no hay componente <producto> ¿¿??
-						<div key={p.id} className="producto-item">
-							<div className="contenedor-foto">
-								<img
-									src={p.imagen_url}
-									alt={p.nombre}
-									className="foto-producto"
-								/>
-							</div>
-							<div className="info-producto">
-								<h4>{p.nombre}</h4>
-								<p className="precio">{formatearDinero(p.precio)}</p>
-								<p className="peso">Peso: {p.peso}g</p>
-							</div>
-						</div>
+					{productosFiltro.map((p) => (
+						// Usamos el componente <Producto />. ¿Buena descomposición?
+						<Producto key={p.id} datos={p} />
 					))}
 				</div>
 			</section>

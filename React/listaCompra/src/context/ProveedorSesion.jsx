@@ -1,6 +1,6 @@
-import React, { useState, createContext, useEffect } from 'react';
-import useSupabase from '../hooks/useSupabase.js';
-import useNotificaciones from '../hooks/useNotificacion.js';
+import React, { useState, createContext, useEffect } from "react";
+import useSupabase from "../hooks/useSupabase.js";
+import useNotificaciones from "../hooks/useNotificacion.js";
 
 const contextoSesion = createContext();
 
@@ -8,13 +8,14 @@ const ProveedorSesion = ({ children }) => {
 	const [usuario, setUsuario] = useState(null);
 	const [sesionIniciada, setSesionIniciada] = useState(false);
 	const [datosSesion, setDatosSesion] = useState({
-		nombre: '',
-		email: '',
-		password: '',
-		password2: '',
+		nombre: "",
+		email: "",
+		password: "",
+		password2: "",
 	});
 
-	const { registro, iniciarSesion, cerrarSesion, obtenerSesion, suscribirse } = useSupabase();
+	const { registro, iniciarSesion, cerrarSesion, obtenerSesion, suscribirse } =
+		useSupabase();
 	const { mostrarAviso } = useNotificaciones();
 
 	useEffect(() => {
@@ -48,14 +49,20 @@ const ProveedorSesion = ({ children }) => {
 
 	const crearCuenta = async () => {
 		if (datosSesion.password !== datosSesion.password2) {
-			mostrarAviso('Las contraseñas no coinciden.');
+			mostrarAviso("Las contraseñas no coinciden.");
 			return;
 		}
 		try {
-			const respuesta = await registro(datosSesion.email, datosSesion.password, datosSesion.nombre);
+			const respuesta = await registro(
+				datosSesion.email,
+				datosSesion.password,
+				datosSesion.nombre,
+			);
 			if (respuesta.user) {
-				setDatosSesion({ nombre: '', email: '', password: '', password2: '' });
-				mostrarAviso('Cuenta creada correctamente. Revisa tu correo.');
+				setDatosSesion({ nombre: "", email: "", password: "", password2: "" });
+				mostrarAviso(
+					"Por favor. Revise su correo para conformar la creación de lacuenta.",
+				);
 			}
 		} catch (error) {
 			mostrarAviso(error.message);
@@ -65,24 +72,26 @@ const ProveedorSesion = ({ children }) => {
 	const iniciarSesionContraseña = async () => {
 		try {
 			await iniciarSesion(datosSesion.email, datosSesion.password);
-			mostrarAviso('Sesión iniciada correctamente.');
+			mostrarAviso("Sesión iniciada correctamente.");
 		} catch (error) {
 			mostrarAviso(error.message);
 		}
 	};
 
 	const desconectar = async () => {
-		const confirmar = window.confirm('¿Estás seguro de que quieres cerrar sesión?');
+		const confirmar = window.confirm(
+			"¿Estás seguro de que quieres cerrar sesión?",
+		);
 		if (!confirmar) return;
 		try {
 			await cerrarSesion();
 			setDatosSesion({
-				nombre: '',
-				email: '',
-				password: '',
-				password2: '',
+				nombre: "",
+				email: "",
+				password: "",
+				password2: "",
 			});
-			mostrarAviso('Has cerrado sesión.');
+			mostrarAviso("Has cerrado sesión.");
 		} catch (error) {
 			mostrarAviso(error.message);
 		}
@@ -98,7 +107,11 @@ const ProveedorSesion = ({ children }) => {
 		desconectar,
 	};
 
-	return <contextoSesion.Provider value={datosAProveer}>{children}</contextoSesion.Provider>;
+	return (
+		<contextoSesion.Provider value={datosAProveer}>
+			{children}
+		</contextoSesion.Provider>
+	);
 };
 
 export default ProveedorSesion;

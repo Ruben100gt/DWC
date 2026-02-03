@@ -1,9 +1,9 @@
 import { supabaseConexion } from "../supabase/supabase.js";
 
 const useProductosSupabase = (tabla) => {
-	const obtenerListado = async () => {
+	const consulta = async (tabla) => {
 		try {
-			const { data, error } = await supabaseConexion.from(tabla).select("*");
+			const { data, error } = await tabla;
 			if (error) throw error;
 			return data;
 		} catch (error) {
@@ -11,41 +11,36 @@ const useProductosSupabase = (tabla) => {
 		}
 	};
 
-	// -----------------------------------------------------------------------------------------------------------------------------------------------
-	//Quitar esta función, hacerla en proveedorProductos
-	const filtrarListado = async (variable, valor) => {
-		try {
-			let respuesta = supabaseConexion.from(tabla).select("*");
-			if (variable === "precio" || variable === "peso") {
-				respuesta = respuesta.lte(variable, valor);
-			} else {
-				respuesta = respuesta.ilike(variable, `%${valor}%`);
-			}
-			const { data, error } = await respuesta;
-			if (error) throw error;
-			return data;
-		} catch (error) {
-			throw error;
-		}
+	const obtenerListado = async () => {
+		return await consulta(supabaseConexion.from(tabla).select("*"));
 	};
 
 	const obtenerProductoPorId = async (id) => {
-		try {
-			const { data, error } = await supabaseConexion
-				.from(tabla)
-				.select("*")
-				.eq("id", id);
-			if (error) throw error;
-			return data;
-		} catch (error) {
-			throw error;
-		}
+		return await consulta(
+			supabaseConexion.from(tabla).select("*").eq("id", id),
+		);
+	};
+
+	const insertarProducto = async (datos) => {
+		return await consulta(supabaseConexion.from(tabla).insert(datos));
+	};
+
+	const editarProducto = async (id, datos) => {
+		return await consulta(
+			supabaseConexion.from(tabla).update(datos).eq("id", id),
+		);
+	};
+
+	const eliminarProducto = async (id) => {
+		return await consulta(supabaseConexion.from(tabla).delete().eq("id", id));
 	};
 
 	return {
 		obtenerListado,
-		filtrarListado,
 		obtenerProductoPorId,
+		insertarProducto,
+		editarProducto,
+		eliminarProducto,
 	};
 };
 

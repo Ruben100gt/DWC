@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
-import useSesion from '../hooks/useSesion.js';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import useSesion from "../hooks/useSesion.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-	const { actualizarDato, iniciarSesionContraseña, sesionIniciada } = useSesion();
+	const {
+		actualizarDato,
+		iniciarSesionContraseña,
+		sesionIniciada,
+		datosSesion,
+	} = useSesion();
 	const navegar = useNavigate();
 
 	useEffect(() => {
-		if (sesionIniciada) navegar('/listacompra');
+		if (sesionIniciada) navegar("/listacompra");
 	}, [sesionIniciada, navegar]);
 
 	const enviarAcceso = async (e) => {
@@ -27,6 +32,8 @@ const Login = () => {
 							name="email"
 							id="email"
 							placeholder="nombre@algo.com"
+							value={datosSesion.email}
+							autoComplete="email"
 							onChange={actualizarDato}
 							required
 						/>
@@ -38,6 +45,8 @@ const Login = () => {
 							name="password"
 							id="password"
 							placeholder="Contraseña"
+							value={datosSesion.password}
+							autoComplete="current-password"
 							onChange={actualizarDato}
 							required
 						/>

@@ -1,5 +1,4 @@
 import React, { useState, createContext, useEffect } from "react";
-import useProductos from "../hooks/useProductos.js";
 import useProductosSupabase from "../hooks/useProductosSupabase.js";
 
 const contextoProductos = createContext();
@@ -9,13 +8,13 @@ const ProveedorProductos = ({ children }) => {
 
 	const {
 		obtenerListado,
-		filtrarListado,
-		ordenarListado,
 		obtenerProductoPorId,
+		insertarProducto,
+		editarProducto,
+		eliminarProducto,
 	} = useProductosSupabase("productos");
+
 	const [productos, setProductos] = useState([]);
-	// -------------------------------------------------------------------------------------------------------------------
-	// Usar para filtrarProductos
 	const [productosFiltro, setProductosFiltro] = useState([]);
 	const [producto, setProducto] = useState({});
 	const [errorProductos, setErrorProductos] = useState(ERROR_INICIAL);
@@ -24,21 +23,89 @@ const ProveedorProductos = ({ children }) => {
 		try {
 			const respuesta = await obtenerListado("productos");
 			setProductos(respuesta);
+			setProductosFiltro(respuesta);
+			setErrorProductos(ERROR_INICIAL);
 		} catch (error) {
 			setErrorProductos(error.message);
 		}
 	};
 
-	// -------------------------------------------------------------------------------------------------------------------
-	// Si el valor es 0 o "" productosFiltro se iguala a prductos (vacio)
-	const filtrarProductos = async (variable, valor) => {
+	// --- CRUD ESTILO PROFESOR (Manual y sin esperar respuesta de datos) ---
+
+	const crearNuevoProducto = async (datos) => {
 		try {
-			const productosFiltrados = await filtrarListado(variable, valor);
-			setProductos(productosFiltrados);
+			// Mandamos a Supabase (sin esperar retorno de datos)
+			await insertarProducto(datos);
+
+			// Actualizamos localmente añadiendo los datos 'a ciegas' al array
+			setProductos([...productos, datos]);
+			setProductosFiltro([...productosFiltro, datos]);
 			setErrorProductos(ERROR_INICIAL);
 		} catch (error) {
 			setErrorProductos(error.message);
 		}
+	};
+
+	const editarProductoExistente = async (id, datos) => {
+		try {
+			await editarProducto(id, datos);
+
+			// Mapeamos para sustituir los datos antiguos por los nuevos
+			const actualizarLista = (lista) =>
+				lista.map((p) => (p.id === id ? { ...p, ...datos } : p));
+
+			setProductos(actualizarLista(productos));
+			setProductosFiltro(actualizarLista(productosFiltro));
+			setErrorProductos(ERROR_INICIAL);
+		} catch (error) {
+			setErrorProductos(error.message);
+		}
+	};
+
+	const borrarProducto = async (id) => {
+		try {
+			await eliminarProducto(id);
+
+			// Filtramos para quitar el ID borrado
+			const quitarDeLista = (lista) => lista.filter((p) => p.id !== id);
+
+			setProductos(quitarDeLista(productos));
+			setProductosFiltro(quitarDeLista(productosFiltro));
+			setErrorProductos(ERROR_INICIAL);
+		} catch (error) {
+			setErrorProductos(error.message);
+		}
+	};
+
+	// --- RESTO DE FUNCIONES IGUAL QUE ANTES ---
+
+	const filtrarProductos = (variable, valor) => {
+		if (!valor || valor.trim() === "") {
+			setProductosFiltro(productos);
+			return;
+		}
+		const listaFiltrada = productos.filter((p) => {
+			if (variable === "precio" || variable === "peso") {
+				return Number(p[variable]) <= Number(valor);
+			} else {
+				return p[variable].toLowerCase().includes(valor.toLowerCase());
+			}
+		});
+		setProductosFiltro(listaFiltrada);
+	};
+
+	const ordenarProductos = (columna) => {
+		if (!columna) return;
+		const listaOrdenada = [...productosFiltro].sort((a, b) => {
+			let valorA = a[columna];
+			let valorB = b[columna];
+			if (typeof valorA === "string") {
+				valorA = valorA.toLowerCase();
+				valorB = valorB.toLowerCase();
+			}
+			return valorA > valorB ? 1 : -1;
+		});
+		setProductosFiltro(listaOrdenada);
 	};
 
 	const obtenerProducto = async (id) => {
@@ -57,10 +124,9 @@ const ProveedorProductos = ({ children }) => {
 		cargarProductos();
 	}, []);
 
-	const totalProductos = productos.length;
-
+	const totalProductos = productosFiltro.length;
 	let sumaPrecios = 0;
-	productos.forEach((p) => {
+	productosFiltro.forEach((p) => {
 		sumaPrecios += Number(p.precio);
 	});
 	const precioMedio =
@@ -68,15 +134,19 @@ const ProveedorProductos = ({ children }) => {
 
 	const datosAProveer = {
 		productos,
-		setProductos,
+		productosFiltro,
 		producto,
 		errorProductos,
 		obtenerListado,
 		cargarProductos,
 		filtrarProductos,
+		ordenarProductos,
 		obtenerProducto,
 		totalProductos,
 		precioMedio,
+		crearNuevoProducto,
+		editarProductoExistente,
+		borrarProducto,
 	};
 
 	return (
