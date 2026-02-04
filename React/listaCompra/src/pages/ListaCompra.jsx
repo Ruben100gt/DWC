@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { contextoSesion } from '../context/ProveedorSesion.jsx';
 import './ListaCompra.css';
 
 const ListaCompra = () => {
+	const { sesionIniciada } = useContext(contextoSesion);
+
 	return (
 		<div className="principal-contenedor">
 			<section className="listado-seccion">
-				<div className="acciones-listado">Acciones sobre listado.</div>
-				<h3>Mi lista de la compra.</h3>
-			</section>
+				{sesionIniciada && <div className="acciones-listado">Acciones sobre listado.</div>}
 
-			<section className="detalles-seccion">
-				<h3>Detalles y formularios.</h3>
+				<h3>Mi lista de la compra.</h3>
+				<p>...</p>
 			</section>
 		</div>
 	);

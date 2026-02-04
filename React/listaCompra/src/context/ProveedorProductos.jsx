@@ -1,48 +1,62 @@
-import React, { useState, createContext, useEffect } from "react";
-import useProductosSupabase from "../hooks/useProductosSupabase.js";
+import React, { useState, createContext, useEffect, useContext } from 'react';
+import useTablaSupabase from '../hooks/useTablaSupabase.js';
+import useNotificacion from '../hooks/useNotificacion.js';
+import { contextoSesion } from './ProveedorSesion.jsx';
 
 const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
-	const ERROR_INICIAL = "";
+	const ERROR_INICIAL = '';
 
-	const {
-		obtenerListado,
-		obtenerProductoPorId,
-		insertarProducto,
-		editarProducto,
-		eliminarProducto,
-	} = useProductosSupabase("productos");
+	const { obtenerListado, obtenerProductoPorId, insertarProducto, editarProducto, eliminarProducto } =
+		useTablaSupabase('productos');
+
+	const { notificacion } = useNotificacion();
+
+	const { sesionIniciada } = useContext(contextoSesion);
 
 	const [productos, setProductos] = useState([]);
 	const [productosFiltro, setProductosFiltro] = useState([]);
 	const [producto, setProducto] = useState({});
 	const [errorProductos, setErrorProductos] = useState(ERROR_INICIAL);
 
+	const limpiarFormulario = () => {
+		setProducto({});
+		setErrorProductos(ERROR_INICIAL);
+	};
+
+	// Si no hay sesión iniciada, actualizamos la lista a la original.
+	useEffect(() => {
+		if (!sesionIniciada && productos.length > 0) {
+			setProductosFiltro(productos);
+		}
+	}, [sesionIniciada]);
+
 	const cargarProductos = async () => {
 		try {
-			const respuesta = await obtenerListado("productos");
+			const respuesta = await obtenerListado('productos');
 			setProductos(respuesta);
 			setProductosFiltro(respuesta);
 			setErrorProductos(ERROR_INICIAL);
 		} catch (error) {
 			setErrorProductos(error.message);
+			notificacion('Error al cargar productos', 'error');
 		}
 	};
 
-	// --- CRUD ESTILO PROFESOR (Manual y sin esperar respuesta de datos) ---
-
 	const crearNuevoProducto = async (datos) => {
 		try {
-			// Mandamos a Supabase (sin esperar retorno de datos)
-			await insertarProducto(datos);
-
-			// Actualizamos localmente añadiendo los datos 'a ciegas' al array
-			setProductos([...productos, datos]);
-			setProductosFiltro([...productosFiltro, datos]);
-			setErrorProductos(ERROR_INICIAL);
+			const respuesta = await insertarProducto(datos);
+			if (respuesta && respuesta.length > 0) {
+				const nuevoItem = respuesta[0];
+				setProductos([...productos, nuevoItem]);
+				setProductosFiltro([...productosFiltro, nuevoItem]);
+				notificacion('Producto creado correctamente', 'exito');
+			}
+			limpiarFormulario();
 		} catch (error) {
 			setErrorProductos(error.message);
+			notificacion('Error al crear el producto', 'error');
 		}
 	};
 
@@ -50,15 +64,15 @@ const ProveedorProductos = ({ children }) => {
 		try {
 			await editarProducto(id, datos);
 
-			// Mapeamos para sustituir los datos antiguos por los nuevos
-			const actualizarLista = (lista) =>
-				lista.map((p) => (p.id === id ? { ...p, ...datos } : p));
+			const actualizarLista = (lista) => lista.map((p) => (p.id == id ? { ...p, ...datos } : p));
 
 			setProductos(actualizarLista(productos));
 			setProductosFiltro(actualizarLista(productosFiltro));
-			setErrorProductos(ERROR_INICIAL);
+			limpiarFormulario();
+			notificacion('Producto actualizado correctamente', 'exito');
 		} catch (error) {
 			setErrorProductos(error.message);
+			notificacion('Error al editar el producto', 'error');
 		}
 	};
 
@@ -66,26 +80,28 @@ const ProveedorProductos = ({ children }) => {
 		try {
 			await eliminarProducto(id);
 
-			// Filtramos para quitar el ID borrado
-			const quitarDeLista = (lista) => lista.filter((p) => p.id !== id);
+			const quitarDeLista = (lista) => lista.filter((p) => p.id != id);
 
 			setProductos(quitarDeLista(productos));
 			setProductosFiltro(quitarDeLista(productosFiltro));
-			setErrorProductos(ERROR_INICIAL);
+
+			if (producto.id == id) {
+				limpiarFormulario();
+			}
+			notificacion('Producto eliminado', 'exito');
 		} catch (error) {
 			setErrorProductos(error.message);
+			notificacion('Error al borrar el producto', 'error');
 		}
 	};
 
-	// --- RESTO DE FUNCIONES IGUAL QUE ANTES ---
-
 	const filtrarProductos = (variable, valor) => {
-		if (!valor || valor.trim() === "") {
+		if (!valor || valor.trim() === '') {
 			setProductosFiltro(productos);
 			return;
 		}
 		const listaFiltrada = productos.filter((p) => {
-			if (variable === "precio" || variable === "peso") {
+			if (variable === 'precio' || variable === 'peso') {
 				return Number(p[variable]) <= Number(valor);
 			} else {
 				return p[variable].toLowerCase().includes(valor.toLowerCase());
@@ -99,7 +115,7 @@ const ProveedorProductos = ({ children }) => {
 		const listaOrdenada = [...productosFiltro].sort((a, b) => {
 			let valorA = a[columna];
 			let valorB = b[columna];
-			if (typeof valorA === "string") {
+			if (typeof valorA === 'string') {
 				valorA = valorA.toLowerCase();
 				valorB = valorB.toLowerCase();
 			}
@@ -129,8 +145,7 @@ const ProveedorProductos = ({ children }) => {
 	productosFiltro.forEach((p) => {
 		sumaPrecios += Number(p.precio);
 	});
-	const precioMedio =
-		totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
+	const precioMedio = totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
 
 	const datosAProveer = {
 		productos,
@@ -147,13 +162,10 @@ const ProveedorProductos = ({ children }) => {
 		crearNuevoProducto,
 		editarProductoExistente,
 		borrarProducto,
+		limpiarFormulario,
 	};
 
-	return (
-		<contextoProductos.Provider value={datosAProveer}>
-			{children}
-		</contextoProductos.Provider>
-	);
+	return <contextoProductos.Provider value={datosAProveer}>{children}</contextoProductos.Provider>;
 };
 
 export default ProveedorProductos;

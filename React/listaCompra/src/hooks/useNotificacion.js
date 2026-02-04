@@ -1,14 +1,12 @@
-import { useContext } from "react";
-import { contextoNotificaciones } from "../context/ProveedorNotificaciones.jsx";
+import { useContext } from 'react';
+import { contextoNotificaciones } from '../context/ProveedorNotificaciones.jsx';
 
-const useNotificaciones = () => {
+const useNotificacion = () => {
 	const contexto = useContext(contextoNotificaciones);
 	if (!contexto) {
-		throw new Error(
-			"useNotificaciones debe usarse dentro de <ProveedorNotificaciones>.",
-		);
+		throw new Error('useNotificacion debe usarse dentro de <ProveedorNotificaciones>');
 	}
 	return contexto;
 };
 
-export default useNotificaciones;
+export default useNotificacion;

@@ -16,6 +16,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border: black 1px solid;
 }
 
 .foto-producto {
@@ -27,4 +28,26 @@
 .info-producto h4 {
 	margin: 0 0 5px 0;
 	font-size: 1.25rem;
+}
+
+.acciones-producto {
+	margin-top: 10px;
+	display: flex;
+	gap: 10px;
+}
+.btn-borrar {
+	background-color: #ff4d4d;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+.btn-editar {
+	background-color: #4d94ff;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
 }

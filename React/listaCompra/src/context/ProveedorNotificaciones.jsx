@@ -1,23 +1,23 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { useState, createContext } from 'react';
 
 const contextoNotificaciones = createContext();
 
 const ProveedorNotificaciones = ({ children }) => {
-	const [mensaje, setMensaje] = useState("");
+	const [lista, setLista] = useState([]);
 
-	const mostrarAviso = (texto) => {
-		setMensaje(texto);
-		//Notificamos durante 3 segundos
-		setTimeout(() => setMensaje(""), 3000);
+	const notificacion = (mensaje, tipo = 'exito') => {
+		const id = Date.now();
+		const nuevaAlerta = { id, mensaje, tipo };
+
+		setLista((prev) => [...prev, nuevaAlerta]);
+
+		setTimeout(() => {
+			setLista((prev) => prev.filter((item) => item.id !== id));
+		}, 3000);
 	};
 
-	return (
-		<contextoNotificaciones.Provider value={{ mostrarAviso }}>
-			{children}
-			{mensaje && <div className="notificacion-flotante">{mensaje}</div>}
-		</contextoNotificaciones.Provider>
-	);
+	return <contextoNotificaciones.Provider value={{ lista, notificacion }}>{children}</contextoNotificaciones.Provider>;
 };
 
-export default ProveedorNotificaciones;
 export { contextoNotificaciones };
+export default ProveedorNotificaciones;
