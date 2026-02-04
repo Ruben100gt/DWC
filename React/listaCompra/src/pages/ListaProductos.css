@@ -15,9 +15,7 @@
 
 .caja-acciones {
 	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	flex-wrap: wrap;
+	flex-direction: column;
 	gap: 20px;
 	background-color: #f8f9fa;
 	padding: 20px;
@@ -26,11 +24,26 @@
 	margin-bottom: 25px;
 }
 
+.fila-superior {
+	display: flex;
+	align-items: flex-end;
+	gap: 20px;
+	width: 100%;
+}
+
+.fila-inferior {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	border-top: 1px solid #e9ecef;
+	padding-top: 15px;
+}
+
 .resumen-info {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
-	min-width: 150px;
 	font-size: 0.95rem;
 	color: #495057;
 }
@@ -40,11 +53,25 @@
 	font-weight: 700;
 }
 
-.acciones-derecha {
+.btn-crear {
+	background-color: #0d6efd;
+	color: white;
+	padding: 0 20px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 600;
+	font-size: 0.95rem;
+	transition: background-color 0.2s;
+	height: 40px;
+	width: auto !important;
 	display: flex;
-	align-items: flex-end;
-	gap: 15px;
-	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-crear:hover {
+	background-color: #0b5ed7;
 }
 
 .grupo-filtro {
@@ -62,7 +89,7 @@
 
 .grupo-filtro select,
 .grupo-filtro input {
-	padding: 8px 12px;
+	padding: 0 10px;
 	border: 1px solid #ced4da;
 	border-radius: 6px;
 	font-size: 0.9rem;
@@ -76,25 +103,6 @@
 	border-color: #86b7fe;
 	outline: none;
 	box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-.btn-crear {
-	background-color: #0d6efd;
-	color: white;
-	padding: 0 20px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: 600;
-	font-size: 0.95rem;
-	transition: background-color 0.2s;
-	height: 40px;
-	display: flex;
-	align-items: center;
-}
-
-.btn-crear:hover {
-	background-color: #0b5ed7;
 }
 
 .mensaje-sesion {

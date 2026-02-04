@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import useSupabase from '../hooks/useSupabase.js';
-import useNotificacion from '../hooks/useNotificacion.js'; // IMPORTANTE: Singular
+import useNotificacion from '../hooks/useNotificacion.js';
 
 const contextoSesion = createContext();
 
@@ -16,7 +16,6 @@ const ProveedorSesion = ({ children }) => {
 
 	const { registro, iniciarSesion, cerrarSesion, obtenerSesion, suscribirse } = useSupabase();
 
-	// Usamos 'notificacion' en lugar de 'mostrarAviso'
 	const { notificacion } = useNotificacion();
 
 	useEffect(() => {

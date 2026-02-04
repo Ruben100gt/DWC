@@ -1,26 +1,21 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-
-//Mejorar este componente
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Error.css';
 
 const Error = () => {
 	const navegar = useNavigate();
 
 	return (
-		<>
-			<h1>
-				¡Ups! Se ha producido un error. Por favor vuelva a intentarlo o vuelva a
-				inicio.
-			</h1>
-			<button
-				onClick={() => {
-					// Redirigimos al inicio.
-					navegar("/");
-				}}
-			>
-				Volver a inicio.
-			</button>
-		</>
+		<div className="error-container">
+			<div className="error-card">
+				<div className="error-codigo">404</div>
+				<h1>¡Vaya! Algo salió mal.</h1>
+				<p>La página que buscas no existe o se ha producido un error inesperado. Por favor, vuelve al inicio.</p>
+				<button className="btn-volver" onClick={() => navegar('/')}>
+					Volver a Inicio
+				</button>
+			</div>
+		</div>
 	);
 };
 

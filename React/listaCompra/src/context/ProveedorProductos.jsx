@@ -111,7 +111,10 @@ const ProveedorProductos = ({ children }) => {
 	};
 
 	const ordenarProductos = (columna) => {
-		if (!columna) return;
+		if (!columna) {
+			setProductosFiltro(productos);
+			return;
+		}
 		const listaOrdenada = [...productosFiltro].sort((a, b) => {
 			let valorA = a[columna];
 			let valorB = b[columna];
@@ -167,6 +170,5 @@ const ProveedorProductos = ({ children }) => {
 
 	return <contextoProductos.Provider value={datosAProveer}>{children}</contextoProductos.Provider>;
 };
-
 export default ProveedorProductos;
 export { contextoProductos };

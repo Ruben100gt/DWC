@@ -11,7 +11,7 @@ const ListaCompra = () => {
 				{sesionIniciada && <div className="acciones-listado">Acciones sobre listado.</div>}
 
 				<h3>Mi lista de la compra.</h3>
-				<p>...</p>
+				<p>Próximamente...</p>
 			</section>
 		</div>
 	);

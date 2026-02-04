@@ -1,86 +1,75 @@
-.modal-overlay {
+.confirmacion-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.5);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 2000;
-	backdrop-filter: blur(3px);
+	backdrop-filter: blur(2px);
 }
 
-.modal-contenido {
+.confirmacion-contenido {
 	background-color: #ffffff;
 	color: #333;
-	padding: 25px;
+	padding: 30px;
 	border-radius: 12px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 	text-align: center;
 	width: 380px;
 	max-width: 90%;
-	border: 1px solid #f0f0f0;
-	animation: aparecerSuave 0.2s ease-out;
+	border: 1px solid #e0e0e0;
 }
 
-@keyframes aparecerSuave {
-	from {
-		transform: scale(0.95);
-		opacity: 0;
-	}
-	to {
-		transform: scale(1);
-		opacity: 1;
-	}
-}
-
-.modal-titulo {
+.confirmacion-titulo {
 	margin-top: 0;
-	margin-bottom: 10px;
-	color: #333;
-	font-size: 1.2rem;
+	margin-bottom: 15px;
+	color: #222;
+	font-size: 1.4rem;
 	font-weight: 700;
 }
 
-.modal-texto {
-	color: #666;
-	margin-bottom: 25px;
-	font-size: 0.95rem;
+.confirmacion-texto {
+	color: #555;
+	margin-bottom: 30px;
+	font-size: 1rem;
 	line-height: 1.5;
 }
 
-.modal-botones {
+.confirmacion-botones {
 	display: flex;
-	justify-content: center;
-	gap: 12px;
+	gap: 15px;
+	justify-content: space-between;
 }
 
-.btn-modal {
-	padding: 10px 20px;
+.btn-confirmacion {
+	padding: 12px 20px;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	font-weight: 600;
-	font-size: 0.9rem;
+	font-size: 0.95rem;
 	transition: background-color 0.2s;
+	flex: 1;
 }
 
 .btn-cancelar {
-	background-color: #e9ecef;
-	color: #495057;
-}
-
-.btn-cancelar:hover {
-	background-color: #dee2e6;
-}
-
-.btn-confirmar {
-	background-color: #dc3545; /* Rojo Bootstrap */
+	background-color: #6c757d;
 	color: white;
 }
 
-.btn-confirmar:hover {
-	background-color: #c82333;
+.btn-cancelar:hover {
+	background-color: #5a6268;
+}
+
+.btn-aceptar {
+	background-color: #0d6efd;
+	color: white;
+}
+
+.btn-aceptar:hover {
+	background-color: #0b5ed7;
 }

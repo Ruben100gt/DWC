@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { contextoProductos } from '../context/ProveedorProductos.jsx';
+import useNotificacion from '../hooks/useNotificacion.js';
 import './FormularioProducto.css';
 
 const FormularioProducto = () => {
@@ -9,6 +10,8 @@ const FormularioProducto = () => {
 
 	const { crearNuevoProducto, editarProductoExistente, producto, limpiarFormulario, obtenerProducto } =
 		useContext(contextoProductos);
+
+	const { notificacion } = useNotificacion();
 
 	const [form, setForm] = useState({
 		nombre: '',
@@ -47,18 +50,22 @@ const FormularioProducto = () => {
 		const datosAEnviar = {
 			nombre: form.nombre,
 			descripcion: form.descripcion || '',
-			// Convertimos a float y manejamos comas como separadores decimales (para supabase).
-			precio: parseFloat(form.precio.toString().replace(',', '.')) || 0,
-			peso: parseFloat(form.peso.toString().replace(',', '.')) || 0,
+			// Convertimos a string y cambiamos comas a punto (para supabase).
+			precio: form.precio.toString().replace(',', '.'),
+			peso: form.peso.toString().replace(',', '.'),
 			imagen_url: form.imagen_url || null,
 		};
 
-		if (id) {
-			await editarProductoExistente(id, datosAEnviar);
-		} else {
-			await crearNuevoProducto(datosAEnviar);
+		try {
+			if (id) {
+				await editarProductoExistente(id, datosAEnviar);
+			} else {
+				await crearNuevoProducto(datosAEnviar);
+			}
+			navigate('/productos');
+		} catch (error) {
+			notificacion('Error al guardar el producto', 'error');
 		}
-		navigate('/productos');
 	};
 
 	return (
@@ -93,8 +100,8 @@ const FormularioProducto = () => {
 				<div className="campo">
 					<label htmlFor="precio">Precio (€) (Obligatorio):</label>
 					<input
-						type="text"
-						inputMode="decimal"
+						type="number"
+						min="0"
 						name="precio"
 						value={form.precio || ''}
 						onChange={actualizarInput}
@@ -106,8 +113,8 @@ const FormularioProducto = () => {
 				<div className="campo">
 					<label htmlFor="peso">Peso (g) (Obligatorio):</label>
 					<input
-						type="text"
-						inputMode="decimal"
+						type="number"
+						min="0"
 						name="peso"
 						value={form.peso || ''}
 						onChange={actualizarInput}
