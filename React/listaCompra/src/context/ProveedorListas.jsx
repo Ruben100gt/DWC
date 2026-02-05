@@ -3,18 +3,27 @@ import useTablaSupabase from "../hooks/useTablaSupabase.js";
 import useNotificacion from "../hooks/useNotificacion.js";
 import { contextoSesion } from "./ProveedorSesion.jsx";
 
-const contextoProductos = createContext();
+const contextoListas = createContext();
 
-const ProveedorProductos = ({ children }) => {
+const ProveedorListas = ({ children }) => {
 	const ERROR_INICIAL = "";
 
 	const {
-		obtenerListado,
+		obtenerListado: obtenerAlgo,
 		obtenerProductoPorId,
 		insertarProducto,
 		editarProducto,
 		eliminarProducto,
-	} = useTablaSupabase("productos");
+	} = useTablaSupabase("lista_compra");
+
+	// ESTO LO HACEMOS PARA NO CREAR 2 PROVEEDORES, UNO DE LISTA COMPRA Y OTRO DE LISTA ARTICULOS
+	/* const {
+		obtenerListado : a,
+		obtenerProductoPorId : b,
+		insertarProducto: c,
+		editarProducto: d,
+		eliminarProducto: e,
+	} = useTablaSupabase("articulos_lista"); */
 
 	const { notificacion } = useNotificacion();
 
@@ -180,10 +189,10 @@ const ProveedorProductos = ({ children }) => {
 	};
 
 	return (
-		<contextoProductos.Provider value={datosAProveer}>
+		<contextoListas.Provider value={datosAProveer}>
 			{children}
-		</contextoProductos.Provider>
+		</contextoListas.Provider>
 	);
 };
-export default ProveedorProductos;
-export { contextoProductos };
+export default ProveedorListas;
+export { contextoListas };
