@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { contextoSesion } from '../context/ProveedorSesion.jsx';
-import { contextoProductos } from '../context/ProveedorProductos.jsx';
-import Confirmacion from './Confirmacion.jsx';
-import './Producto.css';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { contextoSesion } from "../context/ProveedorSesion.jsx";
+import { contextoProductos } from "../context/ProveedorProductos.jsx";
+import Confirmacion from "./Confirmacion.jsx";
+import "./Producto.css";
 
 const Producto = ({ datos }) => {
 	if (!datos) return null;
@@ -14,12 +14,19 @@ const Producto = ({ datos }) => {
 
 	const [confirmandoBorrado, setConfirmandoBorrado] = useState(false);
 
-	const precioFormateado = Number(datos.precio).toLocaleString('es-ES', {
-		style: 'currency',
-		currency: 'EUR',
+	const precioFormateado = Number(datos.precio).toLocaleString("es-ES", {
+		style: "currency",
+		currency: "EUR",
+		useGrouping: true,
 	});
 
-	const imagenParaMostrar = datos.imagen_url ? datos.imagen_url : 'https://placehold.co/400?text=Sin+Foto';
+	const pesoFormateado = Number(datos.peso).toLocaleString("es-ES", {
+		useGrouping: true,
+	});
+
+	const imagenParaMostrar = datos.imagen_url
+		? datos.imagen_url
+		: "https://placehold.co/400?text=Sin+Foto";
 
 	const confirmarBorrado = () => {
 		borrarProducto(datos.id);
@@ -29,21 +36,31 @@ const Producto = ({ datos }) => {
 	return (
 		<div className="producto-item">
 			<div className="contenedor-foto">
-				<img src={imagenParaMostrar} alt={datos.nombre} className="foto-producto" />
+				<img
+					src={imagenParaMostrar}
+					alt={datos.nombre}
+					className="foto-producto"
+				/>
 			</div>
 
 			<div className="info-producto">
 				<h4>{datos.nombre}</h4>
 				<p className="precio">{precioFormateado}</p>
-				<p className="peso">Peso: {datos.peso}g</p>
+				<p className="peso">Peso: {pesoFormateado}g</p>
 
 				{sesionIniciada && (
 					<div className="acciones-producto">
-						<button className="btn-editar" onClick={() => navigate(`/productos/editar/${datos.id}`)}>
+						<button
+							className="btn-editar"
+							onClick={() => navigate(`/productos/editar/${datos.id}`)}
+						>
 							Editar
 						</button>
 
-						<button className="btn-borrar" onClick={() => setConfirmandoBorrado(true)}>
+						<button
+							className="btn-borrar"
+							onClick={() => setConfirmandoBorrado(true)}
+						>
 							Borrar
 						</button>
 					</div>

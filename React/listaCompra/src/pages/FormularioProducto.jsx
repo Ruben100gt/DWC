@@ -69,9 +69,6 @@ const FormularioProducto = () => {
 		};
 
 		try {
-			console.log(datosAEnviar.precio);
-			console.log(datosAEnviar.peso);
-
 			if (id) {
 				await editarProductoExistente(id, datosAEnviar);
 			} else {
@@ -108,12 +105,6 @@ const FormularioProducto = () => {
 						onChange={actualizarInput}
 						placeholder="Información extra..."
 						rows="3"
-						style={{
-							width: "100%",
-							padding: "10px",
-							borderRadius: "6px",
-							border: "1px solid #ccc",
-						}}
 					/>
 				</div>
 

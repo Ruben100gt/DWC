@@ -20,6 +20,7 @@
 
 .campo {
 	margin-bottom: 15px;
+	width: 400px;
 }
 
 .campo label {
@@ -31,6 +32,16 @@
 }
 
 .campo input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 0.95rem;
+	box-sizing: border-box;
+	transition: border-color 0.2s;
+}
+
+.campo textarea {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
