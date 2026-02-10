@@ -8,184 +8,199 @@ const contextoListas = createContext();
 const ProveedorListas = ({ children }) => {
 	const ERROR_INICIAL = "";
 
+	// Para no crear 2 proveedores, llamamos a useTablaSupabase 2 veces, una para cada tabla (cambiando el nombre de las funciones).
+	// Tabla de Listas de la compra.
 	const {
-		obtenerListado: obtenerAlgo,
-		obtenerProductoPorId,
-		insertarProducto,
-		editarProducto,
-		eliminarProducto,
+		obtener: obtenerListado,
+		obtenerPorId: obtenerListaPorId,
+		insertar: insertarLista,
+		eliminar: eliminarLista,
 	} = useTablaSupabase("lista_compra");
 
-	// ESTO LO HACEMOS PARA NO CREAR 2 PROVEEDORES, UNO DE LISTA COMPRA Y OTRO DE LISTA ARTICULOS
-	/* const {
-		obtenerListado : a,
-		obtenerProductoPorId : b,
-		insertarProducto: c,
-		editarProducto: d,
-		eliminarProducto: e,
-	} = useTablaSupabase("articulos_lista"); */
+	// Tabla de Artículos de la compra.
+	const {
+		obtener: obtenerArticulos,
+		obtenerConConsulta: obtenerArticulosConDatos,
+		insertar: insertarArticulo,
+		eliminar: eliminarArticulo,
+	} = useTablaSupabase("articulos_lista");
 
 	const { notificacion } = useNotificacion();
+	const { sesionIniciada, usuario } = useContext(contextoSesion);
 
-	const { sesionIniciada } = useContext(contextoSesion);
+	const [listas, setListas] = useState([]);
+	const [lista, setLista] = useState({});
+	const [errorListas, setErrorListas] = useState(ERROR_INICIAL);
 
-	const [productos, setProductos] = useState([]);
-	const [productosFiltro, setProductosFiltro] = useState([]);
-	const [producto, setProducto] = useState({});
-	const [errorProductos, setErrorProductos] = useState(ERROR_INICIAL);
+	const [articulos, setArticulos] = useState([]);
+	const [errorArticulos, setErrorArticulos] = useState(ERROR_INICIAL);
 
-	const limpiarFormulario = () => {
-		setProducto({});
-		setErrorProductos(ERROR_INICIAL);
+	const limpiarFormularioLista = () => {
+		setLista({});
+		setErrorListas(ERROR_INICIAL);
 	};
 
-	// Si no hay sesión iniciada, actualizamos la lista a la original.
-	useEffect(() => {
-		if (!sesionIniciada && productos.length > 0) {
-			setProductosFiltro(productos);
-		}
-	}, [sesionIniciada]);
-
-	const cargarProductos = async () => {
+	const cargarListas = async () => {
 		try {
 			const respuesta = await obtenerListado();
-			setProductos(respuesta);
-			setProductosFiltro(respuesta);
-			setErrorProductos(ERROR_INICIAL);
+			setListas(respuesta);
+			setListasFiltro(respuesta);
+			setErrorListas(ERROR_INICIAL);
 		} catch (error) {
-			setErrorProductos(error.message);
-			notificacion("Error al cargar productos", "error");
+			setErrorListas(error.message);
+			notificacion("Error al cargar listas", "error");
 		}
 	};
 
-	const crearNuevoProducto = async (datos) => {
+	const cargarArticulos = async (idLista) => {
+		if (!idLista) {
+			setArticulos([]);
+			return;
+		}
 		try {
-			const respuesta = await insertarProducto(datos);
+			// Usamos "obtenerConConsulta" para traer productos de cada artículo.
+			const respuesta = await obtenerArticulosConDatos("*, productos(*)");
+
+			const articulosLista = respuesta.filter((a) => a.lista_id === idLista);
+
+			setArticulos(articulosLista);
+			setErrorArticulos(ERROR_INICIAL);
+		} catch (error) {
+			setErrorArticulos(error.message);
+			notificacion("Error al cargar artículos", "error");
+		}
+	};
+
+	const crearNuevaLista = async (datos) => {
+		const datosCompletos = {
+			...datos,
+			fecha_creacion: new Date().toISOString(), // Formato string (ISO) para que la base de datos lo entienda.
+			propietario_id: perfil?.id, // Uso el ? para evitar errores si el perfil aún no ha cargado (es null).
+		};
+		try {
+			const respuesta = await insertarLista(datosCompletos);
 			if (respuesta && respuesta.length > 0) {
-				const nuevoItem = respuesta[0];
-				setProductos([...productos, nuevoItem]);
-				setProductosFiltro([...productosFiltro, nuevoItem]);
-				notificacion("Producto creado correctamente", "exito");
+				setListas([...listas, respuesta[0]]);
+				notificacion("Lista creada correctamente", "exito");
 			}
-			limpiarFormulario();
+			limpiarFormularioLista();
 		} catch (error) {
-			setErrorProductos(error.message);
-			notificacion("Error al crear el producto", "error");
+			setErrorListas(error.message);
+			notificacion("Error al crear la lista", "error");
 		}
 	};
 
-	const editarProductoExistente = async (id, datos) => {
+	const crearNuevoArticulo = async (datos) => {
 		try {
-			await editarProducto(id, datos);
-
-			const actualizarLista = (lista) =>
-				lista.map((p) => (p.id == id ? { ...p, ...datos } : p));
-
-			setProductos(actualizarLista(productos));
-			setProductosFiltro(actualizarLista(productosFiltro));
-			limpiarFormulario();
-			notificacion("Producto actualizado correctamente", "exito");
+			const respuesta = await insertarArticulo(datos);
+			if (respuesta && respuesta.length > 0) {
+				setArticulos([...articulos, respuesta[0]]);
+				notificacion("Producto añadido", "exito");
+			}
 		} catch (error) {
-			setErrorProductos(error.message);
-			notificacion("Error al editar el producto", "error");
+			setErrorArticulos(error.message);
+			notificacion("Error al añadir producto", "error");
 		}
 	};
 
-	const borrarProducto = async (id) => {
+	const borrarLista = async (id) => {
 		try {
-			await eliminarProducto(id);
+			await eliminarLista(id);
+
+			setListas(listas.filter((l) => l.id !== id));
+
+			if (lista.id == id) {
+				limpiarFormularioLista();
+			}
+			notificacion("Lista eliminada", "exito");
+		} catch (error) {
+			setErrorListas(error.message);
+			notificacion("Error al borrar la lista", "error");
+		}
+	};
+
+	const borrarArticulo = async (id) => {
+		try {
+			await eliminarArticulo(id);
 
 			const quitarDeLista = (lista) => lista.filter((p) => p.id != id);
 
-			setProductos(quitarDeLista(productos));
-			setProductosFiltro(quitarDeLista(productosFiltro));
+			setArticulos(quitarDeLista(articulos));
+			setArticulosFiltro(quitarDeLista(articulosFiltro));
 
-			if (producto.id == id) {
-				limpiarFormulario();
+			if (articulo.id == id) {
+				limpiarFormularioArticulo();
 			}
-			notificacion("Producto eliminado", "exito");
+			notificacion("Artículo eliminado", "exito");
 		} catch (error) {
-			setErrorProductos(error.message);
-			notificacion("Error al borrar el producto", "error");
+			setErrorArticulos(error.message);
+			notificacion("Error al borrar el artículo", "error");
 		}
 	};
 
-	const filtrarProductos = (variable, valor) => {
-		if (!valor || valor.trim() === "") {
-			setProductosFiltro(productos);
-			return;
-		}
-		const listaFiltrada = productos.filter((p) => {
-			if (variable === "precio" || variable === "peso") {
-				return Number(p[variable]) <= Number(valor);
-			} else {
-				return p[variable].toLowerCase().includes(valor.toLowerCase());
-			}
-		});
-		setProductosFiltro(listaFiltrada);
-	};
-
-	const ordenarProductos = (columna) => {
-		if (!columna) {
-			setProductosFiltro(productos);
-			return;
-		}
-		const listaOrdenada = [...productosFiltro].sort((a, b) => {
-			let valorA = a[columna];
-			let valorB = b[columna];
-
-			// Si son texto los pasamos a minúsculas.
-			if (typeof valorA === "string") {
-				valorA = valorA.toLowerCase();
-			}
-			if (typeof valorB === "string") {
-				valorB = valorB.toLowerCase();
-			}
-			return valorA > valorB ? 1 : -1;
-		});
-		setProductosFiltro(listaOrdenada);
-	};
-
-	const obtenerProducto = async (id) => {
+	const obtenerLista = async (id) => {
 		try {
-			const resultadoProducto = await obtenerProductoPorId(id);
-			if (resultadoProducto && resultadoProducto.length > 0) {
-				setProducto(resultadoProducto[0]);
+			const resultado = await obtenerListaPorId(id);
+			if (resultado && resultado.length > 0) {
+				setLista(resultado[0]);
 			}
-			setErrorProductos(ERROR_INICIAL);
+			setErrorListas(ERROR_INICIAL);
 		} catch (error) {
-			setErrorProductos(error.message);
+			setErrorListas(error.message);
 		}
 	};
 
 	useEffect(() => {
-		cargarProductos();
+		cargarListas();
 	}, []);
 
-	const totalProductos = productosFiltro.length;
-	let sumaPrecios = 0;
-	productosFiltro.forEach((p) => {
-		sumaPrecios += Number(p.precio);
-	});
-	const precioMedio =
-		totalProductos > 0 ? (sumaPrecios / totalProductos).toFixed(2) : 0;
+	// ----------------------------------------------------------
+	// MODIFICAR
+	const totalArticulos = articulos.length;
+	let precioLista = 0;
+	let pesoLista = 0;
 
+	articulos.forEach((i) => {
+		const cantidad = i.cantidad || 1;
+		// OJO AQUÍ: Como no hemos "sacado" los datos arriba,
+		// tenemos que entrar en 'i.productos' para leer el precio y peso.
+		// El ?. es por si el producto se ha borrado de la base de datos.
+		precioLista += Number(i.productos?.precio || 0) * cantidad;
+		pesoLista += Number(i.productos?.peso || 0) * cantidad;
+	});
+
+	const cocheNecesario = pesoLista > 15;
 	const datosAProveer = {
-		productos,
-		productosFiltro,
-		producto,
-		errorProductos,
+		listas,
+		articulos,
+		listasFiltro,
+		articulosFiltro,
+		lista,
+		articulo,
+		errorListas,
+		errorArticulos,
 		obtenerListado,
-		cargarProductos,
-		filtrarProductos,
-		ordenarProductos,
-		obtenerProducto,
-		totalProductos,
-		precioMedio,
-		crearNuevoProducto,
-		editarProductoExistente,
-		borrarProducto,
-		limpiarFormulario,
+		obtenerListaPorId,
+		obtenerArticulos,
+		obtenerArticuloPorId,
+		cargarListas,
+		cargarArticulos,
+		filtrarLista,
+		filtrarArticulo,
+		ordenarListas,
+		ordenarArticulos,
+		obtenerLista,
+		obtenerArticulo,
+		totalListas,
+		totalArticulos,
+		precioMedioListas,
+		precioMedioArticulos,
+		crearNuevaLista,
+		crearNuevoArticulo,
+		editarListaExistente,
+		editarArticuloExistente,
+		borrarLista,
+		borrarArticulo,
 	};
 
 	return (

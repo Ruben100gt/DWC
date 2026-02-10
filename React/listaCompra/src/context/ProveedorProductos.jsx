@@ -9,11 +9,11 @@ const ProveedorProductos = ({ children }) => {
 	const ERROR_INICIAL = "";
 
 	const {
-		obtenerListado,
-		obtenerProductoPorId,
-		insertarProducto,
-		editarProducto,
-		eliminarProducto,
+		obtener: obtenerProductos,
+		obtenerPorId: obtenerProductoPorId,
+		insertar: insertarProducto,
+		editar: editarProducto,
+		eliminar: eliminarProducto,
 	} = useTablaSupabase("productos");
 
 	const { notificacion } = useNotificacion();
@@ -39,7 +39,7 @@ const ProveedorProductos = ({ children }) => {
 
 	const cargarProductos = async () => {
 		try {
-			const respuesta = await obtenerListado();
+			const respuesta = await obtenerProductos();
 			setProductos(respuesta);
 			setProductosFiltro(respuesta);
 			setErrorProductos(ERROR_INICIAL);
@@ -166,7 +166,6 @@ const ProveedorProductos = ({ children }) => {
 		productosFiltro,
 		producto,
 		errorProductos,
-		obtenerListado,
 		cargarProductos,
 		filtrarProductos,
 		ordenarProductos,

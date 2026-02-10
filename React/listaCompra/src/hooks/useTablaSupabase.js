@@ -1,4 +1,4 @@
-import { supabaseConexion } from '../supabase/supabase.js';
+import { supabaseConexion } from "../supabase/supabase.js";
 
 const useTablaSupabase = (tabla) => {
 	const consulta = async (query) => {
@@ -11,32 +11,41 @@ const useTablaSupabase = (tabla) => {
 		}
 	};
 
-	const obtenerListado = async () => {
-		return await consulta(supabaseConexion.from(tabla).select('*'));
+	const obtener = async () => {
+		return await consulta(supabaseConexion.from(tabla).select("*"));
 	};
 
-	const obtenerProductoPorId = async (id) => {
-		return await consulta(supabaseConexion.from(tabla).select('*').eq('id', id));
+	const obtenerPorId = async (id) => {
+		return await consulta(
+			supabaseConexion.from(tabla).select("*").eq("id", id),
+		);
 	};
 
-	const insertarProducto = async (datos) => {
+	const insertar = async (datos) => {
 		return await consulta(supabaseConexion.from(tabla).insert(datos).select());
 	};
 
-	const editarProducto = async (id, datos) => {
-		return await consulta(supabaseConexion.from(tabla).update(datos).eq('id', id).select());
+	const editar = async (id, datos) => {
+		return await consulta(
+			supabaseConexion.from(tabla).update(datos).eq("id", id).select(),
+		);
 	};
 
-	const eliminarProducto = async (id) => {
-		return await consulta(supabaseConexion.from(tabla).delete().eq('id', id));
+	const eliminar = async (id) => {
+		return await consulta(supabaseConexion.from(tabla).delete().eq("id", id));
+	};
+
+	const obtenerConConsulta = async (consulta) => {
+		return await consulta(supabaseConexion.from(tabla).select(consulta));
 	};
 
 	return {
-		obtenerListado,
-		obtenerProductoPorId,
-		insertarProducto,
-		editarProducto,
-		eliminarProducto,
+		obtener,
+		obtenerPorId,
+		insertar,
+		editar,
+		eliminar,
+		obtenerConConsulta,
 	};
 };
 

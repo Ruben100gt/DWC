@@ -46,7 +46,7 @@ const Producto = ({ datos }) => {
 			<div className="info-producto">
 				<h4>{datos.nombre}</h4>
 				<p className="precio">{precioFormateado}</p>
-				<p className="peso">Peso: {pesoFormateado}g</p>
+				<p className="peso">Peso: {pesoFormateado}kg</p>
 
 				{sesionIniciada && (
 					<div className="acciones-producto">
