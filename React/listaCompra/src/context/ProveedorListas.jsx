@@ -44,7 +44,6 @@ const ProveedorListas = ({ children }) => {
 		try {
 			const respuesta = await obtenerListado();
 			setListas(respuesta);
-			setListasFiltro(respuesta);
 			setErrorListas(ERROR_INICIAL);
 		} catch (error) {
 			setErrorListas(error.message);
@@ -75,7 +74,7 @@ const ProveedorListas = ({ children }) => {
 		const datosCompletos = {
 			...datos,
 			fecha_creacion: new Date().toISOString(), // Formato string (ISO) para que la base de datos lo entienda.
-			propietario_id: perfil?.id, // Uso el ? para evitar errores si el perfil aún no ha cargado (es null).
+			propietario_id: usuario?.id, // Uso el ? para evitar errores si el usuario aún no se ha cargado (null).
 		};
 		try {
 			const respuesta = await insertarLista(datosCompletos);
@@ -94,7 +93,7 @@ const ProveedorListas = ({ children }) => {
 		try {
 			const respuesta = await insertarArticulo(datos);
 			if (respuesta && respuesta.length > 0) {
-				setArticulos([...articulos, respuesta[0]]);
+				cargarArticulos(datos.lista_id);
 				notificacion("Producto añadido", "exito");
 			}
 		} catch (error) {
@@ -123,14 +122,8 @@ const ProveedorListas = ({ children }) => {
 		try {
 			await eliminarArticulo(id);
 
-			const quitarDeLista = (lista) => lista.filter((p) => p.id != id);
+			setArticulos(articulos.filter((p) => p.id !== id));
 
-			setArticulos(quitarDeLista(articulos));
-			setArticulosFiltro(quitarDeLista(articulosFiltro));
-
-			if (articulo.id == id) {
-				limpiarFormularioArticulo();
-			}
 			notificacion("Artículo eliminado", "exito");
 		} catch (error) {
 			setErrorArticulos(error.message);
@@ -143,6 +136,7 @@ const ProveedorListas = ({ children }) => {
 			const resultado = await obtenerListaPorId(id);
 			if (resultado && resultado.length > 0) {
 				setLista(resultado[0]);
+				cargarArticulos(id);
 			}
 			setErrorListas(ERROR_INICIAL);
 		} catch (error) {
@@ -154,53 +148,44 @@ const ProveedorListas = ({ children }) => {
 		cargarListas();
 	}, []);
 
-	// ----------------------------------------------------------
-	// MODIFICAR
 	const totalArticulos = articulos.length;
 	let precioLista = 0;
 	let pesoLista = 0;
 
-	articulos.forEach((i) => {
-		const cantidad = i.cantidad || 1;
-		// OJO AQUÍ: Como no hemos "sacado" los datos arriba,
-		// tenemos que entrar en 'i.productos' para leer el precio y peso.
-		// El ?. es por si el producto se ha borrado de la base de datos.
-		precioLista += Number(i.productos?.precio || 0) * cantidad;
-		pesoLista += Number(i.productos?.peso || 0) * cantidad;
+	articulos.forEach((p) => {
+		const cantidad = p.cantidad || 1; // Si no hay cantidad, cuenta como 1.
+		const precioUnitario = Number(p.productos?.precio || 0);
+		const pesoUnitario = Number(p.productos?.peso || 0);
+
+		precioLista += precioUnitario * cantidad;
+		pesoLista += pesoUnitario * cantidad;
 	});
 
 	const cocheNecesario = pesoLista > 15;
+
 	const datosAProveer = {
 		listas,
 		articulos,
-		listasFiltro,
-		articulosFiltro,
 		lista,
-		articulo,
+
 		errorListas,
 		errorArticulos,
+
 		obtenerListado,
 		obtenerListaPorId,
-		obtenerArticulos,
-		obtenerArticuloPorId,
 		cargarListas,
 		cargarArticulos,
-		filtrarLista,
-		filtrarArticulo,
-		ordenarListas,
-		ordenarArticulos,
 		obtenerLista,
-		obtenerArticulo,
-		totalListas,
-		totalArticulos,
-		precioMedioListas,
-		precioMedioArticulos,
 		crearNuevaLista,
 		crearNuevoArticulo,
-		editarListaExistente,
-		editarArticuloExistente,
 		borrarLista,
 		borrarArticulo,
+		limpiarFormularioLista,
+
+		totalArticulos,
+		precioLista,
+		pesoLista,
+		cocheNecesario,
 	};
 
 	return (
