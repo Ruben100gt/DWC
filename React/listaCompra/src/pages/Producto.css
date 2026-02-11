@@ -6,6 +6,7 @@
 	margin-bottom: 12px;
 	padding: 15px;
 	border-radius: 8px;
+	position: relative;
 }
 
 .contenedor-foto {
@@ -25,6 +26,10 @@
 	object-fit: contain;
 }
 
+.info-producto {
+	flex-grow: 1;
+}
+
 .info-producto h4 {
 	margin: 0 0 5px 0;
 	font-size: 1.25rem;
@@ -35,6 +40,7 @@
 	display: flex;
 	gap: 10px;
 }
+
 .btn-borrar {
 	background-color: #ff4d4d;
 	color: white;
@@ -43,6 +49,7 @@
 	cursor: pointer;
 	border-radius: 4px;
 }
+
 .btn-editar {
 	background-color: #4d94ff;
 	color: white;
@@ -50,4 +57,45 @@
 	padding: 5px 10px;
 	cursor: pointer;
 	border-radius: 4px;
+}
+
+.columna-controles {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+	margin-left: 20px;
+}
+
+.btn-mas,
+.btn-anadir {
+	background-color: #2ecc71 !important;
+	color: white;
+	border: none;
+	padding: 8px 15px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-weight: bold;
+	min-width: 45px;
+}
+
+.btn-menos {
+	background-color: #e74c3c !important;
+	color: white;
+	border: none;
+	padding: 8px 15px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-weight: bold;
+	min-width: 45px;
+}
+
+.numero-cantidad {
+	font-weight: bold;
+	font-size: 1.1rem;
+	color: #333;
+}
+
+.producto-seleccionado {
+	border-color: #2ecc71;
 }

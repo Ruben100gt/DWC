@@ -1,55 +1,55 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { contextoSesion } from "../context/ProveedorSesion.jsx";
-import { contextoListas } from "../context/ProveedorListas.jsx";
-import Confirmacion from "./Confirmacion.jsx";
-import "./Compra.css";
+import React, { useContext, useState } from 'react';
+import { contextoSesion } from '../context/ProveedorSesion.jsx';
+import { contextoListas } from '../context/ProveedorListas.jsx';
+import Confirmacion from './Confirmacion.jsx';
+import './Compra.css';
 
-const Compra = ({ datos }) => {
+const Compra = ({ datos, alSeleccionar }) => {
 	if (!datos) return null;
 
-	const navigate = useNavigate();
 	const { sesionIniciada } = useContext(contextoSesion);
 	const { borrarLista } = useContext(contextoListas);
 
 	const [confirmandoBorrado, setConfirmandoBorrado] = useState(false);
 
-	// Formateamos fecha
-	const fecha = new Date(datos.fecha_creacion).toLocaleDateString("es-ES");
+	const fecha = new Date(datos.fecha_creacion).toLocaleDateString('es-ES');
 
-	// Icono genérico para listas
-	const imagenLista = "https://cdn-icons-png.flaticon.com/512/2331/2331970.png";
+	const imagenLista =
+		'https://thumbs.dreamstime.com/b/peque%C3%B1a-rata-gris-gracioso-lleva-carro-de-compras-lleno-verduras-frescas-la-compra-aisladas-en-fondo-blanco-167766727.jpg';
 
 	const confirmarBorrado = () => {
 		borrarLista(datos.id);
 		setConfirmandoBorrado(false);
 	};
 
-	const irAlDetalle = () => {
-		navigate(`/listas/${datos.id}`);
+	const manejarClickBorrar = (e) => {
+		e.stopPropagation();
+		setConfirmandoBorrado(true);
 	};
 
 	return (
 		<div className="tarjeta-lista">
-			<div className="contenedor-imagen-lista" onClick={irAlDetalle}>
-				<img src={imagenLista} alt="Icono Lista" className="foto-lista" />
+			<div className="zona-interactiva" onClick={alSeleccionar} style={{ cursor: 'pointer', width: '100%' }}>
+				<div className="contenedor-imagen-lista">
+					<img src={imagenLista} alt="Icono Lista" className="foto-lista-grande" />
+				</div>
+
+				<div className="info-lista">
+					<h4 className="titulo-lista">{datos.nombre_lista}</h4>
+					<p className="fecha-lista">Creada: {fecha}</p>
+				</div>
 			</div>
 
-			<div className="info-lista">
-				<h4 onClick={irAlDetalle} className="titulo-lista">
-					{datos.nombre}
-				</h4>
-				<p className="fecha-lista">Creada: {fecha}</p>
-
-				<button className="btn-ver-lista" onClick={irAlDetalle}>
+			<div
+				className="acciones-tarjeta"
+				style={{ padding: '10px', display: 'flex', flexDirection: 'column', gap: '5px' }}
+			>
+				<button className="btn-ver-lista" onClick={alSeleccionar}>
 					Ver Productos
 				</button>
 
 				{sesionIniciada && (
-					<button
-						className="btn-borrar-lista"
-						onClick={() => setConfirmandoBorrado(true)}
-					>
+					<button className="btn-borrar-lista" onClick={manejarClickBorrar}>
 						Borrar
 					</button>
 				)}
@@ -57,7 +57,8 @@ const Compra = ({ datos }) => {
 
 			{confirmandoBorrado && (
 				<Confirmacion
-					mensaje={`¿Borrar la lista "${datos.nombre}"?`}
+					mensaje={`¿Borrar la lista "${datos.nombre_lista}"?`}
+					textoBoton="Sí"
 					onConfirmar={confirmarBorrado}
 					onCancelar={() => setConfirmandoBorrado(false)}
 				/>

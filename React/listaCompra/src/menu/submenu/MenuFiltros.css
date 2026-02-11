@@ -1,0 +1,49 @@
+.contenedor-filtros {
+	background-color: #f8f9fa;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	border: 1px solid #e9ecef;
+}
+
+.fila-filtros {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	align-items: flex-end;
+}
+
+.grupo-input {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.control-filtro {
+	display: flex;
+	gap: 5px;
+}
+
+.select-filtro {
+	padding: 8px;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	background-color: white;
+}
+
+.input-buscar {
+	padding: 8px;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	width: 140px;
+}
+
+.resumen-datos {
+	margin-top: 15px;
+	padding-top: 10px;
+	border-top: 1px solid #dee2e6;
+	display: flex;
+	gap: 20px;
+	font-size: 0.9rem;
+	color: #495057;
+}

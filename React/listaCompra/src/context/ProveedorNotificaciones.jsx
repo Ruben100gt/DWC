@@ -6,7 +6,7 @@ const ProveedorNotificaciones = ({ children }) => {
 	const [lista, setLista] = useState([]);
 
 	const notificacion = (mensaje, tipo = 'exito') => {
-		const id = Date.now();
+		const id = crypto.randomUUID();
 		const nuevaAlerta = { id, mensaje, tipo };
 
 		setLista((prev) => [...prev, nuevaAlerta]);

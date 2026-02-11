@@ -1,4 +1,4 @@
-import { supabaseConexion } from "../supabase/supabase.js";
+import { supabaseConexion } from '../supabase/supabase.js';
 
 const useTablaSupabase = (tabla) => {
 	const consulta = async (query) => {
@@ -12,13 +12,15 @@ const useTablaSupabase = (tabla) => {
 	};
 
 	const obtener = async () => {
-		return await consulta(supabaseConexion.from(tabla).select("*"));
+		return await consulta(supabaseConexion.from(tabla).select('*'));
 	};
 
 	const obtenerPorId = async (id) => {
-		return await consulta(
-			supabaseConexion.from(tabla).select("*").eq("id", id),
-		);
+		return await consulta(supabaseConexion.from(tabla).select('*').eq('id', id));
+	};
+
+	const obtenerDonde = async (columna, valor, select = '*') => {
+		return await consulta(supabaseConexion.from(tabla).select(select).eq(columna, valor));
 	};
 
 	const insertar = async (datos) => {
@@ -26,26 +28,20 @@ const useTablaSupabase = (tabla) => {
 	};
 
 	const editar = async (id, datos) => {
-		return await consulta(
-			supabaseConexion.from(tabla).update(datos).eq("id", id).select(),
-		);
+		return await consulta(supabaseConexion.from(tabla).update(datos).eq('id', id).select());
 	};
 
 	const eliminar = async (id) => {
-		return await consulta(supabaseConexion.from(tabla).delete().eq("id", id));
-	};
-
-	const obtenerConConsulta = async (consulta) => {
-		return await consulta(supabaseConexion.from(tabla).select(consulta));
+		return await consulta(supabaseConexion.from(tabla).delete().eq('id', id));
 	};
 
 	return {
 		obtener,
 		obtenerPorId,
+		obtenerDonde,
 		insertar,
 		editar,
 		eliminar,
-		obtenerConConsulta,
 	};
 };
 
