@@ -9,7 +9,7 @@ const Producto = ({ datos, modo = 'catalogo', cantidad = 0, incrementar, decreme
 	if (!datos) return null;
 
 	const navigate = useNavigate();
-	const { sesionIniciada } = useContext(contextoSesion);
+	const { sesionIniciada, rolUsuario } = useContext(contextoSesion);
 	const { borrarProducto } = useContext(contextoProductos);
 	const [confirmandoBorrado, setConfirmandoBorrado] = useState(false);
 
@@ -38,7 +38,7 @@ const Producto = ({ datos, modo = 'catalogo', cantidad = 0, incrementar, decreme
 
 				{sesionIniciada && (
 					<div className="acciones-producto">
-						{modo === 'catalogo' && (
+						{modo === 'catalogo' && rolUsuario === 'administrador' && (
 							<>
 								<button className="btn-editar" onClick={() => navigate(`/productos/editar/${datos.id}`)}>
 									Editar

@@ -8,9 +8,12 @@ import ListaCompra from '../pages/ListaCompra.jsx';
 import ListaProductos from '../pages/ListaProductos.jsx';
 import FormularioProducto from '../pages/FormularioProducto.jsx';
 import Error from '../estructura/Error.jsx';
+import ListasAdmin from '../pages/ListasAdmin.jsx';
+import Perfil from '../pages/Perfil.jsx';
+import AdminRoles from '../pages/AdminRoles.jsx';
 
 const Rutas = () => {
-	const { sesionIniciada } = useContext(contextoSesion);
+	const { sesionIniciada, rolUsuario } = useContext(contextoSesion);
 
 	return (
 		<Routes>
@@ -26,6 +29,15 @@ const Rutas = () => {
 				path="/productos/editar/:id"
 				element={sesionIniciada ? <FormularioProducto /> : <Navigate to="/login" />}
 			/>
+
+			{/* Solo para administradores. */}
+			<Route
+				path="/admin/listas"
+				element={sesionIniciada && rolUsuario === 'administrador' ? <ListasAdmin /> : <Navigate to="/" />}
+			/>
+
+			<Route path="/perfil" element={sesionIniciada ? <Perfil /> : <Navigate to="/login" />} />
+			<Route path="/admin/roles" element={rolUsuario === 'administrador' ? <AdminRoles /> : <Navigate to="/" />} />
 
 			<Route path="/*" element={<Error />} />
 		</Routes>

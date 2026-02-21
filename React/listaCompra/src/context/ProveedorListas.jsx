@@ -26,9 +26,10 @@ const ProveedorListas = ({ children }) => {
 	} = useTablaSupabase('articulos_lista');
 
 	const { notificacion } = useNotificacion();
-	const { sesionIniciada, usuario } = useContext(contextoSesion);
+	const { sesionIniciada, usuario, rolUsuario } = useContext(contextoSesion);
 
 	const [listas, setListas] = useState([]);
+	const [todasLasListas, setTodasLasListas] = useState([]);
 	const [lista, setLista] = useState({});
 	const [errorListas, setErrorListas] = useState(ERROR_INICIAL);
 
@@ -43,11 +44,27 @@ const ProveedorListas = ({ children }) => {
 	const cargarListas = async () => {
 		try {
 			const respuesta = await obtenerListado();
-			setListas(respuesta || []);
+			// Filtramos para solo se guarden las listas del usuario actual (si hay sesión iniciada).
+			const misListas =
+				sesionIniciada && usuario ? (respuesta || []).filter((l) => l.propietario_id === usuario.id) : [];
+
+			setListas(misListas);
 			setErrorListas(ERROR_INICIAL);
 		} catch (error) {
 			setErrorListas(error.message);
 			notificacion('Error al cargar listas', 'error');
+		}
+	};
+
+	// Exclusiva para la vista del Administrador
+	const cargarTodasLasListas = async () => {
+		try {
+			// Nos traemos el nombre del dueño de la lista.
+			const respuesta = await obtenerListado('*, perfiles(nombre, avatar_url)');
+			setTodasLasListas(respuesta || []);
+		} catch (error) {
+			console.error('Error al cargar todas las listas:', error);
+			notificacion('Error al cargar la vista de administrador', 'error');
 		}
 	};
 
@@ -157,7 +174,7 @@ const ProveedorListas = ({ children }) => {
 
 	useEffect(() => {
 		cargarListas();
-	}, []);
+	}, [sesionIniciada, usuario, rolUsuario]);
 
 	const totalUnidades = articulos.reduce((acc, item) => acc + (item.cantidad || 0), 0);
 
@@ -189,6 +206,8 @@ const ProveedorListas = ({ children }) => {
 		borrarLista,
 		borrarArticulo,
 		limpiarFormularioLista,
+		todasLasListas,
+		cargarTodasLasListas,
 		totalArticulos: totalUnidades,
 		precioLista,
 		pesoLista,

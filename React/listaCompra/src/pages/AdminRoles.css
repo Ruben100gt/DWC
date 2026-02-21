@@ -1,0 +1,69 @@
+.admin-roles-seccion {
+	width: 100%;
+	max-width: 900px;
+	background: white;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-roles {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.tabla-roles th {
+	text-align: left;
+	padding: 15px;
+	border-bottom: 2px solid #eee;
+	color: #666;
+}
+
+.tabla-roles td {
+	padding: 15px;
+	border-bottom: 1px solid #f5f5f5;
+	vertical-align: middle;
+}
+
+.avatar-tabla {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.badge-rol {
+	padding: 4px 10px;
+	border-radius: 12px;
+	font-size: 0.85rem;
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+.badge-rol.administrador {
+	background-color: #fff3cd;
+	color: #856404;
+	border: 1px solid #ffeeba;
+}
+
+.badge-rol.usuario {
+	background-color: #d1ecf1;
+	color: #0c5460;
+	border: 1px solid #bee5eb;
+}
+
+.btn-cambiar-rol {
+	padding: 8px 15px;
+	background-color: #6c757d;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.2s;
+}
+
+.btn-cambiar-rol:hover {
+	background-color: #5a6268;
+}

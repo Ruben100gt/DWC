@@ -10,7 +10,7 @@ import './ListaCompra.css';
 
 const ListaCompra = () => {
 	const navigate = useNavigate();
-	const { sesionIniciada } = useContext(contextoSesion);
+	const { sesionIniciada, rolUsuario } = useContext(contextoSesion);
 
 	const {
 		listas,
@@ -94,6 +94,11 @@ const ListaCompra = () => {
 								<button className="btn-crear-lista" onClick={manejarCrearLista}>
 									+ Crear Lista
 								</button>
+								{rolUsuario === 'administrador' && (
+									<button className="btn-crear-lista" onClick={() => navigate('/admin/listas')}>
+										Ver todas las Listas 👁️
+									</button>
+								)}
 							</div>
 						)}
 

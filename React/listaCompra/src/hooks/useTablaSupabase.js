@@ -11,8 +11,9 @@ const useTablaSupabase = (tabla) => {
 		}
 	};
 
-	const obtener = async () => {
-		return await consulta(supabaseConexion.from(tabla).select('*'));
+	// Uso " select = * " para poder consultar múltiples tablas.
+	const obtener = async (select = '*') => {
+		return await consulta(supabaseConexion.from(tabla).select(select));
 	};
 
 	const obtenerPorId = async (id) => {

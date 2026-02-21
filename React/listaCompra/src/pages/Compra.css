@@ -108,3 +108,17 @@
 	object-fit: contain;
 	padding: 10px;
 }
+
+.zona-interactiva {
+	cursor: pointer;
+	width: 100%;
+}
+
+.acciones-tarjeta {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}

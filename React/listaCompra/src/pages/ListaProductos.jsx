@@ -8,7 +8,7 @@ import './ListaProductos.css';
 
 const ListaProductos = () => {
 	const navigate = useNavigate();
-	const { sesionIniciada } = useContext(contextoSesion);
+	const { sesionIniciada, rolUsuario } = useContext(contextoSesion);
 
 	const { productosFiltro, totalProductos, precioMedio, filtrarProductos, ordenarProductos, limpiarFormulario } =
 		useContext(contextoProductos);
@@ -44,9 +44,11 @@ const ListaProductos = () => {
 							/>
 
 							<div className="fila-inferior" style={{ justifyContent: 'flex-end', marginTop: '10px' }}>
-								<button className="btn-crear" onClick={irACrear}>
-									Crear producto
-								</button>
+								{rolUsuario === 'administrador' && (
+									<button className="btn-crear" onClick={irACrear}>
+										Crear producto
+									</button>
+								)}
 							</div>
 						</>
 					) : (
